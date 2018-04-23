@@ -13,6 +13,10 @@
     <param-name>javax.faces.application.CONFIG_FILES</param-name>
     <param-value>/WEB-INF/faces-config.xml</param-value>
   </context-param>
+  <context-param>
+      <param-name>primefaces.THEME</param-name>
+      <param-value>blitzer</param-value>
+  </context-param>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -26,6 +30,14 @@
 <servlet-name>Faces Servlet</servlet-name>
 <url-pattern>*.xhtml</url-pattern>
 </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.css</url-pattern>
+    </servlet-mapping>
 <listener>
   <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 </listener>
