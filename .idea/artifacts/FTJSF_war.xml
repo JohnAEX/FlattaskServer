@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="FTJSF:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="FlastTaskJSF.war">
+      <element id="artifact" artifact-name="FTJSF:war exploded" />
+    </root>
+  </artifact>
+</component>
