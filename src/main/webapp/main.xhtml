@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view>
+    <h:outputText value="#{helloWordManagedBean.helloProperty}"></h:outputText>
+
+    <h:panelGroup layout="block" style="background-color:gray" id="wrapper">
+        <h:panelGrid columns="2" style="border:1" id="wrapper-grid" cellspacing="1" cellpading="10">
+
+                <h:panelGroup layout="block" style="background-color:yellow, margin:2px, width: 300px" id="tasks">
+                    <h:outputText value="Tasks"></h:outputText>
+                </h:panelGroup>
+
+
+                <h:panelGroup layout="block" style="background-color:red" id="profile">
+                    <h:outputText value="Username" style="font-size:20pt"></h:outputText>
+                    <h:graphicImage url="src/main/ressources/controllerIcon.png" value="src/main/ressources/controllerIcon.png"></h:graphicImage> <!--getProfilepicture -->
+
+                </h:panelGroup>
+
+        </h:panelGrid>
+    </h:panelGroup>
+</f:view>
+</html>
