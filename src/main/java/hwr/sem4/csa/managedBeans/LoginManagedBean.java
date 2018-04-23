@@ -1,4 +1,4 @@
-package main.java.hwr.sem4.csa.managedBeans;
+package hwr.sem4.csa.managedBeans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

@@ -4,13 +4,8 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
               version="2.2">
     <managed-bean>
-        <managed-bean-name>HelloWordManagedBean</managed-bean-name>
-        <managed-bean-class>main.java.HelloWordManagedBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>LoginManagedBean</managed-bean-name>
-        <managed-bean-class>main.java.hwr.sem4.csa.managedBeans.LoginManagedBean</managed-bean-class>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.LoginManagedBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 </faces-config>
