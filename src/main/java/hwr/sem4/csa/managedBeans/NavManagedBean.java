@@ -1,3 +1,7 @@
+/* Managed Bean for Dashboard Navigation
+* Author: LM
+* */
+
 package hwr.sem4.csa.managedBeans;
 
 import javax.faces.bean.ManagedBean;
@@ -7,6 +11,10 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 
 public class NavManagedBean {
+    /*
+    * Insert File-Paths here.
+    * Required: Relative Paths, starting from main.xhtml
+    * */
     private int navIndex = 0;
     private final String FILE0 = "login.xhtml";
     private final String FILE1 = "index.xhtml";
@@ -16,15 +24,9 @@ public class NavManagedBean {
     private final String FILE404 = "dashboard.xhtml";
     private String page = "";
 
-    public int getNavIndex() {
-        return navIndex;
-    }
-
-    public void setNavIndex(int navIndex) {
-        this.navIndex = navIndex;
-    }
 
 
+    /*Supportive Methode to generate the right Page*/
 
     public String generatePage(int index){
         switch(index){
@@ -36,12 +38,21 @@ public class NavManagedBean {
             default: return FILE404;
         }
     }
-
+    /*Getter and Setter */
     public void setPage(int index){
         this.page = generatePage(index);
     }
 
     public String getPage(){
         return this.page;
+    }
+
+    /* Depracted*/
+    public int getNavIndex() {
+        return navIndex;
+    }
+
+    public void setNavIndex(int navIndex) {
+        this.navIndex = navIndex;
     }
 }
