@@ -1,0 +1,17 @@
+#wrapper-content{
+    min-height: 1000px;
+    width: 80%;
+    background: blue;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+}
+
+#wrapper-profile{
+    min-height: 200px;
+    width: 20%;
+    background: orange;
+    float:right;
+    margin: 0px;
+    padding: 0px;
+}
