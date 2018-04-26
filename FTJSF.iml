@@ -38,7 +38,7 @@
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-impl:2.2.4" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:mojarra-jsf-impl:2.0.0-b04" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet.jsp:javax.servlet.jsp-api:2.3.1" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.2" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces.themes:blitzer:1.0.10" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.1.2" level="project" />
     <orderEntry type="library" name="Maven: com.objectdb:objectdb:2.7.4" level="project" />
