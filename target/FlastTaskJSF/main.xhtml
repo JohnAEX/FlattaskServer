@@ -11,10 +11,27 @@
     </h:head>
 
     <h:body>
+
+
         <f:view>
-            <h:outputText value="#{helloWordManagedBean.helloProperty}"  id="title"></h:outputText>
+            <!--
+            ******************************************************************************
+            Header
+            ******************************************************************************
+            -->
+            <h:panelGroup layout="block" id="header">
+                <h:outputText value="#{helloWordManagedBean.helloProperty}"  id="title"></h:outputText>
+            </h:panelGroup>
 
 
+
+            <!--
+            ******************************************************************************
+            Navigation
+            ******************************************************************************
+            -->
+
+            <h:panelGroup layout="block" id="nav" >
             <h:form>
                 <p:tabMenu activeIndex="#{param.i}">
                     <p:menuitem value="My Tasks" icon="ui-icon-star" update="wrapper-content" action="#{NavManagedBean.setPage(0)}">
@@ -34,7 +51,7 @@
                     </p:menuitem>
                 </p:tabMenu>
             </h:form>
-
+            </h:panelGroup>
        <!--  <h:form>
                 <p:menubar>
                     <p:menuitem value="My Tasks" update="wrapper-content" action="#{NavManagedBean.setPage(0)}"></p:menuitem>
@@ -44,16 +61,36 @@
                 </p:menubar>
             </h:form>
 -->
-
+            <!--
+             ******************************************************************************
+                        Content
+             ******************************************************************************
+                        -->
             <h:panelGroup layout="block"  id="wrapper-content">
                 <ui:include src="#{NavManagedBean.page}"></ui:include>
             </h:panelGroup>
+            <!--
+            ******************************************************************************
+            Seitenleiste
+            ******************************************************************************
+            -->
 
             <h:panelGroup layout="block" id="wrapper-profile">
                 <h:outputText value="Username"></h:outputText>
+                <h:outputText value="Hier könnte Ihre Werbung stehen..."></h:outputText>
             </h:panelGroup>
-            <h:outputText value="Hier könnte Ihre Werbung stehen..."></h:outputText>
+
+
+            <!--
+            ******************************************************************************
+            Footer
+            ******************************************************************************
+            -->
+            <h:panelGroup layout="block" id="footer">
+                <h:outputText value="Username"></h:outputText>
+            </h:panelGroup>
         </f:view>
+
 
     </h:body>
 

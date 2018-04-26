@@ -24,14 +24,7 @@ public class NavManagedBean {
         this.navIndex = navIndex;
     }
 
-   /* public String updateContent(){
-        switch(this.navIndex){
-            case 0: return this.FILE0;
-            case 1: return this.FILE1;
-            default: return this.FILE0;
-        }
 
-    }*/
 
     public String generatePage(int index){
         switch(index){

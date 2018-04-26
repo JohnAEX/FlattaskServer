@@ -1,17 +1,48 @@
+body{
+    background: darkslategray;
+}
+
+#header{
+    height: 30px;
+    width: 100%;
+    background: darkslategray;
+    color: whitesmoke;
+    font-size: 20pt;
+}
+
+#nav{
+
+}
+
 #wrapper-content{
-    min-height: 1000px;
+    min-height: 800px;
     width: 80%;
-    background: blue;
+    background: whitesmoke;
     float: left;
-    margin: 0px;
-    padding: 0px;
+    margin: 10px;
+    margin-top: 0px;
+    padding: 5px;
+    box-shadow: black;
+    border-radius: 5px;
 }
 
 #wrapper-profile{
     min-height: 200px;
-    width: 20%;
-    background: orange;
+    width: 16%;
+    background: whitesmoke;
     float:right;
-    margin: 0px;
-    padding: 0px;
+    margin: 10px;
+    margin-top: 0px;
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+#footer{
+    height: 50px;
+    width: 100%;
+    float: left;
+    background: darkslategray;
+    position: sticky;
+
 }
