@@ -2,19 +2,26 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xml:lang="en" lang="en">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
     <title>FT-Login</title>
-</head>
-<body>
-    <h:outputLabel for="usernameInput">Username:</h:outputLabel>
-    <h:inputText id="usernameInput" value="#{LoginManagedBean.username}" required="true"/>
-    <h:message for="usernameInput"/>
-    <br/>
-    <h:outputLabel for="passwordInput">Password:</h:outputLabel>
-    <h:inputText id="passwordInput" value="#{LoginManagedBean.password}" required="true"/>
-    <h:message for="passwordInput"/>
-    <br />
-    <h:commandButton value="Login" action="#{LoginManagedBean.attemptLogin()}"/>
-</body>
+    <h:outputStylesheet library = "css" name = "login.css"/>
+</h:head>
+<h:body>
+        <p:panel id="loginPanel" styleClass="Centered">
+            <f:facet name="header">
+                <p:graphicImage name="logo.jpg" library="images" styleClass="centerImage"/>
+            </f:facet>
+            <h:form>
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="Username: "></h:outputText>
+                <p:inputText id="usernameInputPF" value="#{LoginManagedBean.username}"/>
+                <h:outputText value="Password:"></h:outputText>
+                <p:password id="passwordInputPF" value="#{LoginManagedBean.password}" />
+            </h:panelGrid>
+            <p:commandButton value="Login" id="loginButton" action="#{LoginManagedBean.attemptLogin}"/>
+            </h:form>
+        </p:panel>
+</h:body>
 </html>

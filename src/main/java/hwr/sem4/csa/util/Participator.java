@@ -6,7 +6,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Participators")
-public class Participator {
+public class Participator{
+
+    private static final long serialVersionUID = 2L;
+
     @Id
     private String username;
 
