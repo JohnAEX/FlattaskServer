@@ -3,10 +3,7 @@ body{
     background-size: 100%;
     background-repeat: no-repeat;
 }
-/*
-.panelGridCenter {
-    margin: 0 auto;
-}*/
+
 
 .Centered {
     position: fixed;
@@ -23,10 +20,7 @@ body{
     width: 100%;
 }
 
-#header{
-    height:10%;
-    width: auto;
-}
+
 
 .buttonTest{
     color: #000000;
@@ -48,6 +42,11 @@ body{
      -moz-border-radius: 0px !important;
      border-radius: 0px !important;
  }
+
+#header{
+    height:10%;
+    width: auto;
+}
 
 #header #loginButton #passwordInputPF #usernameInputPF {
     -webkit-border-radius: 0px !important;
