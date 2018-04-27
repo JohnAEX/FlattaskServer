@@ -1,5 +1,7 @@
 body{
     background-image:url("#{resource['images:bg3.svg']}");
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 /*
 .panelGridCenter {
@@ -11,13 +13,19 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    max-width: 35%
 }
 
 .centerImage {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+#header{
+    height:10%;
+    width: auto;
 }
 
 .buttonTest{
@@ -32,4 +40,23 @@ body{
     color:white;
     text-shadow: 1px 1px 0px #000;
     background: #dadada !important;
+}
+
+#loginPanel {
+    border: black 1px solid!important;
+     -webkit-border-radius: 0px !important;
+     -moz-border-radius: 0px !important;
+     border-radius: 0px !important;
+ }
+
+#header #loginButton #passwordInputPF #usernameInputPF {
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+}
+
+.ui-corner-all{
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
 }
