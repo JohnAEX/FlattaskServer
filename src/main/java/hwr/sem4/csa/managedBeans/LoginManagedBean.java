@@ -1,16 +1,35 @@
 package hwr.sem4.csa.managedBeans;
 
 import hwr.sem4.csa.database.Databasehandler;
+import hwr.sem4.csa.util.Participator;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
 
 @ManagedBean
 @SessionScoped
-public class LoginManagedBean {
+public class LoginManagedBean implements Serializable{
+
+    @PostConstruct
+    public void sessionInitialized() {
+        System.out.println("\t> LoginManagedBean created @" + System.currentTimeMillis());
+    }
+
+    @PreDestroy
+    public void sessionDestroyed() {
+        System.out.println("\t> LoginManagedBean destroyed @" + System.currentTimeMillis());
+
+    }
+
+    public boolean loggedIn = false;
 
     private String username = "";
     private String password = "";
+    public Participator loggedInUser = null;
 
     public String getUsername() {
         return username;
@@ -31,15 +50,34 @@ public class LoginManagedBean {
     public String attemptLogin(){
         System.out.println("Attempted Login for: " + this.username + " - " + this.password);
         Databasehandler.instanceOf().initObjectDBConnection();
-        if(Databasehandler.instanceOf().getParticipatorByLogin(this.username, this.password) != null){
+        Participator testLogin = Databasehandler.instanceOf().getParticipatorByLogin(this.username, this.password);
+        if(testLogin != null){
+            setLoggedIn(true);
+            loggedInUser = testLogin;
             Databasehandler.instanceOf().close();
             System.out.println("Login successful");
-            return "dashboard";
+            return "secured/main";
         }else{
             Databasehandler.instanceOf().close();
             System.out.println("Login failed");
             return "login";
 
         }
+    }
+
+    public Participator getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public void setLoggedInUser(Participator loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 }

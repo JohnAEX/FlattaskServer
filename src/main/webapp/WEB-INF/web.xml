@@ -17,6 +17,14 @@
       <param-name>primefaces.THEME</param-name>
       <param-value>blitzer</param-value>
   </context-param>
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>hwr.sem4.csa.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/secured/*</url-pattern>
+    </filter-mapping>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
