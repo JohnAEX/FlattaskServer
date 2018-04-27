@@ -1,5 +1,5 @@
 body{
-    background-image:url("#{resource['images:bg.jpg']}");
+    background-image:url("#{resource['images:bg3.svg']}");
 }
 /*
 .panelGridCenter {
