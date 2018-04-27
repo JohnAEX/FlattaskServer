@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>FT-Login</title>
+    <h:outputStylesheet library = "css" name = "login.css"/>
+</h:head>
+<h:body>
+        <p:panel id="loginPanel" styleClass="Centered">
+            <f:facet name="header">
+                <p:graphicImage name="logo.jpg" library="images" styleClass="centerImage"/>
+            </f:facet>
+            <h:form>
+                <p:messages id="msgs" />
+
+                <h:panelGrid columns="3" cellpadding="10">
+                <p:outputLabel for="usernameInputPF" value="Username:"/>
+                <p:inputText id="usernameInputPF" value="#{LoginManagedBean.username}" required="true" label="Username">
+                    <f:validateLength minimum="2"/>
+                </p:inputText>
+                <p:message for="usernameInputPF" display="icon"/>
+
+                <p:outputLabel for="passwordInputPF" value="Password:"/>
+                <p:password id="passwordInputPF" value="#{LoginManagedBean.password}" required="true" label="Password">
+                    <f:validateLength minimum="2"/>
+                </p:password>
+                <p:message for="passwordInputPF" display="icon"/>
+            </h:panelGrid>
+            <p:commandButton value="Login" id="loginButton" update="loginPanel" icon="ui-icon-check" action="#{LoginManagedBean.attemptLogin}" ajax="true"/>
+            </h:form>
+        </p:panel>
+</h:body>
+</html>

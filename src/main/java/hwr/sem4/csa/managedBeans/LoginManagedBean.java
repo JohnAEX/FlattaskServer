@@ -1,5 +1,7 @@
 package hwr.sem4.csa.managedBeans;
 
+import hwr.sem4.csa.database.Databasehandler;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -26,7 +28,18 @@ public class LoginManagedBean {
         this.password = password;
     }
 
-    public void attemptLogin(){
-        System.out.println("Attempted Login for: " + username + " - " + password);
+    public String attemptLogin(){
+        System.out.println("Attempted Login for: " + this.username + " - " + this.password);
+        Databasehandler.instanceOf().initObjectDBConnection();
+        if(Databasehandler.instanceOf().getParticipatorByLogin(this.username, this.password) != null){
+            Databasehandler.instanceOf().close();
+            System.out.println("Login successful");
+            return "dashboard";
+        }else{
+            Databasehandler.instanceOf().close();
+            System.out.println("Login failed");
+            return "login";
+
+        }
     }
 }

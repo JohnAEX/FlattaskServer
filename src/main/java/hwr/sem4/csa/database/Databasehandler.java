@@ -19,7 +19,7 @@ public class Databasehandler {
 
     public void initObjectDBConnection(){
         emFactory = Persistence.createEntityManagerFactory("objectdb:" +
-                "//ec2-54-85-66-232.compute-1.amazonaws.com:6136/test2.odb;user=admin;password=admin");
+                "//ec2-54-85-66-232.compute-1.amazonaws.com:6136/real.odb;user=admin;password=admin");
     }
 
     public EntityManager getEntityManager() {
