@@ -33,10 +33,7 @@
     </repositories>
 
   <dependencies>
-<<<<<<< HEAD
 
-=======
->>>>>>> master
       <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
       <dependency>
           <groupId>javax.servlet</groupId>
@@ -44,7 +41,7 @@
           <version>3.1.0</version>
           <scope>provided</scope>
       </dependency>
-<<<<<<< HEAD
+
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -58,7 +55,7 @@
       <version>1.7.25</version>
       <scope>test</scope>
     </dependency>
-=======
+
       <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
       <dependency>
           <groupId>org.slf4j</groupId>
@@ -73,7 +70,6 @@
           <scope>test</scope>
       </dependency>
 
->>>>>>> master
 
     <dependency>
       <groupId>com.sun.faces</groupId>
