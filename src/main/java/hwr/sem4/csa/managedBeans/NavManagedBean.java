@@ -25,7 +25,10 @@ public class NavManagedBean {
     private String page = "";
 
 
-
+    public NavManagedBean(){
+        this.setPage(0);
+        this.getPage();
+    } 
     /*Supportive Methode to generate the right Page*/
 
     public String generatePage(int index){

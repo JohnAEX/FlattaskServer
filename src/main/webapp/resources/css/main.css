@@ -17,6 +17,12 @@ body{
 #nav{
 
 }
+.ui-corner-all{
+    border-radius: 5px 5px 5px 0px;
+}
+.ui-state-active{
+    background-color: whitesmoke;
+}
 
 #wrapper-content{
     min-height: 800px;
@@ -24,15 +30,18 @@ body{
     background: whitesmoke;
     float: left;
     margin: 10px;
+    margin-left: 0px;
     margin-top: 0px;
     padding: 5px;
     box-shadow: black;
-    border-radius: 5px;
+    border-radius: 0px 5px 5px 5px;
+    border: white;
+    border-width: 1px;
 }
 
 #wrapper-profile{
     min-height: 200px;
-    width: 16%;
+    width: 15%;
     background: whitesmoke;
     float:right;
     margin: 10px;
