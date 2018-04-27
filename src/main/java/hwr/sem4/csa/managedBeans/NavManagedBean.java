@@ -16,15 +16,15 @@ public class NavManagedBean {
     * Required: Relative Paths, starting from main.xhtml
     * */
     private int navIndex = 0;
-    private final String FILE0 = "login.xhtml";
+    private final String FILE0 = "loading.xhtml";
     private final String FILE1 = "index.xhtml";
-    private final String FILE2 = "dashboard.xhtml";
+    private final String FILE2 = "loading.xhtml";
     private final String FILE3 = "dashboard.xhtml";
     private final String FILE4 = "dashboard.xhtml";
     private final String FILE404 = "dashboard.xhtml";
     private String page = "";
 
-
+    //Files addressed relativ, remove ... because after login it is all on one level!!!
     public NavManagedBean(){
         this.setPage(0);
         this.getPage();
@@ -43,10 +43,13 @@ public class NavManagedBean {
     }
     /*Getter and Setter */
     public void setPage(int index){
+        System.out.println("Detected page setter -> " + index);
         this.page = generatePage(index);
+
     }
 
     public String getPage(){
+        System.out.println(this.page);
         return this.page;
     }
 

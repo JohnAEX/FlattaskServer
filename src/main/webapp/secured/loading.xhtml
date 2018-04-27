@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>Loading</title>
+    <h:outputStylesheet library = "css" name = "login.css"/>
+</h:head>
+<h:body>
+    <h:form>
+    <p:panel id="loadingPanel" styleClass="Centered">
+        <f:facet name="header">
+            <p:graphicImage name="logo.jpg" library="images" styleClass="centerImage"/>
+        </f:facet>
+        <p:outputLabel value="Loading"></p:outputLabel>
+        <p:progressBar id="progressbar" style="height: 20px;width: 400px" mode="indeterminate"/>
+    </p:panel>
+    </h:form>
+
+</h:body>
+</html>

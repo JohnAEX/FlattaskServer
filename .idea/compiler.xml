@@ -9,5 +9,8 @@
         <module name="FlastTaskJSF" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="FlastTaskJSF" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
