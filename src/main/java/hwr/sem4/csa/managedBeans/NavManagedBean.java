@@ -6,6 +6,7 @@ package hwr.sem4.csa.managedBeans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean (name="NavManagedBean")
 @SessionScoped
@@ -16,8 +17,8 @@ public class NavManagedBean {
     * Required: Relative Paths, starting from main.xhtml
     * */
     private int navIndex = 0;
-    private final String FILE0 = "loading.xhtml";
-    private final String FILE1 = "index.xhtml";
+    private final String FILE0 = "index.xhtml";
+    private final String FILE1 = "dashboard.xhtml";
     private final String FILE2 = "loading.xhtml";
     private final String FILE3 = "dashboard.xhtml";
     private final String FILE4 = "dashboard.xhtml";
@@ -32,6 +33,7 @@ public class NavManagedBean {
     /*Supportive Methode to generate the right Page*/
 
     public String generatePage(int index){
+        System.out.println("NavBean: generatePage: " + index);
         switch(index){
             case 0: return FILE0;
             case 1: return FILE1;
@@ -49,7 +51,8 @@ public class NavManagedBean {
     }
 
     public String getPage(){
-        System.out.println(this.page);
+        System.out.println("getting Page, current phase: " + FacesContext.getCurrentInstance().getCurrentPhaseId());
+        System.out.println("Getting: " + this.page);
         return this.page;
     }
 
