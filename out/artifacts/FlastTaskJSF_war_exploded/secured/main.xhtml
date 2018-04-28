@@ -1,0 +1,110 @@
+<!--
+XHTML-FIle for Main-Dashboard
+Author: LM
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title>Seitentitel</title>
+        <h:outputStylesheet name="css/main.css"></h:outputStylesheet>
+
+    </h:head>
+
+
+
+
+<!-- TODO: Init-Page when JSF is rendering -->
+
+
+
+    <h:body>
+
+
+        <f:view>
+            <!--
+            ******************************************************************************
+            Header
+            ******************************************************************************
+            -->
+            <h:panelGroup layout="block" id="header">
+                <h:outputText value="#{helloWordManagedBean.helloProperty}"  id="title"></h:outputText>
+            </h:panelGroup>
+
+
+
+            <!--
+            ******************************************************************************
+            Navigation: XHTML-Files are loaded into Content-Space;
+                Processing done by NavManagedBean
+            ******************************************************************************
+            -->
+
+            <h:panelGroup layout="block" id="nav" >
+            <h:form>
+                <p:tabMenu activeIndex="#{NavManagedBean.navIndex}" id="navigation">
+                    <p:menuitem value="My Tasks" icon="ui-icon-star" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(0)}" ajax="true">
+                        <f:param name="navIndex" value="0" />
+                    </p:menuitem>
+                    <p:menuitem value="Open Tasks" icon="ui-icon-search" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(1)}" ajax="true">
+                        <f:param name="navIndex" value="1" />
+                    </p:menuitem>
+                    <p:menuitem value="Create Task" icon="ui-icon-document" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(2)}" ajax="true">
+                        <f:param name="navIndex" value="2" />
+                    </p:menuitem>
+                    <p:menuitem value="My Community" icon="ui-icon-wrench" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(3)}" ajax="true">
+                        <f:param name="navIndex" value="3" />
+                    </p:menuitem>
+                    <p:menuitem value="Profilesettings" icon="ui-icon-person" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(4)}" ajax="true">
+                        <f:param name="navIndex" value="4" />
+                    </p:menuitem>
+                </p:tabMenu>
+            </h:form>
+            </h:panelGroup>
+   <!--         <h:form>
+                <p:menubar>
+                    <p:menuitem value="My Tasks" update="wrapper-content" action="#{NavManagedBean.setPage(0)}"></p:menuitem>
+                    <p:menuitem value="Open Tasks" update="wrapper-content" action="#{NavManagedBean.setPage(1)}"></p:menuitem>
+                    <p:menuitem value="Create Tasks" update="wrapper-content" action="#{NavManagedBean.setPage(2)}"></p:menuitem>
+                    <p:menuitem value="My Community" update="wrapper-content" action="#{NavManagedBean.setPage(3)}"></p:menuitem>
+                </p:menubar>
+            </h:form>
+-->
+            <!--
+             ******************************************************************************
+             Content
+             ******************************************************************************
+             -->
+            <h:panelGroup layout="block"  id="wrapper-content">
+                <ui:include src="#{NavManagedBean.page}"></ui:include>
+            </h:panelGroup>
+            <!--
+            ******************************************************************************
+            Sidebar
+            ******************************************************************************
+            -->
+
+            <h:panelGroup layout="block" id="wrapper-profile">
+                <h:outputText value="Username"></h:outputText>
+                <h:outputText value="Hier könnte Ihre Werbung stehen..."></h:outputText>
+            </h:panelGroup>
+
+
+            <!--
+            ******************************************************************************
+            Footer
+            ******************************************************************************
+            -->
+            <h:panelGroup layout="block" id="footer">
+                <h:outputText value="Username"></h:outputText>
+            </h:panelGroup>
+        </f:view>
+
+
+    </h:body>
+
+</html>
