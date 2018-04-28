@@ -63,6 +63,17 @@ public class Databasehandler {
 
     }
 
+    public List<Participator> getParticipatorsByCommunityID(String id){
+        EntityManager em = emFactory.createEntityManager();
+        TypedQuery<Participator> typedResultQuery = em.createQuery("SELECT p FROM Participator p WHERE p.id = :id",Participator.class);
+        List<Participator> resultList = typedResultQuery.setParameter("id",id).getResultList();
+        if(resultList.size()==1){
+            return resultList;
+        }else{
+            return null;
+        }
+    }
+
     //Tries to grab exactly one participator by username, if more than one/or none with the id exist -> throws error
     public Participator getParticipatorByUsername(String username){
         EntityManager em = emFactory.createEntityManager();

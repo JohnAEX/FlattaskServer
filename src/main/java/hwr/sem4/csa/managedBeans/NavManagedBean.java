@@ -46,6 +46,7 @@ public class NavManagedBean {
     /*Getter and Setter */
     public void setPage(int index){
         System.out.println("Detected page setter -> " + index);
+        this.navIndex = index;
         this.page = generatePage(index);
 
     }
@@ -58,10 +59,12 @@ public class NavManagedBean {
 
     /* Depracted*/
     public int getNavIndex() {
+        System.out.println("Returned navIndex:" + navIndex);
         return navIndex;
     }
 
     public void setNavIndex(int navIndex) {
         this.navIndex = navIndex;
+        System.out.println("Set navIndex:" + this.navIndex);
     }
 }

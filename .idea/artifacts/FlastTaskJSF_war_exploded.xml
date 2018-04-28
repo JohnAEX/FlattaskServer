@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="FlastTaskJSF:war exploded">
-    <output-path>$PROJECT_DIR$/target/FlastTaskJSF</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts/FlastTaskJSF_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -17,7 +17,6 @@
           <element id="library" level="project" name="Maven: org.apache.maven.wagon:wagon-provider-api:1.0-beta-2" />
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.2.4" />
           <element id="library" level="project" name="Maven: com.sun.faces:mojarra-jsf-impl:2.0.0-b04" />
-          <element id="library" level="project" name="Maven: javax.servlet.jsp:javax.servlet.jsp-api:2.3.1" />
           <element id="library" level="project" name="Maven: org.primefaces:primefaces:6.2" />
           <element id="library" level="project" name="Maven: org.primefaces.themes:blitzer:1.0.10" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.1.2" />
@@ -31,9 +30,6 @@
           <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.jpa.jpql:2.7.1" />
           <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.core:2.7.1" />
         </element>
-      </element>
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/FlastTaskJSF/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="FlastTaskJSF/web/Web" />
     </root>

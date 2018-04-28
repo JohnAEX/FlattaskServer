@@ -46,21 +46,21 @@ Author: LM
 
             <h:panelGroup layout="block" id="nav" >
             <h:form>
-                <p:tabMenu activeIndex="#{param.i}">
-                    <p:menuitem value="My Tasks" icon="ui-icon-star" update="wrapper-content" action="#{NavManagedBean.setPage(0)}" ajax="true">
-                        <f:param name="i" value="0" />
+                <p:tabMenu activeIndex="#{NavManagedBean.navIndex}" id="navigation">
+                    <p:menuitem value="My Tasks" icon="ui-icon-star" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(0)}" ajax="true">
+                        <f:param name="navIndex" value="0" />
                     </p:menuitem>
-                    <p:menuitem value="Open Tasks" icon="ui-icon-search" update="wrapper-content" action="#{NavManagedBean.setPage(1)}" ajax="true">
-                        <f:param name="i" value="1" />
+                    <p:menuitem value="Open Tasks" icon="ui-icon-search" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(1)}" ajax="true">
+                        <f:param name="navIndex" value="1" />
                     </p:menuitem>
-                    <p:menuitem value="Create Task" icon="ui-icon-document" update="wrapper-content" action="#{NavManagedBean.setPage(2)}" ajax="true">
-                        <f:param name="i" value="2" />
+                    <p:menuitem value="Create Task" icon="ui-icon-document" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(2)}" ajax="true">
+                        <f:param name="navIndex" value="2" />
                     </p:menuitem>
-                    <p:menuitem value="My Community" icon="ui-icon-wrench" update="wrapper-content" action="#{NavManagedBean.setPage(3)}" ajax="true">
-                        <f:param name="i" value="3" />
+                    <p:menuitem value="My Community" icon="ui-icon-wrench" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(3)}" ajax="true">
+                        <f:param name="navIndex" value="3" />
                     </p:menuitem>
-                    <p:menuitem value="Profilesettings" icon="ui-icon-person" update="wrapper-content" action="#{NavManagedBean.setPage(4)}" ajax="true">
-                        <f:param name="i" value="4" />
+                    <p:menuitem value="Profilesettings" icon="ui-icon-person" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(4)}" ajax="true">
+                        <f:param name="navIndex" value="4" />
                     </p:menuitem>
                 </p:tabMenu>
             </h:form>
