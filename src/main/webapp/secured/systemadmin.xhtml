@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>FT-SysAdmin</title>
+    <!--<h:outputStylesheet library = "css" name = "login.css"/>-->
+</h:head>
+<h:body>
+
+        <p:growl id="msgs" showDetail="true"/>
+        <p:accordionPanel multiple="true" dynamic="true">
+            <p:tab title="User DB List">
+            <h:form>
+                <p:dataTable id="pDataTable" var="user" value="#{SysAdminManagedBean.participatorList}" editable="true" editMode="cell">
+
+                    <p:ajax event="cellEdit" listener="#{SysAdminManagedBean.onCellEditParticipator(user)}" update="pDataTable" /> <!-- Add Change Listener -->
+
+                    <p:column headerText="Username" sortBy="#{user.username}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{user.username}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="usernameInput" value="#{user.username}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Password" sortBy="#{user.password}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{user.password}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="passwordInput" value="#{user.password}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Community" sortBy="#{user.communityId}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{user.communityId}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="cidInput" value="#{user.communityId}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="First Name" sortBy="#{user.firstName}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{user.firstName}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="firstNameInput" value="#{user.firstName}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Last Name" sortBy="#{user.lastName}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{user.lastName}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="lastNameInput" value="#{user.lastName}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Balance" sortBy="#{user.balance}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{user.balance}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="balanceEditInput" value="#{user.balance}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Role" sortBy="#{user.role}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{user.role}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="roleEditInput" value="#{user.role}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Creation Time" sortBy="#{user.creationTime}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{user.creationTime}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="ctInput" value="#{user.creationTime}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+            </p:tab>
+            <p:tab title="Community DB List">
+            <h:form>
+                <p:dataTable id="cDataTable" var="community" value="#{SysAdminManagedBean.communityList}" editable="true" editMode="cell">
+                    <p:ajax event="cellEdit" listener="#{SysAdminManagedBean.onCellEditCommunity(community)}" update="cDataTable" />
+                    <p:column headerText="ID" sortBy="#{community.id}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{community.id}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="cidEditInput" value="#{community.id}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Name" sortBy="#{community.name}">
+                        <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{community.name}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="cnameInput" value="#{community.name}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="DoTos" >
+                        <h:outputText value="#{community.dotosList}"/>
+                    </p:column>
+                    <p:column headerText="Tasks">
+                        <h:outputText value="#{community.taskList}"/>
+                    </p:column>
+                    <p:column headerText="Creation Time" sortBy="#{community.creationTime}">
+                        <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{community.creationTime}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="cctInput" value="#{community.creationTime}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+            </p:tab>
+            <p:tab title="Add Data">
+                <h:form>
+                <h3>Participator</h3>
+                <p:messages id="msgsP" />
+                <p:panelGrid id="participatorGrid" columns="3" cellpadding="10">
+
+                    <p:outputLabel for="usernameInputPF" value="Username:"/>
+                    <p:inputText id="usernameInputPF" value="#{SysAdminManagedBean.pUsername}" required="true" label="Username">
+                        <f:validateLength minimum="2"/>
+                    </p:inputText>
+
+                    <p:message for="usernameInputPF" display="fa-warning"/>
+
+                    <p:outputLabel for="passwordInputPF" value="Password:"/>
+                    <p:inputText id="passwordInputPF" value="#{SysAdminManagedBean.pPassword}" required="true" label="Password">
+                        <f:validateLength minimum="2"/>
+                    </p:inputText>
+                    <p:message for="passwordInputPF" display="fa-warning"/>
+                    <p:outputLabel for="communityIdInput" value="CommunityID:"/>
+                    <p:inputText id="communityIdInput" value="#{SysAdminManagedBean.pCommunityID}" required="true">
+                        <f:validateLength minimum="2"/>
+                    </p:inputText>
+                    <p:message for="communityIdInput" display="fa-warning"/>
+                    <p:outputLabel for="balanceInput" value="Balance:"/>
+                    <p:inputText id="balanceInput" value="#{SysAdminManagedBean.pBalance}" required="true">
+                        <f:convertNumber integerOnly="true"/>
+                    </p:inputText>
+                    <p:message for="balanceInput" display="fa-warning"/>
+                    <p:outputLabel for="roleInput" value="Role:"/>
+                    <p:inputText id="roleInput" value="#{SysAdminManagedBean.pRole}" required="true">
+                        <f:validateLength minimum="4"/>
+                    </p:inputText>
+                    <p:message for="roleInput" display="fa-warning"/>
+
+                    <p:outputLabel for="firstnameInput" value="First Name:"/>
+                    <p:inputText id="firstnameInput" value="#{SysAdminManagedBean.pFirstname}" required="false"/>
+                    <p:outputLabel/>
+                    <p:outputLabel for="lastnameInput" value="Last Name:"/>
+                    <p:inputText id="lastnameInput" value="#{SysAdminManagedBean.pLastname}" required="false"/>
+                    <p:outputLabel/>
+                    <p:outputLabel for="creationTimeInput" value="Creation Time:"/>
+                    <p:inputText id="creationTimeInput" value="#{SysAdminManagedBean.pCreationTime}" required="false"/>
+                    <p:outputLabel/>
+
+                    <p:commandButton value="Submit" update="participatorGrid" icon="fa-check" action="#{SysAdminManagedBean.addParticipator}"/>
+
+                </p:panelGrid>
+                </h:form>
+                <p:separator/>
+                <h3>Add Community</h3>
+                <h:form>
+                <p:messages id="msgsC" />
+                <p:panelGrid id="communityGrid" columns="3" cellpadding="10">
+                    <p:outputLabel for="communityIdInputC" value="CommunityID:"/>
+                    <p:inputText id="communityIdInputC" value="#{SysAdminManagedBean.cId}" required="true">
+                        <f:validateLength minimum="2"/>
+                    </p:inputText>
+                    <p:message for="communityIdInput" display="fa-warning"/>
+                    <p:outputLabel for="communityName" value="Community Name:"/>
+                    <p:inputText id="communityName" value="#{SysAdminManagedBean.cName}" required="true">
+                        <f:validateLength minimum="2"/>
+                    </p:inputText>
+                    <p:message for="communityName" display="fa-warning"/>
+                    <p:outputLabel for="cCreationTimeInput" value="Creation Time:"/>
+                    <p:inputText id="cCreationTimeInput" value="#{SysAdminManagedBean.cCreationTime}" required="false">
+
+                    </p:inputText>
+                    <h:outputText></h:outputText>
+
+                    <p:commandButton value="Submit" update="communityGrid" icon="fa-check" action="#{SysAdminManagedBean.addCommunity}"/>
+
+                </p:panelGrid>
+                </h:form>
+            </p:tab>
+
+
+
+        </p:accordionPanel>
+
+</h:body>
+</html>

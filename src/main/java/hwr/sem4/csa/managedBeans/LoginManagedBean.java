@@ -56,7 +56,11 @@ public class LoginManagedBean implements Serializable{
             loggedInUser = testLogin;
             Databasehandler.instanceOf().close();
             System.out.println("Login successful");
-            return "secured/main";
+            if(loggedInUser.getRole().equals("admin")) {
+                return "secured/systemadmin";
+            }else{
+                return "secured/main";
+            }
         }else{
             Databasehandler.instanceOf().close();
             System.out.println("Login failed");
