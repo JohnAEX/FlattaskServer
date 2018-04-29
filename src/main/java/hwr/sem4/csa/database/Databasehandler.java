@@ -151,6 +151,26 @@ public class Databasehandler {
         return typedQuery.getResultList();
     }
 
+    public void removeParticipatorByUsername(String username){
+        EntityManager em = emFactory.createEntityManager();
+        em.getTransaction().begin();
+        Query currentQuery = em.createQuery("DELETE FROM Participator p WHERE p.username = :username", Participator.class);
+        currentQuery.setParameter("username",username).executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+
+    }
+
+
+    public void removeCommunityById(String id){
+        EntityManager em = emFactory.createEntityManager();
+        em.getTransaction().begin();
+        Query currentQuery = em.createQuery("DELETE FROM Community c WHERE c.id = :id", Community.class);
+        currentQuery.setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+    }
+
 
 
 

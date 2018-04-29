@@ -17,6 +17,10 @@
       <param-name>primefaces.THEME</param-name>
       <param-value>blitzer</param-value>
   </context-param>
+    <context-param>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
+    </context-param>
     <filter>
         <filter-name>LoginFilter</filter-name>
         <filter-class>hwr.sem4.csa.filter.LoginFilter</filter-class>

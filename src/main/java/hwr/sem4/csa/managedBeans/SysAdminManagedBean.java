@@ -1,10 +1,7 @@
 package hwr.sem4.csa.managedBeans;
 
 import hwr.sem4.csa.database.Databasehandler;
-import hwr.sem4.csa.util.Community;
-import hwr.sem4.csa.util.Dotos;
-import hwr.sem4.csa.util.Participator;
-import hwr.sem4.csa.util.Task;
+import hwr.sem4.csa.util.*;
 import org.primefaces.event.CellEditEvent;
 
 import javax.annotation.PostConstruct;
@@ -36,12 +33,61 @@ public class SysAdminManagedBean {
     private String pCommunityID;
     private String pRole;
 
+    //Selection
+    private Participator selectedParticipator;
+    private Community selectedCommunity;
+
+    //Generation
+    private int amountToGenerate;
+
+    public int getAmountToGenerate() {
+        return amountToGenerate;
+    }
+
+    public void setAmountToGenerate(int amountToGenerate) {
+        this.amountToGenerate = amountToGenerate;
+    }
 
     @PostConstruct
     public void init(){
         Databasehandler.instanceOf().initObjectDBConnection();
         participatorList = Databasehandler.instanceOf().getAllParticipators();
         communityList = Databasehandler.instanceOf().getAllCommunities();
+        Databasehandler.instanceOf().close();
+    }
+
+    public void updatePList(){
+        Databasehandler.instanceOf().initObjectDBConnection();
+        participatorList = Databasehandler.instanceOf().getAllParticipators();
+        Databasehandler.instanceOf().close();
+    }
+
+    public void updateCList(){
+        Databasehandler.instanceOf().initObjectDBConnection();
+        communityList = Databasehandler.instanceOf().getAllCommunities();
+        Databasehandler.instanceOf().close();
+    }
+
+    public void removeParticipator(){
+        System.out.println("Trying to remove Participator: " + selectedParticipator.getUsername());
+        Databasehandler.instanceOf().initObjectDBConnection();
+        Databasehandler.instanceOf().removeParticipatorByUsername(selectedParticipator.getUsername());
+        Databasehandler.instanceOf().close();
+        updatePList();
+    }
+
+    public void removeCommunity(){
+        Databasehandler.instanceOf().initObjectDBConnection();
+        Databasehandler.instanceOf().removeCommunityById(selectedCommunity.getId());
+        Databasehandler.instanceOf().close();
+        updateCList();
+    }
+
+    public void generateValidData(){
+        List<List> returnList = DummyCreation.instanceOf().createUsableData(this.amountToGenerate);
+        Databasehandler.instanceOf().initObjectDBConnection();
+        Databasehandler.instanceOf().insertList(returnList.get(0));
+        Databasehandler.instanceOf().insert(returnList.get(1).get(0));
         Databasehandler.instanceOf().close();
     }
 
@@ -210,5 +256,21 @@ public class SysAdminManagedBean {
 
     public void setpRole(String pRole) {
         this.pRole = pRole;
+    }
+
+    public Participator getSelectedParticipator() {
+        return selectedParticipator;
+    }
+
+    public void setSelectedParticipator(Participator selectedParticipator) {
+        this.selectedParticipator = selectedParticipator;
+    }
+
+    public Community getSelectedCommunity() {
+        return selectedCommunity;
+    }
+
+    public void setSelectedCommunity(Community selectedCommunity) {
+        this.selectedCommunity = selectedCommunity;
     }
 }
