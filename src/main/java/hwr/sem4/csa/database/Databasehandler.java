@@ -19,7 +19,7 @@ public class Databasehandler {
 
     public void initObjectDBConnection(){
         emFactory = Persistence.createEntityManagerFactory("objectdb:" +
-                "//ec2-54-85-66-232.compute-1.amazonaws.com:6136/real.odb;user=admin;password=admin");
+                "//ec2-54-85-66-232.compute-1.amazonaws.com:6136/systemTest.odb;user=admin;password=admin");
     }
 
     public EntityManager getEntityManager() {
@@ -35,6 +35,16 @@ public class Databasehandler {
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
         em.persist(toInsert);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void insertList(List list){
+        EntityManager em = emFactory.createEntityManager();
+        em.getTransaction().begin();
+        for(Object o : list){
+            em.persist(o);
+        }
         em.getTransaction().commit();
         em.close();
     }
@@ -102,6 +112,74 @@ public class Databasehandler {
         }
 
 
+    }
+
+    //Update Methods
+    public void updateParticipator(String username, String password, String firstName, String lastname, int balance,
+                                   String role, String communityID, String creationTime){
+        EntityManager em = emFactory.createEntityManager();
+        em.getTransaction().begin();
+        Query newQuery = em.createQuery("UPDATE Participator p SET p.password = :password, " +
+                "p.firstName = :firstName, p.lastName = :lastName, p.balance = :balance, " +
+                "p.role = :role, p.communityId = :communityID, p.creationTime = :creationTime WHERE p.username = :username", Participator.class);
+        newQuery.setParameter("password",password);
+        newQuery.setParameter("firstName",firstName);
+        newQuery.setParameter("lastName",lastname);
+        newQuery.setParameter("balance",balance);
+        newQuery.setParameter("role",role);
+        newQuery.setParameter("communityID",communityID);
+        newQuery.setParameter("creationTime",creationTime);
+        newQuery.setParameter("username",username);
+        newQuery.executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+
+    }
+
+    public void updateCommunity(String id, String name, String creationTime){
+        EntityManager em = emFactory.createEntityManager();
+        em.getTransaction().begin();
+        Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime " +
+                "WHERE c.id = :id");
+        newQuery.setParameter("name",name);
+        newQuery.setParameter("creationTime",creationTime);
+        newQuery.setParameter("id",id);
+        newQuery.executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    //SysAdmin methods
+    public List<Participator> getAllParticipators(){
+        EntityManager em = emFactory.createEntityManager();
+        TypedQuery<Participator> typedQuery = em.createQuery("SELECT p FROM Participator p",Participator.class);
+        return typedQuery.getResultList();
+    }
+
+    public List<Community> getAllCommunities(){
+        EntityManager em = emFactory.createEntityManager();
+        TypedQuery<Community> typedQuery = em.createQuery("SELECT c FROM Community c",Community.class);
+        return typedQuery.getResultList();
+    }
+
+    public void removeParticipatorByUsername(String username){
+        EntityManager em = emFactory.createEntityManager();
+        em.getTransaction().begin();
+        Query currentQuery = em.createQuery("DELETE FROM Participator p WHERE p.username = :username", Participator.class);
+        currentQuery.setParameter("username",username).executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+
+    }
+
+
+    public void removeCommunityById(String id){
+        EntityManager em = emFactory.createEntityManager();
+        em.getTransaction().begin();
+        Query currentQuery = em.createQuery("DELETE FROM Community c WHERE c.id = :id", Community.class);
+        currentQuery.setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
+        em.close();
     }
 
 

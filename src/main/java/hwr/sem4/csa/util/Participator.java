@@ -3,12 +3,11 @@ package hwr.sem4.csa.util;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Participators")
 public class Participator{
-
-    private static final long serialVersionUID = 2L;
 
     @Id
     private String username;

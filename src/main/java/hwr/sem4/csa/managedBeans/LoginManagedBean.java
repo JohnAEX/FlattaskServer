@@ -8,6 +8,7 @@ import javax.annotation.PreDestroy;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 @ManagedBean
@@ -56,13 +57,22 @@ public class LoginManagedBean implements Serializable{
             loggedInUser = testLogin;
             Databasehandler.instanceOf().close();
             System.out.println("Login successful");
-            return "secured/main";
+            if(loggedInUser.getRole().equals("admin")) {
+                return "secured/systemadmin";
+            }else{
+                return "secured/main";
+            }
         }else{
             Databasehandler.instanceOf().close();
             System.out.println("Login failed");
             return "login";
 
         }
+    }
+
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login.xhtml?faces-redirect=true";
     }
 
     public Participator getLoggedInUser() {

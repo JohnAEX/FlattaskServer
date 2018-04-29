@@ -9,8 +9,6 @@ import java.util.ArrayList;
 @Table(name = "Communities")
 public class Community {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     private String id;
 
