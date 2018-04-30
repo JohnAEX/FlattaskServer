@@ -1,23 +1,24 @@
 package hwr.sem4.csa.util;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
 @Table(name = "Communities")
-public class Community {
+public class Community implements Serializable {
 
     @Id
     private String id;
 
     private String name;
 
+    @OneToMany(cascade = CascadeType.ALL)
     private ArrayList<Task> taskList;
 
     private String creationTime;
 
+    @OneToMany(cascade = CascadeType.ALL)
     private ArrayList<Dotos> dotosList;
 
     public ArrayList<Dotos> getDotosList() {
