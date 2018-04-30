@@ -11,27 +11,39 @@
 <h:body>
         <h:panelGroup id="wrapper-task" layout="block" styleClass="Centered">
 
-            <h:form>
+            <h:form id="taskForm">
                 <p:messages id="msgs" />
 
                 <h:panelGrid columns="3" cellpadding="10">
+
+                    <p:outputLabel for="templateSelect" value="Select Template: "/>
+
+                    <p:selectOneMenu id="templateSelect" converter="#{TaskConverterBean}" value="#{CreateTaskManagedBean.selectedTemplate}" style="width:300px">
+                        <f:selectItems  value="#{CreateTaskManagedBean.commonTasks}" var="task" itemValue="#{task.title}" itemLabel="#{task.title}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton action="#{CreateTaskManagedBean.changeTemplate}" update="taskForm"/>
+
+
                     <p:outputLabel for="titleInput" value="Title:"/>
                     <p:inputText id="titleInput" value="#{CreateTaskManagedBean.title}" required="true" label="Title">
-                        <f:validateLength minimum="2"/>
+
                     </p:inputText>
                     <p:message for="titleInput" display="icon"/>
 
                     <p:outputLabel for="descriptionInput" value="Description:"/>
                     <p:inputTextarea id="descriptionInput" value="#{CreateTaskManagedBean.description}" required="true" label="Description">
-                        <f:validateLength minimum="2"/>
+
                     </p:inputTextarea>
                     <p:message for="descriptionInput" display="icon"/>
 
                     <p:outputLabel for="valueSpinner" value="Value: "></p:outputLabel>
                     <p:spinner decimalPlaces="0" max="#{CreateTaskManagedBean.valueMax}" min="0" id="valueSpinner"></p:spinner>
+                    <p:message for="valueSpinner" display="icon"/>
 
                     <p:outputLabel for="userSelect" value="assign to..."/>
-                    <p:selectOneListbox id="userSelect">
+                    <p:selectOneListbox id="userSelect" value="#{CreateTaskManagedBean.userAssigned}">
+
+                        <f:selectItems value="#{CreateTaskManagedBean.usersPossible}" var="user" itemLabel="#{user.firstName}"/>
 
                     </p:selectOneListbox>
                 </h:panelGrid>
