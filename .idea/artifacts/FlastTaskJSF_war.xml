@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="FlastTaskJSF:war">
-    <output-path>$PROJECT_DIR$/out/artifacts/FlastTaskJSF_war</output-path>
-    <root id="archive" name="FlastTaskJSF_war.war">
-      <element id="artifact" artifact-name="FlastTaskJSF:war exploded" />
-    </root>
-  </artifact>
-</component>
