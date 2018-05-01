@@ -6,8 +6,6 @@ import java.io.Serializable;
 @Embeddable
 public class Dotos implements Serializable{
 
-<<<<<<< HEAD
-=======
     public int id;
 
     public int getId() {
@@ -17,5 +15,4 @@ public class Dotos implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
->>>>>>> master
 }
