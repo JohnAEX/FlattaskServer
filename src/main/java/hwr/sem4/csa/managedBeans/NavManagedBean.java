@@ -54,6 +54,7 @@ public class NavManagedBean {
     public String getPage(){
         System.out.println("getting Page, current phase: " + FacesContext.getCurrentInstance().getCurrentPhaseId());
         System.out.println("Getting: " + this.page);
+
         return this.page;
     }
 
