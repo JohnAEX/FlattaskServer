@@ -24,7 +24,7 @@ public class LoginTest {
     @Test
     public void setupAccount(){
         Participator testParticipator = new Participator();
-        testParticipator.setUsername("JohnDoe2");
+        testParticipator.setUsername("JohnDoe");
         testParticipator.setBalance(100);
         testParticipator.setRole("user");
         testParticipator.setFirstName("John");
@@ -37,10 +37,12 @@ public class LoginTest {
     public void login(){
         String username = "JohnDoe";
         String password = "User1234";
-        Logger logger = LoggerFactory.getLogger(LoginManagedBean.class);
-        logger.info("Attempted Login for: " + username + " - " + password);
         System.out.println("Attempted Login for: " + username + " - " + password);
-        Databasehandler.instanceOf().initObjectDBConnection();
         Assertions.assertNotNull(Databasehandler.instanceOf().getParticipatorByLogin(username,password));
-        }
+    }
+
+    @Test
+    public void setToAdmin(){
+        Databasehandler.instanceOf().updateParticipator("JohnDoe","User1234","John","Doe",100,"admin","NONE","");
+    }
 }
