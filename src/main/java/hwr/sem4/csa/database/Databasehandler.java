@@ -73,15 +73,14 @@ public class Databasehandler {
 
     }
 
-
-    //Following Method can not possibly be right...
     public List<Participator> getParticipatorsByCommunityID(String id){
         EntityManager em = emFactory.createEntityManager();
-        TypedQuery<Participator> typedResultQuery = em.createQuery("SELECT p FROM Participator p WHERE p.id = :id",Participator.class);
+        TypedQuery<Participator> typedResultQuery = em.createQuery("SELECT p FROM Participator p WHERE p.communityId = :id", Participator.class);
         List<Participator> resultList = typedResultQuery.setParameter("id",id).getResultList();
-        if(resultList.size()==1){
+        if(resultList.size()>=1){
             return resultList;
         }else{
+            //No User found with the given ID
             return null;
         }
     }
