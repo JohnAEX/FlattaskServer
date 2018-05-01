@@ -9,7 +9,7 @@
     <h:outputStylesheet library = "css" name = "main.css"/>
 </h:head>
 <h:body>
-        <h:panelGroup id="wrapper-task" layout="block" styleClass="Centered">
+        <h:panelGroup id="wrapper-task" layout="block">
 
             <h:form id="taskForm">
                 <p:messages id="msgs" />
@@ -17,37 +17,36 @@
                 <h:panelGrid columns="3" cellpadding="10">
 
                     <p:outputLabel for="templateSelect" value="Select Template: "/>
-
-                    <p:selectOneMenu id="templateSelect" converter="#{TaskConverterBean}" value="#{CreateTaskManagedBean.selectedTemplate}" style="width:300px">
-                        <f:selectItems  value="#{CreateTaskManagedBean.commonTasks}" var="task" itemValue="#{task.title}" itemLabel="#{task.title}"/>
+                    <p:selectOneMenu id="templateSelect" value="#{CreateDotoManagedBean.selectedTemplate}" style="width:200px">
+                        <f:selectItem itemLabel="Select one:"/>
+                        <f:selectItems  value="#{CreateDotoManagedBean.commonTasks}" var="task" itemValue="#{task.title}" itemLabel="#{task.title}"/>
                     </p:selectOneMenu>
-                    <p:commandButton action="#{CreateTaskManagedBean.changeTemplate}" update="taskForm"/>
-
+                    <p:commandButton action="#{CreateDotoManagedBean.changeTemplate}" update="taskForm" label="Select Template"/>
 
                     <p:outputLabel for="titleInput" value="Title:"/>
-                    <p:inputText id="titleInput" value="#{CreateTaskManagedBean.title}" required="true" label="Title">
-
+                    <p:inputText id="titleInput" value="#{CreateDotoManagedBean.title}" required="true" label="Title">
+                        <f:validateLength minimum="3"/>
                     </p:inputText>
                     <p:message for="titleInput" display="icon"/>
 
                     <p:outputLabel for="descriptionInput" value="Description:"/>
-                    <p:inputTextarea id="descriptionInput" value="#{CreateTaskManagedBean.description}" required="true" label="Description">
+                    <p:inputTextarea id="descriptionInput" value="#{CreateDotoManagedBean.description}" required="true" label="Description">
 
                     </p:inputTextarea>
                     <p:message for="descriptionInput" display="icon"/>
 
                     <p:outputLabel for="valueSpinner" value="Value: "></p:outputLabel>
-                    <p:spinner decimalPlaces="0" max="#{CreateTaskManagedBean.valueMax}" min="0" id="valueSpinner"></p:spinner>
+                    <p:spinner decimalPlaces="0" max="#{CreateDotoManagedBean.valueMax}" min="0" id="valueSpinner"></p:spinner>
                     <p:message for="valueSpinner" display="icon"/>
 
                     <p:outputLabel for="userSelect" value="assign to..."/>
-                    <p:selectOneListbox id="userSelect" value="#{CreateTaskManagedBean.userAssigned}">
+                    <p:selectOneListbox id="userSelect" value="#{CreateDotoManagedBean.userAssigned}">
 
-                        <f:selectItems value="#{CreateTaskManagedBean.usersPossible}" var="user" itemLabel="#{user.firstName}"/>
+                        <f:selectItems value="#{CreateDotoManagedBean.usersPossible}" var="user" itemLabel="#{user.firstName}"/>
 
                     </p:selectOneListbox>
                 </h:panelGrid>
-            <p:commandButton value="Confirm" id="confirmButton" update="wrapper-task" icon="ui-icon-check" action="#{CreateTaskManagedBean.confirmTask}" ajax="true"/>
+            <p:commandButton value="Confirm" id="confirmButton" update="wrapper-task" icon="ui-icon-check" action="#{CreateDotoManagedBean.confirmDoto}" ajax="true"/>
             </h:form>
         </h:panelGroup>
 </h:body>

@@ -19,7 +19,7 @@ public class Databasehandler {
 
     public void initObjectDBConnection(){
         emFactory = Persistence.createEntityManagerFactory("objectdb:" +
-                "//ec2-54-85-66-232.compute-1.amazonaws.com:6136/real.odb;user=admin;password=admin");
+                "//ec2-54-85-66-232.compute-1.amazonaws.com:6136/systemTest.odb;user=admin;password=admin");
     }
 
     public EntityManager getEntityManager() {
@@ -65,11 +65,12 @@ public class Databasehandler {
 
     public List<Participator> getParticipatorsByCommunityID(String id){
         EntityManager em = emFactory.createEntityManager();
-        TypedQuery<Participator> typedResultQuery = em.createQuery("SELECT p FROM Participator p WHERE p.id = :id",Participator.class);
+        TypedQuery<Participator> typedResultQuery = em.createQuery("SELECT p FROM Participator p WHERE p.communityId = :id", Participator.class);
         List<Participator> resultList = typedResultQuery.setParameter("id",id).getResultList();
-        if(resultList.size()==1){
+        if(resultList.size()>=1){
             return resultList;
         }else{
+            //No User found with the given ID
             return null;
         }
     }

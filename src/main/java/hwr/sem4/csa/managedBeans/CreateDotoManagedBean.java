@@ -5,6 +5,7 @@
 package hwr.sem4.csa.managedBeans;
 
 import hwr.sem4.csa.database.Databasehandler;
+import hwr.sem4.csa.util.Community;
 import hwr.sem4.csa.util.Participator;
 import hwr.sem4.csa.util.Task;
 
@@ -12,56 +13,79 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.ArrayList;
 
-@ManagedBean (name="CreateTaskManagedBean")
+@ManagedBean (name="CreateDotoManagedBean")
 @SessionScoped
 
-public class CreateTaskManagedBean {
-    /*
+public class CreateDotoManagedBean {
+    /*******************
     * Attributes
-    * */
+    * *******************/
     private String title = "";
     private String description = "";
     private Participator userAssign = null;
     private Participator userAssigned = null;
     private int value = 0;
     private int duration = 0;
-    private int valueMax = 5;
+    private int valueMax = 0;
     private ArrayList<Participator> usersPossible = null;
     private ArrayList<Task> commonTasks = null;
     private Task selectedTemplate = null;
     private Databasehandler database = Databasehandler.instanceOf();
 
 
-    /*
+    /*****************
     * Constructor
-    * */
-    public CreateTaskManagedBean(){
+    ***************** */
+    public CreateDotoManagedBean(){
        // this.setUsersPossible(searchForPossibleUsers());
-        this.setUsersPossible(generateTestUsers());
+        this.setUserAssign(this.userInit());
+        this.setUsersPossible(this.generateTestUsers());
+        this.setUsersPossible(this.searchForPossibleUsers());
         this.setCommonTasks(generateTestTasks());
+        this.setValueMax(this.userAssign.getBalance());
     }
 
-    /*Functional Methods*/
+    /***********************************
+     * Functional Methods
+     * **********************************/
 
-  /*  private Participator grapSession(){
+    /*Grap Username from Session*/
 
-    }*/
+    private Participator userInit(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
+        System.out.println("Assigning User: "+login.loggedInUser.getUsername());
+        Participator rs = login.loggedInUser;
+        return rs;
+    }
 
+    /*Grap Users in Community of assigning User*/
     private ArrayList<Participator> searchForPossibleUsers(){
-        Participator part = database.getParticipatorByUsername(this.userAssign.getUsername());
-        List<Participator> possiblePart = database.getParticipatorsByCommunityID(part.getCommunityId());
+        Participator part = this.userAssign;
         ArrayList<Participator> rl = new ArrayList<>();
-        if(possiblePart.size() > 0) {
-            for (int i = 0; i < possiblePart.size(); i++) {
-                rl.add(possiblePart.get(i));
+        if(part.getCommunityId()!=null) {
+            database.initObjectDBConnection();
+            List<Participator> possiblePart = database.getParticipatorsByCommunityID(part.getCommunityId());
+            database.close();
+            if (possiblePart.size() > 0) {
+                for (int i = 0; i < possiblePart.size(); i++) {
+                    rl.add(possiblePart.get(i));
+                }
             }
         }
         return rl;
     }
 
+    /*Generate Test Users - Wrote while DB-Handler class was incomplete*/
     private  ArrayList<Participator> generateTestUsers(){
         Participator a = new Participator();
         a.setFirstName("Hans");
@@ -77,13 +101,25 @@ public class CreateTaskManagedBean {
 
     }
 
-  /*  private ArrayList<Task> generateCommonTasks(){
+    /*Grap Task-List from Community of assigning User*/
+    private ArrayList<Task> generateCommonTasks(){
+        database.initObjectDBConnection();
+        Community com = database.getCommunityById(this.userAssign.getCommunityId());
+        database.close();
+        if(com.getTaskList()!=null) {
+            return com.getTaskList();
+        }
+        else{
+            ArrayList<Task> noTasks = new ArrayList<Task>();
+            noTasks.add(new Task("Create Tasks!","",0,0));
+            return noTasks;
+        }
+    }
 
-    }*/
-
+    /*Generate Test-Cases for Tasks*/
     private ArrayList<Task> generateTestTasks(){
-        Task a1 = new Task("1", "Aufgabe 1", "blablablablabla", 5, 5);
-        Task a2 = new Task("1", "Aufgabe 2", "blablablablabla", 5, 5);
+        Task a1 = new Task( "Aufgabe 1", "blablablablabla", 5, 5);
+        Task a2 = new Task( "Aufgabe 2", "blablablablabla", 5, 5);
         ArrayList<Task> rsf = new ArrayList<>();
         rsf.add(a1);
         rsf.add(a2);
@@ -91,6 +127,7 @@ public class CreateTaskManagedBean {
 
     }
 
+    /*Change Presets of labels when Template is selected*/
     public void changeTemplate(AjaxBehaviorEvent event){
         /*this.setTitle(this.selectedTemplate.getTitle());
         this.setDescription(this.selectedTemplate.getDescription());
@@ -99,11 +136,19 @@ public class CreateTaskManagedBean {
         System.out.println("Changed Template");
     }
 
-    public void confirmTask(){
+    /*Store Task in Database, assign to User*/
+    public void confirmDoto(){
+        String CID = this.userAssign.getCommunityId();
+        Task t = new Task(this.title, this.description, this.value, this.duration);
+        database.initObjectDBConnection();
+        //database.storeTask(t);
+        database.close();
 
     }
 
-    /*Getter & Setter*/
+    /***************************************
+     * Getter & Setter
+     * ***************************************/
 
     public String getTitle() {
         return title;

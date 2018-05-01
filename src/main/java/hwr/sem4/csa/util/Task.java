@@ -10,8 +10,9 @@ public class Task implements Serializable {
     private int baseValue;
     private int baseDuration;
     private Date expirationDate;
+    private Participator assignedUser;
 
-    public Task(String id, String title, String description, int baseValue, int baseDuration) {
+    public Task(String title, String description, int baseValue, int baseDuration) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -66,4 +67,6 @@ public class Task implements Serializable {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
+
+
 }

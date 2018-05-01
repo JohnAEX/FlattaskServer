@@ -19,8 +19,8 @@ public class NavManagedBean {
     private int navIndex = 0;
     private final String FILE0 = "index.xhtml";
     private final String FILE1 = "dashboard.xhtml";
-    private final String FILE2 = "loading.xhtml";
-    private final String FILE3 = "dashboard.xhtml";
+    private final String FILE2 = "createDoto.xhtml";
+    private final String FILE3 = "loading.xhtml";
     private final String FILE4 = "dashboard.xhtml";
     private final String FILE404 = "dashboard.xhtml";
     private String page = "";
