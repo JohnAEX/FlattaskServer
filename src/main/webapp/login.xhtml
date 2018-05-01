@@ -18,18 +18,32 @@
 
                 <h:panelGrid columns="3" cellpadding="10">
                 <p:outputLabel for="usernameInputPF" value="Username:"/>
-                <p:inputText id="usernameInputPF" value="#{LoginManagedBean.username}" required="true" label="Username">
+                <p:inputText id="usernameInputPF" value="#{LoginManagedBean.username}" required="true" label="Username"
+                ajax="true">
+                <p:ajax resetValues="true"/>
                     <f:validateLength minimum="2"/>
                 </p:inputText>
                 <p:message for="usernameInputPF" display="icon"/>
 
                 <p:outputLabel for="passwordInputPF" value="Password:"/>
-                <p:password id="passwordInputPF" value="#{LoginManagedBean.password}" required="true" label="Password">
+                <p:password ajax="true" id="passwordInputPF" value="#{LoginManagedBean.password}" required="true" label="Password">
+                    <p:ajax resetValues="true"/>
                     <f:validateLength minimum="2"/>
                 </p:password>
                 <p:message for="passwordInputPF" display="icon"/>
             </h:panelGrid>
-            <p:commandButton value="Login" id="loginButton" update="loginPanel" icon="ui-icon-check" action="#{LoginManagedBean.attemptLogin}" ajax="true"/>
+            <p:commandButton value="Login" id="loginButton" update="loginPanel" icon="ui-icon-check"
+                              type="button" ajax="true" widgetVar="loginButtonWV"
+                             global="true">
+                <p:ajax event="click" process="@this" listener="#{LoginManagedBean.attemptLogin}" update="loginPanel"/>
+            </p:commandButton>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide();" />
+
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false"
+                          showHeader="false" style="top: 50%;left: 50%">
+                    <p:graphicImage library="images" name="source.gif"/>
+                </p:dialog>
+
             </h:form>
         </p:panel>
 </h:body>
