@@ -29,6 +29,15 @@
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/secured/*</url-pattern>
     </filter-mapping>
+
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>hwr.sem4.csa.filter.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/highlysecured/*</url-pattern>
+    </filter-mapping>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>

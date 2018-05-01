@@ -9,6 +9,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.io.Serializable;
 
 @ManagedBean
@@ -57,12 +58,30 @@ public class LoginManagedBean implements Serializable{
             loggedInUser = testLogin;
             Databasehandler.instanceOf().close();
             System.out.println("Login successful");
-            if(loggedInUser.getRole().equals("admin")) {
-                return "secured/systemadmin";
+            if(loggedInUser.getRole().equalsIgnoreCase("admin")) {
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("highlysecured/systemadmin.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                FacesContext.getCurrentInstance().responseComplete();
+                return "highlysecured/systemadmin";
             }else{
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("secured/main.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                FacesContext.getCurrentInstance().responseComplete();
                 return "secured/main";
             }
         }else{
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            FacesContext.getCurrentInstance().responseComplete();
             Databasehandler.instanceOf().close();
             System.out.println("Login failed");
             return "login";

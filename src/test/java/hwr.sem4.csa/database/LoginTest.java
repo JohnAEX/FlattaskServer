@@ -39,5 +39,10 @@ public class LoginTest {
         String password = "User1234";
         System.out.println("Attempted Login for: " + username + " - " + password);
         Assertions.assertNotNull(Databasehandler.instanceOf().getParticipatorByLogin(username,password));
-        }
+    }
+
+    @Test
+    public void setToAdmin(){
+        Databasehandler.instanceOf().updateParticipator("JohnDoe","User1234","John","Doe",100,"admin","NONE","");
+    }
 }
