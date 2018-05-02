@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>FT-Register</title>
+    <h:outputStylesheet library = "css" name = "login.css"/>
+</h:head>
+<h:body>
+    <p:panel id="registerPanel" styleClass="Centered">
+        <f:facet name="header">
+            <p:graphicImage name="logoNeu.svg" library="images" styleClass="centerImage"/>
+        </f:facet>
+        <h:form>
+            <p:messages id="msgs" />
+            <h3>Registration</h3>
+
+            <p:panelGrid id="registerPanelGrid" columns="3" cellpadding="10">
+                <p:outputLabel for="usernameInputPF" value="Username:"/>
+                <p:inputText id="usernameInputPF" value="#{RegisterManagedBean.username}" required="true" label="Username"
+                             ajax="true" >
+                    <f:validateLength minimum="2"/>
+                    <p:ajax resetValues="true"/>
+                </p:inputText>
+                <p:message for="usernameInputPF" display="fa fa-warning"/>
+
+                <p:outputLabel for="passwordInputPF" value="Password:"/>
+                <p:password ajax="true" id="passwordInputPF" value="#{RegisterManagedBean.password}" required="true"
+                            match="passwordInputPFConfirm" label="Password">
+                    <f:validateLength minimum="2"/>
+                    <p:ajax resetValues="true"/>
+                </p:password>
+                <p:message for="passwordInputPF" display="fa fa-warning"/>
+
+                <p:outputLabel for="passwordInputPFConfirm" value="Confirm Password:"/>
+                <p:password ajax="true" id="passwordInputPFConfirm" value="#{RegisterManagedBean.password}"
+                            required="true" label="REPassword">
+                    <f:validateLength minimum="2"/>
+                    <p:ajax resetValues="true"/>
+                </p:password>
+                <p:message for="passwordInputPFConfirm" display="fa fa-warning"/>
+
+                <p:outputLabel for="firstNameInput" value="First Name:"/>
+                <p:inputText id="firstNameInput" value="#{RegisterManagedBean.firstName}" required="false" label="FirstName"
+                             ajax="true">
+                </p:inputText>
+                <p:message for="firstNameInput" display="fa fa-warning"/>
+
+                <p:outputLabel for="lastNameInput" value="Last Name:"/>
+                <p:inputText id="lastNameInput" value="#{RegisterManagedBean.lastName}" required="false" label="LastName"
+                             ajax="true">
+
+                </p:inputText>
+                <p:message for="lastNameInput" display="fa fa-warning"/>
+
+            </p:panelGrid>
+            <h:outputText>By clicking the 'Register'-button you aknowledge that you data will be stored in our database,
+            please do not use 'real' data as currently there is no encryption used for read/write operations</h:outputText>
+            <p:commandButton value="Register" id="registerButton" update="registerPanel" icon="fa fa-check"
+                             type="button" ajax="true" widgetVar="registerButtonWV"
+                             global="true">
+                <p:ajax event="click" process="@this, #{p:component('registerPanelGrid')}" listener="#{RegisterManagedBean.attemptRegistration}" update="registerPanel"/>
+            </p:commandButton>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide();" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false"
+                      showHeader="false" style="top: 50%;left: 50%">
+                <p:graphicImage library="images" name="source.gif"/>
+            </p:dialog>
+
+        </h:form>
+    </p:panel>
+</h:body>
+</html>

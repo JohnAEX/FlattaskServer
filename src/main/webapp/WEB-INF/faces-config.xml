@@ -9,6 +9,11 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>RegisterManagedBean</managed-bean-name>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.RegisterManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>DashboardManagedBean</managed-bean-name>
         <managed-bean-class>hwr.sem4.csa.managedBeans.DashboardManagedBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
