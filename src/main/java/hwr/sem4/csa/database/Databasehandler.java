@@ -1,7 +1,9 @@
 package hwr.sem4.csa.database;
 
 import hwr.sem4.csa.util.Community;
+import hwr.sem4.csa.util.Dotos;
 import hwr.sem4.csa.util.Participator;
+import hwr.sem4.csa.util.Task;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -137,14 +139,17 @@ public class Databasehandler {
 
     }
 
-    public void updateCommunity(String id, String name, String creationTime){
+    public void updateCommunity(String id, String name, String creationTime, ArrayList<Task> taskList, ArrayList<Dotos> dotosList){
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
-        Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime " +
+        Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime, " +
+                "c.taskList = :taskList, c.dotosList = :dotosList " +
                 "WHERE c.id = :id");
         newQuery.setParameter("name",name);
         newQuery.setParameter("creationTime",creationTime);
         newQuery.setParameter("id",id);
+        newQuery.setParameter("taskList",taskList);
+        newQuery.setParameter("dotosList", dotosList);
         newQuery.executeUpdate();
         em.getTransaction().commit();
         em.close();
