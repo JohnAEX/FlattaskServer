@@ -17,6 +17,27 @@ public class Community implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private ArrayList<Dotos> dotosList = new ArrayList<Dotos>();
 
+    public Community(){}
+
+    public Community(String id, String name, String creationTime, ArrayList<Task> taskList, ArrayList<Dotos> dotosList) {
+        this.id = id;
+        this.name = name;
+        this.creationTime = creationTime;
+        this.taskList = taskList;
+        this.dotosList = dotosList;
+    }
+
+    public Community(String id, String name, String creationTime) {
+        this.id = id;
+        this.name = name;
+        this.creationTime = creationTime;
+        ArrayList<Dotos> dotos = new ArrayList<Dotos>();
+        Dotos d = new Dotos("abc", "dfg",5,5,"Lucas","Lucas2");
+        dotos.add(d);
+        this.dotosList = dotos;
+        this.taskList = new ArrayList<Task>();
+    }
+
     public String getId() {
         return id;
     }
@@ -49,6 +70,8 @@ public class Community implements Serializable {
         this.taskList = taskList;
     }
 
+
+
     public ArrayList<Dotos> getDotosList() {
         return dotosList;
     }
@@ -56,4 +79,5 @@ public class Community implements Serializable {
     public void setDotosList(ArrayList<Dotos> dotosList) {
         this.dotosList = dotosList;
     }
+
 }

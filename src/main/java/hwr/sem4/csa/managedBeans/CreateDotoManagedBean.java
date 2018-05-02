@@ -17,6 +17,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -213,7 +214,7 @@ public class CreateDotoManagedBean {
 
 
 
-        Dotos d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned, this.userAssign);
+        Dotos d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned.getUsername(), this.userAssign.getUsername());
         String CID = this.userAssign.getCommunityId();
         System.out.println(CID);
         database.initObjectDBConnection();

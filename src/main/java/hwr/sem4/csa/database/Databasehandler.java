@@ -5,6 +5,7 @@ import hwr.sem4.csa.util.Dotos;
 import hwr.sem4.csa.util.Participator;
 import hwr.sem4.csa.util.Task;
 
+import javax.jdo.JDOHelper;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,17 +142,44 @@ public class Databasehandler {
 
     public void updateCommunity(String id, String name, String creationTime, ArrayList<Task> taskList, ArrayList<Dotos> dotosList){
         EntityManager em = emFactory.createEntityManager();
+        Community com = em.find(Community.class, id);
         em.getTransaction().begin();
-       /* em.persist(taskList);
-        em.persist(dotosList);*/
+
+        /*Persist Tasks*/
+        /*public Task(String title, String description, int baseValue, int baseDuration, String ccommunityID) {*/
+    /*    for ( int i=0; i<taskList.size(); i++ ) {
+            Task t = new Task(taskList.get(i).getTitle(), taskList.get(i).getDescription(),taskList.get(i).getBaseValue(),taskList.get(i).getBaseDuration(), id);
+            em.persist(t);
+            if ( i % 20 == 0 ) { //20, same as the JDBC batch size
+                //flush a batch of inserts and release memory:
+                em.flush();
+                em.clear();
+            }
+        }*/
+
+        /*Persist Dotos*/
+        /*public Dotos(String title, String description, int value, int duration, Participator assignedTo, Participator assignedBy, String communityID) {*/
+
+       /* for ( int i=0; i<dotosList.size(); i++ ) {
+            Dotos d = new Dotos(dotosList.get(i).getTitle(), dotosList.get(i).getDescription(), dotosList.get(i).getValue(), dotosList.get(i).getDuration(), dotosList.get(i).getAssignedTo(), dotosList.get(i).getAssignedBy(), id);
+            em.persist(d);
+            if ( i % 20 == 0 ) { //20, same as the JDBC batch size
+                //flush a batch of inserts and release memory:
+                em.flush();
+                em.clear();
+            }
+        }*/
+      /*  com.setDotosList(dotosList);
+        com.setTaskList(taskList);
+      /*  JDOHelper.makeDirty(com,"dotosList");
+        JDOHelper.makeDirty(com, "");*/
         Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime, " +
-                "c.taskList = :taskList, c.dotosList = :dotosList " +
                 "WHERE c.id = :id");
         newQuery.setParameter("name",name);
         newQuery.setParameter("creationTime",creationTime);
         newQuery.setParameter("id",id);
-        newQuery.setParameter("taskList",taskList);
-        newQuery.setParameter("dotosList", dotosList);
+      /*  newQuery.setParameter("taskList",taskList);
+        newQuery.setParameter("dotosList", dotosList);*/
         newQuery.executeUpdate();
         em.getTransaction().commit();
         em.close();

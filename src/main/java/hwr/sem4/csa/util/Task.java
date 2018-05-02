@@ -3,19 +3,20 @@ package hwr.sem4.csa.util;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-
 @Embeddable
+/*@Entity*/
+/*@Table(name="Dotos")*/
 public class Task implements Serializable {
     private String id;
     private String title;
     private String description;
     private int baseValue;
     private int baseDuration;
-    private Date expirationDate;
-    private Participator assignedUser;
+    /*private String ccommunityID;*/
 
     public Task(String title, String description, int baseValue, int baseDuration) {
         this.title = title;
@@ -23,6 +24,14 @@ public class Task implements Serializable {
         this.baseValue = baseValue;
         this.baseDuration = baseDuration;
     }
+
+   /* public Task(String title, String description, int baseValue, int baseDuration, String ccommunityID) {
+        this.title = title;
+        this.description = description;
+        this.baseValue = baseValue;
+        this.baseDuration = baseDuration;
+        this.ccommunityID = ccommunityID;
+    }*/
 
     public String getId() {
         return id;
@@ -63,5 +72,12 @@ public class Task implements Serializable {
     public void setBaseDuration(int baseDuration) {
         this.baseDuration = baseDuration;
     }
+/*
+    public String getCcommunityID() {
+        return ccommunityID;
+    }
 
+    public void setCcommunityID(String ccommunityID) {
+        this.ccommunityID = ccommunityID;
+    }*/
 }
