@@ -28,4 +28,9 @@
         <managed-bean-class>hwr.sem4.csa.managedBeans.SysAdminManagedBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>MyTasksManagedBean</managed-bean-name>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.MyTasksManagedBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

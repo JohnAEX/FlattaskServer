@@ -22,6 +22,7 @@ public class ArrayListTest {
 
     @Test
     public void testArrayPersist(){
+        /*
         Community c = new Community();
         c.setId("TestID4");
         ArrayList<Dotos> myArrayList = new ArrayList();
@@ -34,5 +35,6 @@ public class ArrayListTest {
         c.setDotosList(myArrayList);
 
         Databasehandler.instanceOf().insert(c);
+        */
     }
 }
