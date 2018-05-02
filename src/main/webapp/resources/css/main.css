@@ -3,7 +3,7 @@ Author: LM
 */
 
 body{
-    background: darkslategray;
+    background: darkslategray!important;
 }
 
 #header{

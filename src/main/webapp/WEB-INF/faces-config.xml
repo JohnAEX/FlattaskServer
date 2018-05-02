@@ -28,4 +28,8 @@
         <managed-bean-class>hwr.sem4.csa.managedBeans.SysAdminManagedBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <converter>
+        <converter-id>taskConverter</converter-id>
+        <converter-class>hwr.sem4.csa.managedBeans.TaskConverter</converter-class>
+    </converter>
 </faces-config>
