@@ -17,9 +17,11 @@
                 <h:panelGrid columns="3" cellpadding="10">
 
                     <p:outputLabel for="templateSelect" value="Select Template: "/>
-                    <p:selectOneMenu id="templateSelect" value="#{CreateDotoManagedBean.selectedTemplate}" style="width:200px" valueChangeListener="#{CreateDotoManagedBean.changeTemplate}" onchange="submit()" immediate="true">
+                    <p:selectOneMenu id="templateSelect" value="#{CreateDotoManagedBean.selectedTaskString}" style="width:200px"
+                                     ajax="true">
                         <f:selectItem itemLabel="Select one:"/>
-                        <f:selectItems  value="#{CreateDotoManagedBean.commonTasks}" var="task" itemValue="#{task.title}" itemLabel="#{task.title}"/>
+                        <f:selectItems  value="#{CreateDotoManagedBean.allTaskStrings}" var="task" itemValue="#{task}" itemLabel="#{task}"/>
+                        <p:ajax listener="#{CreateDotoManagedBean.handleChangeStringToTask}" process="@this" update="taskForm"/>
 
                     </p:selectOneMenu>
                     <p:commandButton action="#{CreateDotoManagedBean.changeTemplate}" update="taskForm" label="Select Template"/>
