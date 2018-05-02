@@ -17,15 +17,16 @@
                 <h:panelGrid columns="3" cellpadding="10">
 
                     <p:outputLabel for="templateSelect" value="Select Template: "/>
-                    <p:selectOneMenu id="templateSelect" value="#{CreateDotoManagedBean.selectedTemplate}" style="width:200px">
+                    <p:selectOneMenu id="templateSelect" value="#{CreateDotoManagedBean.selectedTemplate}" style="width:200px" valueChangeListener="#{CreateDotoManagedBean.changeTemplate}" onchange="submit()" immediate="true">
                         <f:selectItem itemLabel="Select one:"/>
                         <f:selectItems  value="#{CreateDotoManagedBean.commonTasks}" var="task" itemValue="#{task.title}" itemLabel="#{task.title}"/>
+
                     </p:selectOneMenu>
                     <p:commandButton action="#{CreateDotoManagedBean.changeTemplate}" update="taskForm" label="Select Template"/>
 
                     <p:outputLabel for="titleInput" value="Title:"/>
                     <p:inputText id="titleInput" value="#{CreateDotoManagedBean.title}" required="true" label="Title">
-                        <f:validateLength minimum="3"/>
+
                     </p:inputText>
                     <p:message for="titleInput" display="icon"/>
 

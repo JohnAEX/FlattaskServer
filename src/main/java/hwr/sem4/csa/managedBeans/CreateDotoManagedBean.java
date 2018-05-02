@@ -10,6 +10,7 @@ import hwr.sem4.csa.util.Participator;
 import hwr.sem4.csa.util.Task;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -22,13 +23,13 @@ import java.util.List;
 import java.util.ArrayList;
 
 @ManagedBean (name="CreateDotoManagedBean")
-@SessionScoped
+@RequestScoped
 
 public class CreateDotoManagedBean {
     /*******************
     * Attributes
     * *******************/
-    private String title = "";
+    private String title = "ABCD";
     private String description = "";
     private Participator userAssign = null;
     private Participator userAssigned = null;
@@ -46,6 +47,7 @@ public class CreateDotoManagedBean {
     ***************** */
     public CreateDotoManagedBean(){
        // this.setUsersPossible(searchForPossibleUsers());
+        System.out.println("CDMB-Number: ");
         this.setUserAssign(this.userInit());
         this.setUsersPossible(this.generateTestUsers());
         this.setUsersPossible(this.searchForPossibleUsers());
@@ -128,11 +130,12 @@ public class CreateDotoManagedBean {
     }
 
     /*Change Presets of labels when Template is selected*/
-    public void changeTemplate(AjaxBehaviorEvent event){
+    public void changeTemplate(){
         /*this.setTitle(this.selectedTemplate.getTitle());
         this.setDescription(this.selectedTemplate.getDescription());
         this.setValue(this.selectedTemplate.getBaseValue());*/
-        title = "JAJAJAJ";
+        this.setTitle("JAJAJAJ");
+        System.out.println(this.getTitle());
         System.out.println("Changed Template");
     }
 
