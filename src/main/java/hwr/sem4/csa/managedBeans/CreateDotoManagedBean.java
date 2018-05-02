@@ -13,13 +13,15 @@ import hwr.sem4.csa.util.Task;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.ArrayList;
 
 @ManagedBean (name="CreateDotoManagedBean")
-@RequestScoped
+@ViewScoped
 
 public class CreateDotoManagedBean {
     /*******************
@@ -32,8 +34,8 @@ public class CreateDotoManagedBean {
     private int value = 0;
     private int duration = 0;
     private int valueMax = 0;
-    private ArrayList<Participator> usersPossible = null;
-    private ArrayList<Task> commonTasks = null;
+    private ArrayList<Participator> usersPossible = new ArrayList<>();
+    private ArrayList<Task> commonTasks = new ArrayList<>();
     private Task selectedTemplate = null;
     private Databasehandler database = Databasehandler.instanceOf();
     private String selectedTaskString;
@@ -75,6 +77,7 @@ public class CreateDotoManagedBean {
             if(t.getTitle().equals(selectedTaskString)){
                 currentTask = t;
                 found = true;
+                break;
             }
         }
         if(found) {
@@ -94,12 +97,33 @@ public class CreateDotoManagedBean {
     public void handleChangeStringToUser(){
         System.out.println("Selected User:" + this.selectedUserString);
         if(this.selectedUserString != "") {
+            //WHY CONNECT TO THE DATABASE HERE? YOU ALREADY HAVE THE INFORMATION!!!
+            /*
             database.initObjectDBConnection();
             Participator currentUser = database.getParticipatorByUsername(this.selectedUserString);
             database.close();
             System.out.println(currentUser.getFirstName());
             this.setUserAssigned(currentUser);
             System.out.println(this.getUserAssigned().getFirstName());
+            */
+            boolean found = false;
+            Participator fallback = new Participator();
+            for(Participator p : usersPossible){
+                System.out.println("Comparing: " + p.getUsername() + " & " + this.getSelectedUserString());
+                if(p.getUsername().equals(selectedUserString)){
+                    fallback = p;
+                    found = true;
+                    break;
+                }
+            }
+
+            if(found){
+                this.setUserAssigned(fallback);
+                System.out.println("Set UserAssigned to: " + fallback.getUsername());
+            }else{
+                System.out.println("<USER NOT FOUND IN ORIGINAL LIST>");
+                this.setUserAssigned(fallback);
+            }
 
         }
         else{
@@ -217,8 +241,9 @@ public class CreateDotoManagedBean {
         System.out.println(this.getDescription());
         System.out.println(this.getValue());
         System.out.println(this.getDuration());
-        System.out.println(this.userAssigned.getUsername());
-
+        System.out.println(this.getUserAssigned().getUsername());
+        //Kannst du wieder ent-kommentieren, habe das nur für die tests gelassen
+        /*
         String CID = this.userAssign.getCommunityId();
         Dotos d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned, this.userAssign);
         database.initObjectDBConnection();
@@ -226,7 +251,7 @@ public class CreateDotoManagedBean {
         ArrayList<Dotos> oldDotos= com.getDotosList();
         oldDotos.add(d);
         database.updateCommunity(com.getId(), com.getName(), com.getCreationTime(), com.getTaskList(), oldDotos);
-        database.close();
+        database.close();*/
 
     }
 

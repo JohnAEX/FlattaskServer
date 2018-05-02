@@ -52,7 +52,7 @@
                     <p:outputLabel for="userSelect" value="assign to..."/>
                     <p:selectOneListbox id="userSelect" value="#{CreateDotoManagedBean.selectedUserString}">
                         <f:selectItems value="#{CreateDotoManagedBean.allUserStrings}" var="user" itemLabel="#{user}"/>
-                        <p:ajax listener="#{CreateDotoManagedBean.handleChangeStringToUser}" process="@this"/>
+                        <p:ajax listener="#{CreateDotoManagedBean.handleChangeStringToUser}" process="@this" update="userSelect"/>
                     </p:selectOneListbox>
                 </h:panelGrid>
 
