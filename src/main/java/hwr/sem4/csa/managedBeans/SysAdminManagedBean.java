@@ -2,11 +2,9 @@ package hwr.sem4.csa.managedBeans;
 
 import hwr.sem4.csa.database.Databasehandler;
 import hwr.sem4.csa.util.*;
-import org.primefaces.event.CellEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import java.util.List;
 

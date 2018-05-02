@@ -6,21 +6,15 @@ package hwr.sem4.csa.managedBeans;
 
 import hwr.sem4.csa.database.Databasehandler;
 import hwr.sem4.csa.util.Community;
+import hwr.sem4.csa.util.Dotos;
 import hwr.sem4.csa.util.Participator;
 import hwr.sem4.csa.util.Task;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Array;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -31,7 +25,7 @@ public class CreateDotoManagedBean {
     /*******************
     * Attributes
     * *******************/
-    private String title = "ABCD";
+    private String title = "";
     private String description = "";
     private Participator userAssign = null;
     private Participator userAssigned = null;
@@ -183,9 +177,12 @@ public class CreateDotoManagedBean {
     /*Store Task in Database, assign to User*/
     public void confirmDoto(){
         String CID = this.userAssign.getCommunityId();
-        Task t = new Task(this.title, this.description, this.value, this.duration);
+        Dotos d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned, this.userAssign);
         database.initObjectDBConnection();
-        //database.storeTask(t);
+        Community com = database.getCommunityById(CID);
+        ArrayList<Dotos> oldDotos= com.getDotosList();
+        oldDotos.add(d);
+        database.updateCommunity(com.getId(), com.getName(), com.getCreationTime());
         database.close();
 
     }

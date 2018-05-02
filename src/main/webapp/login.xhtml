@@ -37,11 +37,11 @@
                              global="true">
                 <p:ajax event="click" process="@this" listener="#{LoginManagedBean.attemptLogin}" update="loginPanel"/>
             </p:commandButton>
-                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide();" />
+                <p:ajaxStatus onstart="PF('statusDialog').show()"/>
 
-                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false"
-                          showHeader="false" style="top: 50%;left: 50%">
-                    <p:graphicImage library="images" name="source.gif"/>
+                <p:dialog id="statusPic" widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false"
+                          showHeader="false">
+                    <p:graphicImage library="images" name="source.gif" id="sourceGif" style="size:100%, width:100%"/>
                 </p:dialog>
 
             </h:form>

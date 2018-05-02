@@ -60,13 +60,4 @@ public class Task implements Serializable {
         this.baseDuration = baseDuration;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-
 }

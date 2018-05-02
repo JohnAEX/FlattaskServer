@@ -34,13 +34,18 @@
 
                     <p:outputLabel for="descriptionInput" value="Description:"/>
                     <p:inputTextarea id="descriptionInput" value="#{CreateDotoManagedBean.description}" required="true" label="Description">
-
                     </p:inputTextarea>
                     <p:message for="descriptionInput" display="icon"/>
 
                     <p:outputLabel for="valueSpinner" value="Value: "></p:outputLabel>
-                    <p:spinner decimalPlaces="0" max="#{CreateDotoManagedBean.valueMax}" min="0" id="valueSpinner"></p:spinner>
+                    <p:spinner decimalPlaces="0" max="#{CreateDotoManagedBean.valueMax}" min="0" id="valueSpinner" value="#{CreateDotoManagedBean.value}"></p:spinner>
                     <p:message for="valueSpinner" display="icon"/>
+
+                    <p:outputLabel for="durationInput" value="Duration (min):"/>
+                    <p:inputText id="durationInput" value="#{CreateDotoManagedBean.duration}" required="true" label="Duration">
+                        <f:validateRegex pattern="[0-9]+"/>
+                    </p:inputText>
+                    <p:message for="durationInput" display="icon"/>
 
                     <p:outputLabel for="userSelect" value="assign to..."/>
                     <p:selectOneListbox id="userSelect" value="#{CreateDotoManagedBean.userAssigned}">
