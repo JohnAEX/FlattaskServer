@@ -12,26 +12,25 @@ import javax.persistence.EntityManager;
 
 // You must annotate the converter as a managed bean, if you want to inject
 // anything into it, like your persistence unit for example.
-@ManagedBean(name = "TaskConverterBean")
-@FacesConverter(value = "TaskConverter")
+@FacesConverter(value = "TaskConverterFC")
 public class TaskConverter implements Converter {
 
-
-    private transient EntityManager em;
-
-
-    @Override
-    public Object getAsObject(FacesContext ctx, UIComponent component,
-                              String value) {
-        // This will return the actual object representation
-        // of your Category using the value (in your case 52)
-        // returned from the client side
-        return em.find(Task.class, new String(value));
+    public Object getAsObject(FacesContext context, UIComponent component, String value){
+        System.out.println("Called getASObject");
+        return new Task(value,"CREATED BY CONVERTER",69,10);
     }
 
-    @Override
-    public String getAsString(FacesContext fc, UIComponent uic, Object o) {
-        //This will return view-friendly output for the dropdown menu
-        return ((Task) o).getId().toString();
+    public String getAsString(FacesContext context, UIComponent component, Object value){
+        System.out.println("Called getASString");
+        if(value != null){
+            System.out.println("Trying to getAsString from: " + value + " from toString: " + value.toString());
+            if(value instanceof Task){
+                 return ((Task) value).getTitle();
+            }else{
+            throw new IllegalArgumentException("Class not of type Task");
+             }
+        }else{
+            return "Value=Null";
+        }
     }
 }
