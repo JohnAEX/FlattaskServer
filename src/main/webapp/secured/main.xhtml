@@ -32,7 +32,7 @@ Author: LM
             ******************************************************************************
             -->
             <h:panelGroup layout="block" id="header">
-                <h:outputText value="#{helloWordManagedBean.helloProperty}"  id="title"></h:outputText>
+                <h:outputText value="#{WelcomeBackManagedBean.helloProperty}"  id="title"></h:outputText>
             </h:panelGroup>
 
 
@@ -47,33 +47,26 @@ Author: LM
             <h:panelGroup layout="block" id="nav" >
             <h:form>
                 <p:tabMenu activeIndex="#{NavManagedBean.navIndex}" id="navigation">
-                    <p:menuitem value="My Tasks" icon="ui-icon-star" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(0)}" ajax="true">
+                    <p:menuitem value="My Tasks" icon="ui-icon-star" update="wrapper-content, navigation, wrapper-profile" action="#{NavManagedBean.setPage(0)}" ajax="true">
                         <f:param name="navIndex" value="0" />
                     </p:menuitem>
-                    <p:menuitem value="Open Tasks" icon="ui-icon-search" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(1)}" ajax="true">
+                    <p:menuitem value="Open Tasks" icon="ui-icon-search" update="wrapper-content, navigation, wrapper-profile" action="#{NavManagedBean.setPage(1)}" ajax="true">
                         <f:param name="navIndex" value="1" />
                     </p:menuitem>
-                    <p:menuitem value="Create Task" icon="ui-icon-document" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(2)}" ajax="true">
+                    <p:menuitem value="Create Task" icon="ui-icon-document" update="wrapper-content, navigation, wrapper-profile" action="#{NavManagedBean.setPage(2)}" ajax="true">
                         <f:param name="navIndex" value="2" />
                     </p:menuitem>
-                    <p:menuitem value="My Community" icon="ui-icon-wrench" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(3)}" ajax="true">
+                    <p:menuitem value="My Community" icon="ui-icon-wrench" update="wrapper-content, navigation, wrapper-profile" action="#{NavManagedBean.setPage(3)}" ajax="true">
                         <f:param name="navIndex" value="3" />
                     </p:menuitem>
-                    <p:menuitem value="Profilesettings" icon="ui-icon-person" update="wrapper-content, navigation" action="#{NavManagedBean.setPage(4)}" ajax="true">
+                    <p:menuitem value="Profilesettings" icon="ui-icon-person" update="wrapper-content, navigation, wrapper-profile" action="#{NavManagedBean.setPage(4)}" ajax="true">
                         <f:param name="navIndex" value="4" />
                     </p:menuitem>
+                    <p:menuitem value="Logout" action="#{LoginManagedBean.logout}" style="float:right!important;"/>
                 </p:tabMenu>
             </h:form>
             </h:panelGroup>
-   <!--         <h:form>
-                <p:menubar>
-                    <p:menuitem value="My Tasks" update="wrapper-content" action="#{NavManagedBean.setPage(0)}"></p:menuitem>
-                    <p:menuitem value="Open Tasks" update="wrapper-content" action="#{NavManagedBean.setPage(1)}"></p:menuitem>
-                    <p:menuitem value="Create Tasks" update="wrapper-content" action="#{NavManagedBean.setPage(2)}"></p:menuitem>
-                    <p:menuitem value="My Community" update="wrapper-content" action="#{NavManagedBean.setPage(3)}"></p:menuitem>
-                </p:menubar>
-            </h:form>
--->
+
             <!--
              ******************************************************************************
              Content
@@ -89,7 +82,7 @@ Author: LM
             -->
 
             <h:panelGroup layout="block" id="wrapper-profile">
-
+                <ui:include src="profile.xhtml"></ui:include>
             </h:panelGroup>
 
 

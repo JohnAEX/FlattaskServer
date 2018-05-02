@@ -1,8 +1,13 @@
 package hwr.sem4.csa.util;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
 
+
+@Embeddable
 public class Task implements Serializable {
     private String id;
     private String title;
@@ -13,7 +18,6 @@ public class Task implements Serializable {
     private Participator assignedUser;
 
     public Task(String title, String description, int baseValue, int baseDuration) {
-        this.id = id;
         this.title = title;
         this.description = description;
         this.baseValue = baseValue;

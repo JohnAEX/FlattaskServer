@@ -1,0 +1,76 @@
+/*
+Site-specific CSS
+*/
+
+/*createDoto.xhtml*/
+.formInput{
+    width: 300px!important;
+
+}
+#wrapper-task{
+    position: relative;
+    top:50%;
+    left:20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-------------------------
+Theme-Overwrites
+---------------------------*/
+
+.ui-corner-all {
+    -moz-border-radius: 0px!important;
+    -webkit-border-radius: 0px!important;
+    border-radius: 0px!important;
+}
+.ui-widget-content {
+    border: 0px solid #000000!important;
+}
+.ui-widget {
+    border-radius: 0px;
+}
+.ui-tabmenu {
+    border-radius: 0px;
+}
+.ui-corner-all {
+    border-radius: 0px;
+}
+.ui-corner-all {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+.ui-widget-content {
+    border: 0px solid #eeeeee;
+    background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-blitzer") 50% 50% repeat-x;
+    color: #333333;
+    border-radius: 0px;
+}
+.ui-widget {
+    border-radius: 0px;
+}
+
+.ui-spinner-input{
+
+    text-align: left;
+    width: 300px!important;
+}
+.ui-selection-menu{
+
+    width: 300px!important;
+}
+.ui-spinner-button{
+    left:100%!important;
+}

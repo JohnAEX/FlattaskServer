@@ -1,7 +1,10 @@
 package hwr.sem4.csa.util;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import java.io.Serializable;
+
 
 @Embeddable
 public class Dotos implements Serializable{

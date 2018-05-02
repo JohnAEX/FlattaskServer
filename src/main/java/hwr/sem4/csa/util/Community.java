@@ -10,24 +10,12 @@ public class Community implements Serializable {
 
     @Id
     private String id;
-
     private String name;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private ArrayList<Task> taskList;
-
     private String creationTime;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private ArrayList<Dotos> dotosList;
-
-    public ArrayList<Dotos> getDotosList() {
-        return dotosList;
-    }
-
-    public void setDotosList(ArrayList<Dotos> dotosList) {
-        this.dotosList = dotosList;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    private ArrayList<Task> taskList = new ArrayList<Task>();
+    @OneToOne(cascade = CascadeType.ALL)
+    private ArrayList<Dotos> dotosList = new ArrayList<Dotos>();
 
     public String getId() {
         return id;
@@ -37,12 +25,12 @@ public class Community implements Serializable {
         this.id = id;
     }
 
-    public ArrayList<Task> getTaskList() {
-        return taskList;
+    public String getName() {
+        return name;
     }
 
-    public void setTaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCreationTime() {
@@ -53,11 +41,19 @@ public class Community implements Serializable {
         this.creationTime = creationTime;
     }
 
-    public String getName() {
-        return name;
+    public ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+    }
+
+    public ArrayList<Dotos> getDotosList() {
+        return dotosList;
+    }
+
+    public void setDotosList(ArrayList<Dotos> dotosList) {
+        this.dotosList = dotosList;
     }
 }

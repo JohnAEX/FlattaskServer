@@ -142,6 +142,8 @@ public class Databasehandler {
     public void updateCommunity(String id, String name, String creationTime, ArrayList<Task> taskList, ArrayList<Dotos> dotosList){
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
+       /* em.persist(taskList);
+        em.persist(dotosList);*/
         Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime, " +
                 "c.taskList = :taskList, c.dotosList = :dotosList " +
                 "WHERE c.id = :id");

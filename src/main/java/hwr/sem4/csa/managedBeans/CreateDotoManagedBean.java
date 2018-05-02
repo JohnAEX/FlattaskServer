@@ -57,7 +57,6 @@ public class CreateDotoManagedBean {
     public void init(){
         System.out.println("CDMB-Number: ");
         this.setUserAssign(this.userInit());
-        this.setUsersPossible(this.generateTestUsers());
         this.setUsersPossible(this.searchForPossibleUsers());
         this.setCommonTasks(generateTestTasks());
         this.setValueMax(this.userAssign.getBalance());
@@ -97,15 +96,6 @@ public class CreateDotoManagedBean {
     public void handleChangeStringToUser(){
         System.out.println("Selected User:" + this.selectedUserString);
         if(this.selectedUserString != "") {
-            //WHY CONNECT TO THE DATABASE HERE? YOU ALREADY HAVE THE INFORMATION!!!
-            /*
-            database.initObjectDBConnection();
-            Participator currentUser = database.getParticipatorByUsername(this.selectedUserString);
-            database.close();
-            System.out.println(currentUser.getFirstName());
-            this.setUserAssigned(currentUser);
-            System.out.println(this.getUserAssigned().getFirstName());
-            */
             boolean found = false;
             Participator fallback = new Participator();
             for(Participator p : usersPossible){
@@ -120,6 +110,7 @@ public class CreateDotoManagedBean {
             if(found){
                 this.setUserAssigned(fallback);
                 System.out.println("Set UserAssigned to: " + fallback.getUsername());
+                System.out.println(fallback.getFirstName());
             }else{
                 System.out.println("<USER NOT FOUND IN ORIGINAL LIST>");
                 this.setUserAssigned(fallback);
@@ -171,22 +162,6 @@ public class CreateDotoManagedBean {
         return rl;
     }
 
-    /*Generate Test Users - Wrote while DB-Handler class was incomplete*/
-    private  ArrayList<Participator> generateTestUsers(){
-        Participator a = new Participator();
-        a.setFirstName("Hans");
-        a.setLastName("Peter");
-        Participator b = new Participator();
-        b.setFirstName("Lara");
-        b.setLastName("Peters");
-        ArrayList<Participator> rs = new ArrayList<>();
-        rs.add(a);
-        rs.add(b);
-        rs.add(a);
-        return rs;
-
-    }
-
     /*Grab Task-List from Community of assigning User*/
     private ArrayList<Task> generateCommonTasks(){
         database.initObjectDBConnection();
@@ -213,45 +188,41 @@ public class CreateDotoManagedBean {
 
     }
 
-    /*Change Presets of labels when Template is selected*/
+    /*Change Presets of labels when Template is selected
+    * Depracted: JohnFix
+    * */
+    /*
     public void changeTemplate(){
         /*this.setTitle(this.selectedTemplate.getTitle());
         this.setDescription(this.selectedTemplate.getDescription());
-        this.setValue(this.selectedTemplate.getBaseValue());*/
+        this.setValue(this.selectedTemplate.getBaseValue());
         this.setTitle("JAJAJAJ");
         System.out.println(this.getTitle());
         System.out.println("Changed Template");
     }
-
-
-
-    /************************
-     * FIX-ALERT: ROW 220: NULL-Pointer-Exception
-     * */
-
-
-
-
-
-
+*/
 
     /*Store Task in Database, assign to User*/
     public void confirmDoto(){
+        System.out.println("CreateDoto:");
         System.out.println(this.getTitle());
         System.out.println(this.getDescription());
         System.out.println(this.getValue());
         System.out.println(this.getDuration());
         System.out.println(this.getUserAssigned().getUsername());
-        //Kannst du wieder ent-kommentieren, habe das nur für die tests gelassen
-        /*
-        String CID = this.userAssign.getCommunityId();
+
+
+
         Dotos d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned, this.userAssign);
+        String CID = this.userAssign.getCommunityId();
+        System.out.println(CID);
         database.initObjectDBConnection();
         Community com = database.getCommunityById(CID);
-        ArrayList<Dotos> oldDotos= com.getDotosList();
+        ArrayList<Dotos> oldDotos = com.getDotosList();
         oldDotos.add(d);
         database.updateCommunity(com.getId(), com.getName(), com.getCreationTime(), com.getTaskList(), oldDotos);
-        database.close();*/
+        database.close();
+        System.out.println("-----------------------------------");
 
     }
 
@@ -347,16 +318,6 @@ public class CreateDotoManagedBean {
 
     public void setCommonTasks(ArrayList<Task> commonTasks) {
         this.commonTasks = commonTasks;
-    }
-
-    public Task getSelectedTemplate() {
-        return selectedTemplate;
-    }
-
-    public void setSelectedTemplate(Task selectedTemplate) {
-        System.out.println("Set Task:" + selectedTemplate.getTitle());
-        this.selectedTemplate = selectedTemplate;
-       // this.changeTemplate();
     }
 
     public String getSelectedUserString() {
