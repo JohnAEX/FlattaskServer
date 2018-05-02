@@ -38,6 +38,8 @@ public class CreateDotoManagedBean {
     private Databasehandler database = Databasehandler.instanceOf();
     private String selectedTaskString;
     private ArrayList<String> allTaskStrings = new ArrayList<String>();
+    private String selectedUserString;
+    private ArrayList<String> allUserStrings = new ArrayList<String>();
 
 
     /*****************
@@ -58,6 +60,7 @@ public class CreateDotoManagedBean {
         this.setCommonTasks(generateTestTasks());
         this.setValueMax(this.userAssign.getBalance());
         this.convertTaskListToStringList();
+        this.convertUserListToStringList();
     }
 
     /***********************************
@@ -87,10 +90,32 @@ public class CreateDotoManagedBean {
             this.setDuration(404);
         }
     }
+
+    public void handleChangeStringToUser(){
+        System.out.println("Selected User:" + this.selectedUserString);
+        if(this.selectedUserString != "") {
+            database.initObjectDBConnection();
+            Participator currentUser = database.getParticipatorByUsername(this.selectedUserString);
+            database.close();
+            System.out.println(currentUser.getFirstName());
+            this.setUserAssigned(currentUser);
+            System.out.println(this.getUserAssigned().getFirstName());
+
+        }
+        else{
+            System.out.println("Assigned User not changed");
+        }
+    }
     //This method converts the loaded 'commonTasks' to a String arrayList based on the Titles
     private void convertTaskListToStringList(){
         for(Task t : commonTasks){
             allTaskStrings.add(t.getTitle());
+        }
+    }
+
+    private void convertUserListToStringList(){
+        for(Participator u : usersPossible){
+            allUserStrings.add(u.getUsername());
         }
     }
 
@@ -129,7 +154,7 @@ public class CreateDotoManagedBean {
         a.setLastName("Peter");
         Participator b = new Participator();
         b.setFirstName("Lara");
-        b. setLastName("Peters");
+        b.setLastName("Peters");
         ArrayList<Participator> rs = new ArrayList<>();
         rs.add(a);
         rs.add(b);
@@ -174,15 +199,33 @@ public class CreateDotoManagedBean {
         System.out.println("Changed Template");
     }
 
+
+
+    /************************
+     * FIX-ALERT: ROW 220: NULL-Pointer-Exception
+     * */
+
+
+
+
+
+
+
     /*Store Task in Database, assign to User*/
     public void confirmDoto(){
+        System.out.println(this.getTitle());
+        System.out.println(this.getDescription());
+        System.out.println(this.getValue());
+        System.out.println(this.getDuration());
+        System.out.println(this.userAssigned.getUsername());
+
         String CID = this.userAssign.getCommunityId();
         Dotos d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned, this.userAssign);
         database.initObjectDBConnection();
         Community com = database.getCommunityById(CID);
         ArrayList<Dotos> oldDotos= com.getDotosList();
         oldDotos.add(d);
-        database.updateCommunity(com.getId(), com.getName(), com.getCreationTime());
+        database.updateCommunity(com.getId(), com.getName(), com.getCreationTime(), com.getTaskList(), oldDotos);
         database.close();
 
     }
@@ -289,5 +332,21 @@ public class CreateDotoManagedBean {
         System.out.println("Set Task:" + selectedTemplate.getTitle());
         this.selectedTemplate = selectedTemplate;
        // this.changeTemplate();
+    }
+
+    public String getSelectedUserString() {
+        return selectedUserString;
+    }
+
+    public void setSelectedUserString(String selectedUserString) {
+        this.selectedUserString = selectedUserString;
+    }
+
+    public ArrayList<String> getAllUserStrings() {
+        return allUserStrings;
+    }
+
+    public void setAllUserStrings(ArrayList<String> allUserStrings) {
+        this.allUserStrings = allUserStrings;
     }
 }

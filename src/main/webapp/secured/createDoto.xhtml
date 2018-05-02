@@ -38,22 +38,24 @@
                     <p:message for="descriptionInput" display="icon"/>
 
                     <p:outputLabel for="valueSpinner" value="Value: "></p:outputLabel>
-                    <p:spinner decimalPlaces="0" max="#{CreateDotoManagedBean.valueMax}" min="0" id="valueSpinner" value="#{CreateDotoManagedBean.value}"></p:spinner>
+                    <p:spinner decimalPlaces="0" max="#{CreateDotoManagedBean.valueMax}" min="0" id="valueSpinner" value="#{CreateDotoManagedBean.value}">
+                        <f:convertNumber integerOnly="true"/>
+                    </p:spinner>
                     <p:message for="valueSpinner" display="icon"/>
 
                     <p:outputLabel for="durationInput" value="Duration (min):"/>
-                    <p:inputText id="durationInput" value="#{CreateDotoManagedBean.duration}" required="true" label="Duration">
-                        <f:validateRegex pattern="[0-9]+"/>
-                    </p:inputText>
+                    <p:spinner id="durationInput" value="#{CreateDotoManagedBean.duration}" required="true" label="Duration" min="1">
+                        <f:convertNumber integerOnly="true"/>
+                    </p:spinner>
                     <p:message for="durationInput" display="icon"/>
 
                     <p:outputLabel for="userSelect" value="assign to..."/>
-                    <p:selectOneListbox id="userSelect" value="#{CreateDotoManagedBean.userAssigned}">
-
-                        <f:selectItems value="#{CreateDotoManagedBean.usersPossible}" var="user" itemLabel="#{user.firstName}"/>
-
+                    <p:selectOneListbox id="userSelect" value="#{CreateDotoManagedBean.selectedUserString}">
+                        <f:selectItems value="#{CreateDotoManagedBean.allUserStrings}" var="user" itemLabel="#{user}"/>
+                        <p:ajax listener="#{CreateDotoManagedBean.handleChangeStringToUser}" process="@this"/>
                     </p:selectOneListbox>
                 </h:panelGrid>
+
             <p:commandButton value="Confirm" id="confirmButton" update="wrapper-task" icon="ui-icon-check" action="#{CreateDotoManagedBean.confirmDoto}" ajax="true"/>
             </h:form>
         </h:panelGroup>
