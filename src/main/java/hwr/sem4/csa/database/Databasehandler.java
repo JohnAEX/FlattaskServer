@@ -22,7 +22,7 @@ public class Databasehandler {
 
     public void initObjectDBConnection(){
         emFactory = Persistence.createEntityManagerFactory("objectdb:" +
-                "//ec2-54-85-66-232.compute-1.amazonaws.com:6136/doNotDelete.odb;user=admin;password=admin");
+                "//ec2-54-85-66-232.compute-1.amazonaws.com:6136/reviewB.odb;user=admin;password=admin");
     }
 
     public EntityManager getEntityManager() {

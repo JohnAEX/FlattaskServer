@@ -32,14 +32,14 @@ public class LoginTest {
         testParticipator.setPassword("User1234");
         Databasehandler.instanceOf().insert(testParticipator);
     }
-
+    /*
     @Test
     public void login(){
         String username = "JohnDoe";
         String password = "User1234";
         System.out.println("Attempted Login for: " + username + " - " + password);
         Assertions.assertNotNull(Databasehandler.instanceOf().getParticipatorByLogin(username,password));
-    }
+    }*/
 
     @Test
     public void setToAdmin(){
