@@ -30,14 +30,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:slf4j-simple:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.7" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-api:2.2.4" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.faces:mojarra-jsf-api:2.0.0-b04" level="project" />
-    <orderEntry type="library" name="Maven: org.jvnet.wagon-svn:wagon-svn:1.8" level="project" />
-    <orderEntry type="library" name="Maven: org.jvnet.hudson.svnkit:svnkit:1.1.4-hudson-4" level="project" />
-    <orderEntry type="library" name="Maven: ch.ethz.ganymed:ganymed-ssh2:build210" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-utils:1.4.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.wagon:wagon-provider-api:1.0-beta-2" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-impl:2.2.4" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.faces:mojarra-jsf-impl:2.0.0-b04" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet.jsp:javax.servlet.jsp-api:2.3.1" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.2" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces.themes:blitzer:1.0.10" level="project" />

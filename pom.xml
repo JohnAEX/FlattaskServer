@@ -85,20 +85,8 @@
 
     <dependency>
       <groupId>com.sun.faces</groupId>
-      <artifactId>mojarra-jsf-api</artifactId>
-      <version>2.0.0-b04</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.sun.faces</groupId>
       <artifactId>jsf-impl</artifactId>
       <version>2.2.4</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.sun.faces</groupId>
-      <artifactId>mojarra-jsf-impl</artifactId>
-      <version>2.0.0-b04</version>
     </dependency>
 
     <dependency>
@@ -158,9 +146,6 @@
           <scope>test</scope>
       </dependency>
   </dependencies>
-
-
-
 
   <build>
     <finalName>FlastTaskJSF</finalName>
