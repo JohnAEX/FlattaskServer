@@ -38,27 +38,6 @@ public class Dotos implements Serializable{
     }
 
 
-    public String title;
-
-    //Last Date or just Days ? in der Get Methode die Duration ausrechnen von jetzt zu dem Datum
-    public Date duration;
-
-    public int value;
-
-    public String notes;
-
-    public ArrayList<String> getParticipatorlist() {
-        return participatorlist;
-    }
-
-    public void setParticipatorlist(ArrayList<String> participatorlist) {
-        this.participatorlist = participatorlist;
-    }
-
-    public Date getDuration() {
-        return duration;
-    }
-
 
     public String getTitle() {
         return title;

@@ -40,6 +40,7 @@ public class ArrayListTest {
         */
 
         //Testing ODB with ArrayLists
+        /*
         Community c2 = new Community();
         c2.setId("ArrayC2");
         c2.setName("ArrayCommunityTest");
@@ -85,6 +86,6 @@ public class ArrayListTest {
 
         Community dbC2 = Databasehandler.instanceOf().getCommunityById(c2.getId());
         ArrayList<Dotos> dbDotoList2 = dbC2.getDotosList();
-        Assertions.assertTrue(dbDotoList2.get(0).title.equals("REWORKED"));
+        Assertions.assertTrue(dbDotoList2.get(0).title.equals("REWORKED"));*/
     }
 }

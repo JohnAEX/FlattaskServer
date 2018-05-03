@@ -141,7 +141,7 @@ public class Databasehandler {
     }
 
 
-    public void updateCommunity(String id, String name, String creationTime, ArrayList<Task> taskList, ArrayList<Dotos> dotosList){
+    public void updateCommunity(String id, String name, String creationTime, ArrayList<Task> tasksList, ArrayList<Dotos> dotosList){
         removeCommunityById(id);
         Community c = new Community();
         c.setId(id);
