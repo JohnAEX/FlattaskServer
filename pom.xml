@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>hwr.sem4.csa</groupId>
-  <artifactId>FlastTaskJSF</artifactId>
+  <artifactId>FlatTaskJSF</artifactId>
   <version>1.0.0</version>
   <packaging>war</packaging>
 
-  <name>FlastTaskJSF Maven Webapp</name>
+  <name>FlatTaskJSF Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
