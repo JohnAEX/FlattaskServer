@@ -149,38 +149,7 @@ public class Databasehandler {
         c.setDotosList(dotosList);
         c.setTaskList(taskList);
         insert(c);
-        /*EntityManager em = emFactory.createEntityManager();
-        Community com = em.find(Community.class, id);
-        em.getTransaction().begin();
 
-        /*Persist Tasks*/
-        /*public Task(String title, String description, int baseValue, int baseDuration, String ccommunityID) {*/
-    /*    for ( int i=0; i<taskList.size(); i++ ) {
-            Task t = new Task(taskList.get(i).getTitle(), taskList.get(i).getDescription(),taskList.get(i).getBaseValue(),taskList.get(i).getBaseDuration(), id);
-            em.persist(t);
-            if ( i % 20 == 0 ) { //20, same as the JDBC batch size
-                //flush a batch of inserts and release memory:
-                em.flush();
-                em.clear();
-            }
-        }*/
-
-        /*Persist Dotos*/
-        /*public Dotos(String title, String description, int value, int duration, Participator assignedTo, Participator assignedBy, String communityID) {*/
-
-       /* for ( int i=0; i<dotosList.size(); i++ ) {
-            Dotos d = new Dotos(dotosList.get(i).getTitle(), dotosList.get(i).getDescription(), dotosList.get(i).getValue(), dotosList.get(i).getDuration(), dotosList.get(i).getAssignedTo(), dotosList.get(i).getAssignedBy(), id);
-            em.persist(d);
-            if ( i % 20 == 0 ) { //20, same as the JDBC batch size
-                //flush a batch of inserts and release memory:
-                em.flush();
-                em.clear();
-            }
-        }*/
-      /*  com.setDotosList(dotosList);
-        com.setTaskList(taskList);
-      /*  JDOHelper.makeDirty(com,"dotosList");
-        JDOHelper.makeDirty(com, "");*/
        /* Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime, " +
                 "WHERE c.id = :id");
         newQuery.setParameter("name",name);

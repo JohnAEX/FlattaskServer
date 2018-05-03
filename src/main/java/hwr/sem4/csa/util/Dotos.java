@@ -13,7 +13,6 @@ import java.io.Serializable;
 @Table (name="Dotos")*/
 public class Dotos implements Serializable{
 
-    static final long serialVersionUID = 42L;
     private int id = 0;
     private String title = "";
     private String description ="";
