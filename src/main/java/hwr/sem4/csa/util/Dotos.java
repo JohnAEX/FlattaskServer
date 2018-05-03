@@ -1,9 +1,16 @@
 package hwr.sem4.csa.util;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+
+
 @Embeddable
+/*@Entity
+@Table (name="Dotos")*/
 public class Dotos implements Serializable{
 
     private int id = 0;
@@ -11,21 +18,32 @@ public class Dotos implements Serializable{
     private String description ="";
     private int value = 0;
     private int duration = 0;
-    private Participator assignedTo = null;
-  /*  private Participator assignedBy = null;*/
+    private String assignedTo = null;
+    private String assignedBy = null;
+   /* private String communityID = "";*/
 
     public Dotos(){
 
     }
 
-    public Dotos(String title, String description, int value, int duration, Participator assignedTo, Participator assignedBy) {
+    public Dotos(String title, String description, int value, int duration, String assignedTo, String assignedBy) {
         this.title = title;
         this.description = description;
         this.value = value;
         this.duration = duration;
         this.assignedTo = assignedTo;
-      /*  this.assignedBy = assignedBy;*/
+        this.assignedBy = assignedBy;
     }
+
+  /* public Dotos(String title, String description, int value, int duration, Participator assignedTo, Participator assignedBy, String communityID) {
+        this.title = title;
+        this.description = description;
+        this.value = value;
+        this.duration = duration;
+        this.assignedTo = assignedTo;
+        this.assignedBy = assignedBy;
+        this.communityID = communityID;
+    }*/
 
     public int getId() {
         return id;
@@ -67,19 +85,31 @@ public class Dotos implements Serializable{
         this.duration = duration;
     }
 
-    public Participator getAssignedTo() {
+    public String getAssignedTo() {
         return assignedTo;
     }
 
-    public void setAssignedTo(Participator assignedTo) {
+    public void setAssignedTo(String assignedTo) {
         this.assignedTo = assignedTo;
     }
 
-  /*  public Participator getAssignedBy() {
+    public String getAssignedBy() {
         return assignedBy;
     }
 
-    public void setAssignedBy(Participator assignedBy) {
+    public void setAssignedBy(String assignedBy) {
         this.assignedBy = assignedBy;
-    }*/
+    }
+
+    /*
+
+    public String getCommunityID() {
+        return communityID;
+    }
+
+    public void setCommunityID(String communityID) {
+        this.communityID = communityID;
+    }
+
+    */
 }

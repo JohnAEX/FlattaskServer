@@ -5,6 +5,7 @@ import hwr.sem4.csa.util.Dotos;
 import hwr.sem4.csa.util.Participator;
 import hwr.sem4.csa.util.Task;
 
+import javax.jdo.JDOHelper;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -140,19 +141,25 @@ public class Databasehandler {
     }
 
     public void updateCommunity(String id, String name, String creationTime, ArrayList<Task> taskList, ArrayList<Dotos> dotosList){
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
-        Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime, " +
-                "c.taskList = :taskList, c.dotosList = :dotosList " +
+        removeCommunityById(id);
+        Community c = new Community();
+        c.setId(id);
+        c.setName(name);
+        c.setCreationTime(creationTime);
+        c.setDotosList(dotosList);
+        c.setTaskList(taskList);
+        insert(c);
+
+       /* Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime, " +
                 "WHERE c.id = :id");
         newQuery.setParameter("name",name);
         newQuery.setParameter("creationTime",creationTime);
         newQuery.setParameter("id",id);
-        newQuery.setParameter("taskList",taskList);
-        newQuery.setParameter("dotosList", dotosList);
-        newQuery.executeUpdate();
+      /*  newQuery.setParameter("taskList",taskList);
+        newQuery.setParameter("dotosList", dotosList);*/
+       /* newQuery.executeUpdate();
         em.getTransaction().commit();
-        em.close();
+        em.close();*/
     }
 
     //SysAdmin methods

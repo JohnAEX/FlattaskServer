@@ -11,7 +11,6 @@ public class Participator{
 
     @Id
     private String username;
-
     private String password;
     private String firstName;
     private String lastName;
@@ -20,6 +19,8 @@ public class Participator{
     private String creationTime;
     private String role;
     private String communityId;
+
+
 
     public String getCommunityId() {
         return communityId;

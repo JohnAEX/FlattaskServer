@@ -19,13 +19,18 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>NavBean</managed-bean-name>
+        <managed-bean-name>NavManagedBean</managed-bean-name>
         <managed-bean-class>hwr.sem4.csa.managedBeans.NavManagedBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>SysAdminManagedBean</managed-bean-name>
         <managed-bean-class>hwr.sem4.csa.managedBeans.SysAdminManagedBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>CreateDotoManagedBean</managed-bean-name>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.CreateDotoManagedBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <converter>

@@ -109,10 +109,10 @@ public class SysAdminManagedBean {
 
     public void addCommunity(){
         System.out.println("Called addCommunity");
-        Community c = new Community();
-        c.setId(this.cId);
+        Community c = new Community(this.cId, this.cName, this.cCreationTime);
+        /*c.setId(this.cId);
         c.setName(this.cName);
-        c.setCreationTime(this.cCreationTime);
+        c.setCreationTime(this.cCreationTime);*/
 
         Databasehandler.instanceOf().initObjectDBConnection();
         Databasehandler.instanceOf().insert(c);
@@ -131,7 +131,7 @@ public class SysAdminManagedBean {
     public void onCellEditCommunity(Community uC) {
 
             Databasehandler.instanceOf().initObjectDBConnection();
-            Databasehandler.instanceOf().updateCommunity(uC.getId(),uC.getName(), uC.getCreationTime());
+            Databasehandler.instanceOf().updateCommunity(uC.getId(),uC.getName(), uC.getCreationTime(), uC.getTaskList(), uC.getDotosList());
             Databasehandler.instanceOf().close();
 
     }
