@@ -92,12 +92,10 @@ public class Databasehandler {
     public Participator getParticipatorByUsername(String username){
         EntityManager em = emFactory.createEntityManager();
         TypedQuery<Participator> typedResultQuery = em.createQuery("SELECT p FROM Participator p WHERE p.username = :username", Participator.class);
-        try{
-            Participator resultParticipator = typedResultQuery.setParameter("username",username).getSingleResult();
-            return resultParticipator;
-        }catch(Exception e){
-            System.out.println("Error in Method: getParticipatorByUsername");
-            e.printStackTrace();
+        List<Participator> participatorList = typedResultQuery.setParameter("username",username).getResultList();
+        if(participatorList.size() == 1){
+            return participatorList.get(0);
+        }else {
             return null;
         }
     }

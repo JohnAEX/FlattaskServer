@@ -20,7 +20,19 @@ public class Participator{
     private String role;
     private String communityId;
 
+    public Participator(){
 
+    }
+
+    public Participator(String username, String password, String firstName, String lastName, int balance, String role, String communityId) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.balance = balance;
+        this.role = role;
+        this.communityId = communityId;
+    }
 
     public String getCommunityId() {
         return communityId;

@@ -42,7 +42,7 @@ public class RegisterManagedBean {
             if (Databasehandler.instanceOf().getParticipatorByLogin(this.username, this.password) != null) {
                 Databasehandler.instanceOf().close();
              try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("oldLogin.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
              } catch (IOException e) {
                 e.printStackTrace();
                 }

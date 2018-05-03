@@ -63,7 +63,6 @@ Theme-Overwrites
 }
 
 .ui-spinner-input{
-
     text-align: left;
     width: 300px!important;
 }
@@ -73,4 +72,5 @@ Theme-Overwrites
 }
 .ui-spinner-button{
     left:100%!important;
+
 }

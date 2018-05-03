@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!DOCTYPE html
+                PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
-<h:head>
-    <title>FT-Login</title>
-    <h:outputStylesheet library = "css" name = "profile.css"/>
-</h:head>
-<h:body>
 
-            <h:panelGroup id="wrapper-profile-labels" layout="block">
-                <h:outputLabel id="fullName" value="#{ProfileManagedBean.fullName}"/>
-                <h:outputLabel id="username" value="#{ProfileManagedBean.username}"/>
-                <h:outputLabel id="comName" value="#{ProfileManagedBean.comname}"/>
-                <h:outputLabel id="balance" value="#{ProfileManagedBean.balance}"/>
-            </h:panelGroup>
-            <h:panelGroup id="wrapper-profile-pic" layout="block">
+<f:view>
+    <h:panelGroup id="wrapper-profile-labels" layout="block">
+        <h:panelGroup id="fN" layout="block" styleClass="profileItem" style="font-size:20pt; align-items: center;">
+            <i class="fa fa-address-book" style="align-self: center"/>
+            <h:outputText id="fullName" value="#{ProfileManagedBean.fullName}" style="padding-left: 5px"/>
+        </h:panelGroup>
+        <h:panelGroup id="uN" layout="block" styleClass="profileItem" style="font-size:20pt; align-items: center;">
+            <i class="fa fa-user" style="align-self: center"/>
+            <h:outputText id="username" value="#{ProfileManagedBean.username}" style="padding-left: 5px"/>
+        </h:panelGroup>
+        <h:panelGroup id="cN" layout="block" styleClass="profileItem" style="font-size:20pt; align-items: center;">
+            <i class="fa fa-comments" style="align-self: center"/>
+            <h:outputText id="comName" value="#{ProfileManagedBean.comname}" style="padding-left: 5px"/>
+        </h:panelGroup>
 
-            </h:panelGroup>
+        <h:panelGroup id="b" layout="block" styleClass="profileItem" style="font-size:20pt; align-items: center;">
+            <i class="fa fa-diamond" style="align-self: center"/>
+            <h:outputText id="balance" value="#{ProfileManagedBean.balance}" style="padding-left: 5px"/>
+        </h:panelGroup>
+    </h:panelGroup>
 
 
 
-
-</h:body>
+</f:view>
 </html>

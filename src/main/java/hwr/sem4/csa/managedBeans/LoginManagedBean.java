@@ -64,12 +64,18 @@ public class LoginManagedBean implements Serializable{
                     FacesContext.getCurrentInstance().responseComplete();
                     return "highlysecured/systemadmin";
                 } else {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("secured/main.xhtml");
-                    FacesContext.getCurrentInstance().responseComplete();
-                    return "secured/main";
+                    if(loggedInUser.getCommunityId().length() > 2) {
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("secured/main.xhtml");
+                        FacesContext.getCurrentInstance().responseComplete();
+                        return "secured/main";
+                    }else{
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("secured/nocommunity.xhtml");
+                        FacesContext.getCurrentInstance().responseComplete();
+                        return "secured/nocommunity";
+                    }
                 }
             } else {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("oldLogin.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
                 FacesContext.getCurrentInstance().responseComplete();
                 Databasehandler.instanceOf().close();
                 System.out.println("Login failed");
@@ -84,7 +90,7 @@ public class LoginManagedBean implements Serializable{
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/oldLogin.xhtml?faces-redirect=true";
+        return "/login.xhtml?faces-redirect=true";
     }
 
     public Participator getLoggedInUser() {
