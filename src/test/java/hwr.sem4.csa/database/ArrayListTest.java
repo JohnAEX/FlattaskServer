@@ -2,7 +2,9 @@ package hwr.sem4.csa.database;
 
 import hwr.sem4.csa.util.Community;
 import hwr.sem4.csa.util.Dotos;
+import hwr.sem4.csa.util.Task;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -36,5 +38,53 @@ public class ArrayListTest {
 
         Databasehandler.instanceOf().insert(c);
         */
+
+        //Testing ODB with ArrayLists
+        Community c2 = new Community();
+        c2.setId("ArrayC2");
+        c2.setName("ArrayCommunityTest");
+        c2.setCreationTime("NOW");
+        ArrayList<Dotos> dotosList = new ArrayList<>();
+        ArrayList<Task> tasksList = new ArrayList<>();
+        Dotos doto = new Dotos();
+        doto.setTitle("Title 1");
+        Dotos doto2 = new Dotos();
+        doto2.setTitle("Title 2");
+
+        dotosList.add(doto);
+        dotosList.add(doto2);
+
+        c2.setDotosList(dotosList);
+
+        Task t1 = new Task();
+        Task t2 = new Task();
+
+        tasksList.add(t1);
+        tasksList.add(t2);
+
+        c2.setTaskList(tasksList);
+
+        Databasehandler.instanceOf().insert(c2);
+
+        Community dbC = Databasehandler.instanceOf().getCommunityById(c2.getId());
+        ArrayList<Dotos> dbDotoList = dbC.getDotosList();
+        Assertions.assertTrue(dbDotoList.get(0).title.equals("Title 1"));
+
+        dbDotoList.get(0).setTitle("REWORKED");
+
+        Databasehandler.instanceOf().removeCommunityById(dbC.getId());
+
+        Community newC = new Community();
+        newC.setId(dbC.getId());
+        newC.setName(dbC.getName());
+        newC.setCreationTime(dbC.getCreationTime());
+        newC.setDotosList(dbDotoList);
+        newC.setTaskList(dbC.getTaskList());
+
+        Databasehandler.instanceOf().insert(newC);
+
+        Community dbC2 = Databasehandler.instanceOf().getCommunityById(c2.getId());
+        ArrayList<Dotos> dbDotoList2 = dbC2.getDotosList();
+        Assertions.assertTrue(dbDotoList2.get(0).title.equals("REWORKED"));
     }
 }

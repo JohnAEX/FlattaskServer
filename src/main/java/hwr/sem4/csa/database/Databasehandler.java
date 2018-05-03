@@ -1,7 +1,9 @@
 package hwr.sem4.csa.database;
 
 import hwr.sem4.csa.util.Community;
+import hwr.sem4.csa.util.Dotos;
 import hwr.sem4.csa.util.Participator;
+import hwr.sem4.csa.util.Task;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -137,17 +139,16 @@ public class Databasehandler {
 
     }
 
-    public void updateCommunity(String id, String name, String creationTime){
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
-        Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime " +
-                "WHERE c.id = :id");
-        newQuery.setParameter("name",name);
-        newQuery.setParameter("creationTime",creationTime);
-        newQuery.setParameter("id",id);
-        newQuery.executeUpdate();
-        em.getTransaction().commit();
-        em.close();
+    public void updateCommunity(String id, String name, String creationTime, ArrayList<Dotos> dotosList, ArrayList<Task> tasksList){
+        removeCommunityById(id);
+        Community c = new Community();
+        c.setId(id);
+        c.setName(name);
+        c.setCreationTime(creationTime);
+        c.setDotosList(dotosList);
+        c.setTaskList(tasksList);
+        insert(c);
+
     }
 
     //SysAdmin methods
