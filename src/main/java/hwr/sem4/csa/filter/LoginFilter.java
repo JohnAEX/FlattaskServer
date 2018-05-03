@@ -30,7 +30,7 @@ public class LoginFilter implements Filter{
             chain.doFilter(req, res);
         }else{
             //Not logged in
-            responseNow.sendRedirect("/login.xhtml");
+            responseNow.sendRedirect("/oldLogin.xhtml");
 
         }
 

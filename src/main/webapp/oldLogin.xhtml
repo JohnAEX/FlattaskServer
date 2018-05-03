@@ -18,22 +18,31 @@
 
                 <h:panelGrid id="loginPanelGrid" columns="3" cellpadding="10">
                 <p:outputLabel for="usernameInputPF" value="Username:"/>
-                <p:inputText id="usernameInputPF" value="#{LoginManagedBean.username}" required="true" label="Username">
+                <p:inputText id="usernameInputPF" value="#{LoginManagedBean.username}" required="true" label="Username"
+                ajax="true">
+                <p:ajax resetValues="true"/>
+                    <f:validateLength minimum="2"/>
                 </p:inputText>
                 <p:message for="usernameInputPF" display="fa fa-warning"/>
 
                 <p:outputLabel for="passwordInputPF" value="Password:"/>
-                <p:password  id="passwordInputPF" value="#{LoginManagedBean.password}" required="true" label="Password">
+                <p:password ajax="true" id="passwordInputPF" value="#{LoginManagedBean.password}" required="true" label="Password">
+                    <p:ajax resetValues="true"/>
+                    <f:validateLength minimum="2"/>
                 </p:password>
                 <p:message for="passwordInputPF" display="fa fa-warning"/>
             </h:panelGrid>
             <p:commandButton value="Login" id="loginButton" update="loginPanel" icon="fa fa-check"
-                              type="button" ajax="false" widgetVar="loginButtonWV"
-                             global="true" actionlistener="#{LoginManagedBean.attemptLogin}">
+                              type="button" ajax="true" widgetVar="loginButtonWV"
+                             global="true">
                 <p:ajax event="click" process="@this, #{p:component('loginPanelGrid')}" listener="#{LoginManagedBean.attemptLogin}" update="loginPanel"/>
             </p:commandButton>
-            <br/>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
 
+                <p:dialog id="statusPic" widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false"
+                          showHeader="false">
+                    <p:graphicImage library="images" name="source.gif" id="sourceGif"/>
+                </p:dialog>
             <p:link outcome="register" value="Not a member? Register here!"/>
             </h:form>
         </p:panel>

@@ -53,45 +53,38 @@ public class LoginManagedBean implements Serializable{
         System.out.println("Attempted Login for: " + this.username + " - " + this.password);
         Databasehandler.instanceOf().initObjectDBConnection();
         Participator testLogin = Databasehandler.instanceOf().getParticipatorByLogin(this.username, this.password);
-        if(testLogin != null){
-            setLoggedIn(true);
-            loggedInUser = testLogin;
-            Databasehandler.instanceOf().close();
-            System.out.println("Login successful");
-            if(loggedInUser.getRole().equalsIgnoreCase("admin")) {
-                try {
+        try {
+            if (testLogin != null) {
+                setLoggedIn(true);
+                loggedInUser = testLogin;
+                Databasehandler.instanceOf().close();
+                System.out.println("Login successful");
+                if (loggedInUser.getRole().equalsIgnoreCase("admin")) {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("highlysecured/systemadmin.xhtml");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                FacesContext.getCurrentInstance().responseComplete();
-                return "highlysecured/systemadmin";
-            }else{
-                try {
+                    FacesContext.getCurrentInstance().responseComplete();
+                    return "highlysecured/systemadmin";
+                } else {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("secured/main.xhtml");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    FacesContext.getCurrentInstance().responseComplete();
+                    return "secured/main";
                 }
+            } else {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("oldLogin.xhtml");
                 FacesContext.getCurrentInstance().responseComplete();
-                return "secured/main";
+                Databasehandler.instanceOf().close();
+                System.out.println("Login failed");
+                return "login";
             }
-        }else{
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            FacesContext.getCurrentInstance().responseComplete();
-            Databasehandler.instanceOf().close();
-            System.out.println("Login failed");
-            return "login";
 
+        }catch (IOException e){
+            e.printStackTrace();
+            return "login";
         }
     }
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/login.xhtml?faces-redirect=true";
+        return "/oldLogin.xhtml?faces-redirect=true";
     }
 
     public Participator getLoggedInUser() {
