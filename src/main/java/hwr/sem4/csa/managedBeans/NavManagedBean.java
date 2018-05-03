@@ -17,7 +17,7 @@ public class NavManagedBean {
     * Required: Relative Paths, starting from main.xhtml
     * */
     private int navIndex = 0;
-    private final String FILE0 = "index.xhtml";
+    private final String FILE0 = "mytasks.xhtml";
     private final String FILE1 = "dashboard.xhtml";
     private final String FILE2 = "createDoto.xhtml";
     private final String FILE3 = "loading.xhtml";

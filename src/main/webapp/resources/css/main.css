@@ -103,6 +103,11 @@ body{
     border-radius: 0px;
 }
 
+.MYSOLUTION {
+    border: 0px !important;
+    border-width: 0px; !important;
+}
+
 .ui-tabmenuitem:last-child{
     float:right!important;
 }

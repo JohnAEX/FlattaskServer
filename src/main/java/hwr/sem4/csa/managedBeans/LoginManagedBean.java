@@ -84,7 +84,7 @@ public class LoginManagedBean implements Serializable{
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/oldLogin.xhtml?faces-redirect=true";
+        return "/login.xhtml?faces-redirect=true";
     }
 
     public Participator getLoggedInUser() {

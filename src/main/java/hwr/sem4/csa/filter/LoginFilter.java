@@ -26,7 +26,6 @@ public class LoginFilter implements Filter{
         System.out.println("\t> loginManagedBean: " + loginManagedBean + " - logged in: " + loginManagedBean.isLoggedIn());
         if (loginManagedBean != null && loginManagedBean.isLoggedIn()) {
             // Logged in.
-            System.out.println("\n-> " + ((HttpServletRequest) req).getPathInfo());
             chain.doFilter(req, res);
         }else{
             //Not logged in

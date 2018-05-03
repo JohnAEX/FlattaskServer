@@ -10,9 +10,15 @@
 </h:head>
 <h:body>
     <h:form>
-        <p:commandButton value="Complete">
-            <p:ajax event="click" process="@this" listener="#{MyTasksManagedBean.handleComplete(component.id)}"/>
+        <h:panelGrid columns="2" styleClass="MYSOLUTION">
+        <p:commandButton value="Cancel" icon="fa fa-close">
+            <p:ajax event="click" process="@this" listener="#{MyTasksManagedBean.handleCancel(component.id)}" update="@([id$=dynamicDashboard])"/>
         </p:commandButton>
+
+        <p:commandButton value="Done" icon="fa fa-check">
+            <p:ajax event="click" process="@this" listener="#{MyTasksManagedBean.handleComplete(component.id)}" update="@([id$=dynamicDashboard])"/>
+        </p:commandButton>
+        </h:panelGrid>
     </h:form>
 </h:body>
 </html>
