@@ -10,8 +10,18 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 35%
+    width: 28.25%!important;
 }
+
+#sourceGif{
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    max-width: 50px!important;
+    background-size: contain!important;
+
+}
+
 
 .centerImage {
     display: block;

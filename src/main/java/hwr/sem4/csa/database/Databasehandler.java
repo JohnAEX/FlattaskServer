@@ -5,6 +5,7 @@ import hwr.sem4.csa.util.Dotos;
 import hwr.sem4.csa.util.Participator;
 import hwr.sem4.csa.util.Task;
 
+import javax.jdo.JDOHelper;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -139,7 +140,8 @@ public class Databasehandler {
 
     }
 
-    public void updateCommunity(String id, String name, String creationTime, ArrayList<Dotos> dotosList, ArrayList<Task> tasksList){
+
+    public void updateCommunity(String id, String name, String creationTime, ArrayList<Task> taskList, ArrayList<Dotos> dotosList){
         removeCommunityById(id);
         Community c = new Community();
         c.setId(id);
@@ -148,7 +150,6 @@ public class Databasehandler {
         c.setDotosList(dotosList);
         c.setTaskList(tasksList);
         insert(c);
-
     }
 
     //SysAdmin methods

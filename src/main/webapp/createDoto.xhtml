@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>FT-Login</title>
+    <h:outputStylesheet library = "css" name = "main.css"/>
+    <h:outputStylesheet library = "css" name = "forms.css"/>
+</h:head>
+<h:body>
+        <h:panelGroup id="wrapper-task" layout="block">
+
+            <h:form id="taskForm">
+                <p:messages id="msgs" />
+
+                <h:panelGrid columns="2" cellpadding="10">
+
+                    <p:outputLabel for="templateSelect" value="Select Template: "/>
+                    <p:selectOneMenu id="templateSelect" value="#{CreateDotoManagedBean.selectedTaskString}" styleClass="formInput"
+                                     ajax="true">
+                        <f:selectItem itemLabel="Select one:"/>
+                        <f:selectItems  value="#{CreateDotoManagedBean.allTaskStrings}" var="task" itemValue="#{task}" itemLabel="#{task}"/>
+                        <p:ajax listener="#{CreateDotoManagedBean.handleChangeStringToTask}" process="@this" update="taskForm"/>
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel for="titleInput" value="Title:"/>
+                    <p:inputText id="titleInput" value="#{CreateDotoManagedBean.title}" required="true" label="Title" styleClass="formInput">
+                    </p:inputText>
+
+
+                    <p:outputLabel for="descriptionInput" value="Description:"/>
+                    <p:inputTextarea id="descriptionInput" value="#{CreateDotoManagedBean.description}" required="true" label="Description" styleClass="formInput">
+                    </p:inputTextarea>
+
+                    <p:outputLabel for="valueSpinner" value="Value: "></p:outputLabel>
+                    <p:spinner decimalPlaces="0" max="#{CreateDotoManagedBean.valueMax}" min="0" id="valueSpinner" value="#{CreateDotoManagedBean.value}" styleClass="formInput">
+                        <f:convertNumber integerOnly="true"/>
+                    </p:spinner>
+
+                    <p:outputLabel for="durationInput" value="Duration (min):"/>
+                    <p:spinner id="durationInput" value="#{CreateDotoManagedBean.duration}" required="true" label="Duration" min="1" styleClass="formInput">
+                        <f:convertNumber integerOnly="true"/>
+                    </p:spinner>
+
+                    <p:outputLabel for="userSelect" value="assign to..."/>
+                    <p:selectOneListbox id="userSelect" value="#{CreateDotoManagedBean.selectedUserString}" styleClass="formInput">
+                        <f:selectItems value="#{CreateDotoManagedBean.allUserStrings}" var="user" itemLabel="#{user}"/>
+                        <p:ajax listener="#{CreateDotoManagedBean.handleChangeStringToUser}" process="@this" update="userSelect"/>
+                    </p:selectOneListbox>
+                </h:panelGrid>
+
+            <p:commandButton value="Confirm" id="confirmButton" update="wrapper-task" icon="ui-icon-check" action="#{CreateDotoManagedBean.confirmDoto}" ajax="true" styleClass="formInput"/>
+            </h:form>
+        </h:panelGroup>
+</h:body>
+</html>

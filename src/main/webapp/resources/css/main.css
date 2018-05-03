@@ -3,7 +3,7 @@ Author: LM
 */
 
 body{
-    background: darkslategray;
+    background: darkslategray!important;
 }
 
 #header{
@@ -101,4 +101,8 @@ body{
 }
 .ui-widget {
     border-radius: 0px;
+}
+
+.ui-tabmenuitem:last-child{
+    float:right!important;
 }
