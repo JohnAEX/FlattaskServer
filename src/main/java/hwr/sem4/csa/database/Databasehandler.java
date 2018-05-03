@@ -22,7 +22,7 @@ public class Databasehandler {
 
     public void initObjectDBConnection(){
         emFactory = Persistence.createEntityManagerFactory("objectdb:" +
-                "//ec2-54-85-66-232.compute-1.amazonaws.com:6136/systemTest.odb;user=admin;password=admin");
+                "//ec2-54-85-66-232.compute-1.amazonaws.com:6136/doNotDelete.odb;user=admin;password=admin");
     }
 
     public EntityManager getEntityManager() {
@@ -140,6 +140,7 @@ public class Databasehandler {
 
     }
 
+
     public void updateCommunity(String id, String name, String creationTime, ArrayList<Task> taskList, ArrayList<Dotos> dotosList){
         removeCommunityById(id);
         Community c = new Community();
@@ -147,19 +148,8 @@ public class Databasehandler {
         c.setName(name);
         c.setCreationTime(creationTime);
         c.setDotosList(dotosList);
-        c.setTaskList(taskList);
+        c.setTaskList(tasksList);
         insert(c);
-
-       /* Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime, " +
-                "WHERE c.id = :id");
-        newQuery.setParameter("name",name);
-        newQuery.setParameter("creationTime",creationTime);
-        newQuery.setParameter("id",id);
-      /*  newQuery.setParameter("taskList",taskList);
-        newQuery.setParameter("dotosList", dotosList);*/
-       /* newQuery.executeUpdate();
-        em.getTransaction().commit();
-        em.close();*/
     }
 
     //SysAdmin methods

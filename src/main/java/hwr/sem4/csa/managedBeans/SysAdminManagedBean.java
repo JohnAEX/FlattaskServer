@@ -129,7 +129,7 @@ public class SysAdminManagedBean {
     }
 
     public void onCellEditCommunity(Community uC) {
-
+            //TODO: FIX
             Databasehandler.instanceOf().initObjectDBConnection();
             Databasehandler.instanceOf().updateCommunity(uC.getId(),uC.getName(), uC.getCreationTime(), uC.getTaskList(), uC.getDotosList());
             Databasehandler.instanceOf().close();

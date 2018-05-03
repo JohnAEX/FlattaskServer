@@ -1,6 +1,7 @@
 package hwr.sem4.csa.util;
 
 import javax.persistence.Embeddable;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -72,12 +73,5 @@ public class Task implements Serializable {
     public void setBaseDuration(int baseDuration) {
         this.baseDuration = baseDuration;
     }
-/*
-    public String getCcommunityID() {
-        return ccommunityID;
-    }
 
-    public void setCcommunityID(String ccommunityID) {
-        this.ccommunityID = ccommunityID;
-    }*/
 }

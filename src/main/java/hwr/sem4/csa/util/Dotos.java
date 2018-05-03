@@ -5,6 +5,8 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 
 
 
@@ -35,23 +37,28 @@ public class Dotos implements Serializable{
         this.assignedBy = assignedBy;
     }
 
-  /* public Dotos(String title, String description, int value, int duration, Participator assignedTo, Participator assignedBy, String communityID) {
-        this.title = title;
-        this.description = description;
-        this.value = value;
-        this.duration = duration;
-        this.assignedTo = assignedTo;
-        this.assignedBy = assignedBy;
-        this.communityID = communityID;
-    }*/
 
-    public int getId() {
-        return id;
+    public String title;
+
+    //Last Date or just Days ? in der Get Methode die Duration ausrechnen von jetzt zu dem Datum
+    public Date duration;
+
+    public int value;
+
+    public String notes;
+
+    public ArrayList<String> getParticipatorlist() {
+        return participatorlist;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setParticipatorlist(ArrayList<String> participatorlist) {
+        this.participatorlist = participatorlist;
     }
+
+    public Date getDuration() {
+        return duration;
+    }
+
 
     public String getTitle() {
         return title;
@@ -101,15 +108,4 @@ public class Dotos implements Serializable{
         this.assignedBy = assignedBy;
     }
 
-    /*
-
-    public String getCommunityID() {
-        return communityID;
-    }
-
-    public void setCommunityID(String communityID) {
-        this.communityID = communityID;
-    }
-
-    */
 }

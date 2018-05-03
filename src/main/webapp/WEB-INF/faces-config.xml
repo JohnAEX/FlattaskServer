@@ -29,12 +29,12 @@
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>MyTasksManagedBean</managed-bean-name>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.MyTasksManagedBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
         <managed-bean-name>CreateDotoManagedBean</managed-bean-name>
         <managed-bean-class>hwr.sem4.csa.managedBeans.CreateDotoManagedBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
-    <converter>
-        <converter-id>taskConverter</converter-id>
-        <converter-class>hwr.sem4.csa.managedBeans.TaskConverter</converter-class>
-    </converter>
 </faces-config>
