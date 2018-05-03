@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>FT-Community</title>
+    <h:outputStylesheet library = "css" name = "login.css"/>
+</h:head>
+<h:body>
+    <p:panel id="cPanel" styleClass="Centered">
+        <f:facet name="header">
+            <p:graphicImage name="logoNeu.svg" library="images" styleClass="centerImage"/>
+        </f:facet>
+        <h:form>
+            <p:outputLabel>We noticed you are not yet part of a community, allow us to change that!</p:outputLabel>
+            <br/>
+            <p:outputLabel>Choose between either joining an existing community or creating your own:</p:outputLabel>
+            <h:panelGrid columns="3">
+                <p:button outcome="joinCommunity" value="Join a community" process="@this"/>
+                <p:outputLabel> or </p:outputLabel>
+                <p:button outcome="createCommunity" value="Create your own" process="@this"/>
+            </h:panelGrid>
+        </h:form>
+
+    </p:panel>
+</h:body>
+</html>

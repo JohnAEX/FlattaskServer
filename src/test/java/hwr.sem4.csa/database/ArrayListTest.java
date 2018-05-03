@@ -88,4 +88,9 @@ public class ArrayListTest {
         ArrayList<Dotos> dbDotoList2 = dbC2.getDotosList();
         Assertions.assertTrue(dbDotoList2.get(0).title.equals("REWORKED"));*/
     }
+
+    @Test
+    public void DBHTest(){
+        System.out.println(Databasehandler.instanceOf().getCommunityById("BLAHABALAHABALAHABAHALAHA"));
+    }
 }

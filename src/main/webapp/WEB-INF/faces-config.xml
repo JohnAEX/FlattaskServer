@@ -38,4 +38,14 @@
         <managed-bean-class>hwr.sem4.csa.managedBeans.CreateDotoManagedBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>CreateCommunityManagedBean</managed-bean-name>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.CreateCommunityManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>JoinCommunityManagedBean</managed-bean-name>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.JoinCommunityManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
