@@ -141,7 +141,15 @@ public class Databasehandler {
     }
 
     public void updateCommunity(String id, String name, String creationTime, ArrayList<Task> taskList, ArrayList<Dotos> dotosList){
-        EntityManager em = emFactory.createEntityManager();
+        removeCommunityById(id);
+        Community c = new Community();
+        c.setId(id);
+        c.setName(name);
+        c.setCreationTime(creationTime);
+        c.setDotosList(dotosList);
+        c.setTaskList(taskList);
+        insert(c);
+        /*EntityManager em = emFactory.createEntityManager();
         Community com = em.find(Community.class, id);
         em.getTransaction().begin();
 
@@ -173,16 +181,16 @@ public class Databasehandler {
         com.setTaskList(taskList);
       /*  JDOHelper.makeDirty(com,"dotosList");
         JDOHelper.makeDirty(com, "");*/
-        Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime, " +
+       /* Query newQuery = em.createQuery("UPDATE Community c SET c.name = :name, c.creationTime = :creationTime, " +
                 "WHERE c.id = :id");
         newQuery.setParameter("name",name);
         newQuery.setParameter("creationTime",creationTime);
         newQuery.setParameter("id",id);
       /*  newQuery.setParameter("taskList",taskList);
         newQuery.setParameter("dotosList", dotosList);*/
-        newQuery.executeUpdate();
+       /* newQuery.executeUpdate();
         em.getTransaction().commit();
-        em.close();
+        em.close();*/
     }
 
     //SysAdmin methods
