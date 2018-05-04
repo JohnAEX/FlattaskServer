@@ -19,7 +19,6 @@ public class LoginFilter implements Filter{
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        System.out.println("\t>Filter called!");
         HttpServletResponse responseNow = (HttpServletResponse) res;
         HttpSession session = ((HttpServletRequest) req).getSession(false);
         LoginManagedBean loginManagedBean = (session != null) ? (LoginManagedBean) session.getAttribute("LoginManagedBean") : null;
@@ -29,7 +28,7 @@ public class LoginFilter implements Filter{
             chain.doFilter(req, res);
         }else{
             //Not logged in
-            responseNow.sendRedirect("/oldLogin.xhtml");
+            responseNow.sendRedirect("/login.xhtml");
 
         }
 
