@@ -44,8 +44,9 @@
                     </p:spinner>
 
                     <p:outputLabel for="userSelect" value="assign to..."/>
-                    <p:selectOneListbox id="userSelect" value="#{CreateDotoManagedBean.selectedUserString}" styleClass="formInput">
+                    <p:selectOneListbox id="userSelect" required="true" requiredMessage="Please select a class !" value="#{CreateDotoManagedBean.selectedUserString}" styleClass="formInput">
                         <f:selectItems value="#{CreateDotoManagedBean.allUserStrings}" var="user" itemLabel="#{user}"/>
+                        <f:validateLength minimum="1" />
                         <p:ajax listener="#{CreateDotoManagedBean.handleChangeStringToUser}" process="@this" update="userSelect"/>
                     </p:selectOneListbox>
                 </h:panelGrid>

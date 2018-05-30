@@ -11,6 +11,7 @@ import hwr.sem4.csa.util.Task;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean (name="ProfileManagedBean")
-@SessionScoped
+@ViewScoped
 
 public class ProfileManagedBean {
     /*******************

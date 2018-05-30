@@ -21,8 +21,10 @@ public class Databasehandler {
     }
 
     public void initObjectDBConnection(){
+       /* emFactory = Persistence.createEntityManagerFactory("objectdb:" +
+                "//ec2-34-203-244-142.compute-1.amazonaws.com:6136/reviewB.odb;user=admin;password=admin");*/
         emFactory = Persistence.createEntityManagerFactory("objectdb:" +
-                "//ec2-34-203-244-142.compute-1.amazonaws.com:6136/reviewB.odb;user=admin;password=admin");
+                "//localhost:6136/reviewB.odb;user=admin;password=admin");
     }
 
     public EntityManager getEntityManager() {

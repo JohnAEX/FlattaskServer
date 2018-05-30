@@ -94,8 +94,12 @@ body{
     -webkit-border-radius: 0px;
     border-radius: 0px;
 }
+.ui-widget-header{
+    border: 0px!important;
+}
+
 .ui-widget-content {
-    border: 0px solid #eeeeee;
+
     background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-blitzer") 50% 50% repeat-x;
     color: #333333;
     border-radius: 0px;

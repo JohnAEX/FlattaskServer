@@ -17,9 +17,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.ArrayList;
+import javax.faces.context.ExternalContext;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean (name="CreateDotoManagedBean")
 @ViewScoped
@@ -229,7 +232,20 @@ public class CreateDotoManagedBean {
         database.updateCommunity(com.getId(), com.getName(), com.getCreationTime(), com.getTaskList(), oldDotos);
         database.close();
         System.out.println("-----------------------------------");
+        refresh();
+    }
 
+    /*
+    * Stolen from Johns Code
+    * */
+
+    public void refresh(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
