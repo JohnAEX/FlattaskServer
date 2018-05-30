@@ -33,7 +33,7 @@ public class CommunityIdManager {
     public static String getNextFreeId()
     {
         if(nextFreeIds.size() == minIdCacheLength){
-
+            int[] lastFreeId = new int[idCoreLength];
             while(nextFreeIds.size() < maxIdCacheLength){
 
             }
