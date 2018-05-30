@@ -159,8 +159,12 @@ public class CreateDotoManagedBean {
             database.close();
             if (possiblePart.size() > 0) {
                 for (int i = 0; i < possiblePart.size(); i++) {
-                    if(possiblePart.get(i).getUsername() != this.userAssign.getUsername()) {
+                    System.out.println("Possible User: "+possiblePart.get(i).getUsername());
+                    System.out.println("Username: " + this.userAssign.getUsername());
+
+                    if(!possiblePart.get(i).getUsername().equals(this.userAssign.getUsername())) {
                         rl.add(possiblePart.get(i));
+                        System.out.println("added: " + possiblePart.get(i));
                     }
                 }
             }
