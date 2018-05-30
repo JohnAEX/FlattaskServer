@@ -61,6 +61,11 @@ public class ProfileManagedBean {
         return rs;
     }
 
+    /*
+    * Grap CommunityNam of User
+    * Attention: Database Call needed
+    * Attention: Scope! -> Every Nav-Change causes additional DB-Call
+    * */
     private String grapCommunityName(){
         Databasehandler db = Databasehandler.instanceOf();
         db.initObjectDBConnection();

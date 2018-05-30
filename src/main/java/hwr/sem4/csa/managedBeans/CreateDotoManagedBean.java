@@ -146,7 +146,7 @@ public class CreateDotoManagedBean {
         return rs;
     }
 
-    /*Grap Users in Community of assigning User*/
+    /*Grap Users in Community of assigning User, except the assigning user himself*/
     private ArrayList<Participator> searchForPossibleUsers(){
         Participator part = this.userAssign;
         ArrayList<Participator> rl = new ArrayList<>();
@@ -156,7 +156,9 @@ public class CreateDotoManagedBean {
             database.close();
             if (possiblePart.size() > 0) {
                 for (int i = 0; i < possiblePart.size(); i++) {
-                    rl.add(possiblePart.get(i));
+                    if(possiblePart.get(i).getUsername() != this.userAssign.getUsername()) {
+                        rl.add(possiblePart.get(i));
+                    }
                 }
             }
         }
@@ -178,7 +180,8 @@ public class CreateDotoManagedBean {
         }
     }
 
-    /*Generate Test-Cases for Tasks*/
+    /*Generate Test-Cases for Tasks, please delete or comment on final implementation*/
+    /*TODO Delete or Comment*/
     private ArrayList<Task> generateTestTasks(){
         Task a1 = new Task( "Aufgabe 1", "blablablablabla", 5, 5);
         Task a2 = new Task( "Aufgabe 2", "blablablablabla", 5, 5);
@@ -205,13 +208,15 @@ public class CreateDotoManagedBean {
 
     /*Store Task in Database, assign to User*/
     public void confirmDoto(){
+
+        /*Debug*/
         System.out.println("CreateDoto:");
         System.out.println(this.getTitle());
         System.out.println(this.getDescription());
         System.out.println(this.getValue());
         System.out.println(this.getDuration());
         System.out.println(this.getUserAssigned().getUsername());
-
+        /*End of debug*/
 
 
         Dotos d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned.getUsername(), this.userAssign.getUsername());
@@ -226,6 +231,12 @@ public class CreateDotoManagedBean {
         System.out.println("-----------------------------------");
 
     }
+
+
+
+    /***************************************
+     * Getter & Setter
+     * ***************************************/
 
     public String getSelectedTaskString() {
         return selectedTaskString;
@@ -242,11 +253,6 @@ public class CreateDotoManagedBean {
     public void setAllTaskStrings(ArrayList<String> allTaskStrings) {
         this.allTaskStrings = allTaskStrings;
     }
-
-    /***************************************
-     * Getter & Setter
-     * ***************************************/
-
 
 
     public String getTitle() {
