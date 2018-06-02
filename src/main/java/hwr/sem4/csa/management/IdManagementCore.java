@@ -1,7 +1,5 @@
 package hwr.sem4.csa.management;
 
-import hwr.sem4.csa.database.Databasehandler;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 

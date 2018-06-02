@@ -1,6 +1,6 @@
-package hwr.sem4.csa.constants;
+package hwr.sem4.csa.management;
 
-public class IdManagementConstants {
+public class CommunityIdMgtConstants {
 
     public static String COMMUNITY_MGT_DEFAULTS_FILE = "communityId-default.json";
 }

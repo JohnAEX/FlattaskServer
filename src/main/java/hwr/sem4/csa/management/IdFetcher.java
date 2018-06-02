@@ -22,7 +22,6 @@ public class IdFetcher extends Thread {
                      int untilAmount, ArrayList<String> idStore, boolean idDepletion)
     {
         this.localHandler = Databasehandler.instanceOf();
-        localHandler.initObjectDBConnection();
 
         this.prefix = prefix;
         this.idCoreLength = idCoreLength;
@@ -36,6 +35,7 @@ public class IdFetcher extends Thread {
     @Override
     public void run()
     {
+        localHandler.initObjectDBConnection();
         String checkId = this.prefix;
         for(BigInteger idCounter = new BigInteger(lowerCoreBoundary, 16); idStore.size() < untilAmount; idCounter = idCounter.add(BigInteger.ONE)) {
             checkId = checkId.substring(0, 11) + StringUtils.leftPad(idCounter.toString(), this.idCoreLength, '0');
@@ -43,7 +43,7 @@ public class IdFetcher extends Thread {
             //Adding an unused Id
             if(localHandler.getCommunityById(checkId) == null && !this.idStore.contains(checkId)) {
                 idStore.add(checkId);
-                //System.out.println("Id fetched: " + checkId);
+                this.idDepletion = false;
             }
 
             //checking whether Id stock is exhausted
@@ -52,7 +52,7 @@ public class IdFetcher extends Thread {
             }
         }
         Collections.sort(this.idStore);
-        this.idDepletion = false;
+        localHandler.close();
     }
 
     public String getPrefix()

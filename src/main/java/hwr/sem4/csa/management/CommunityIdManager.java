@@ -4,12 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hwr.sem4.csa.exceptions.OutOfIdsException;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-import static hwr.sem4.csa.constants.IdManagementConstants.COMMUNITY_MGT_DEFAULTS_FILE;
+import static hwr.sem4.csa.management.CommunityIdMgtConstants.COMMUNITY_MGT_DEFAULTS_FILE;
 
 public class CommunityIdManager extends IdManagementCore {
     private static CommunityIdManager thisCommunityIdManager = new CommunityIdManager();

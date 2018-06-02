@@ -1,0 +1,33 @@
+{
+  "coreList" :
+          [
+            {
+              "dateFormat" : "HH:mm:ss:SSSS",
+              "prefix" : "all-zeros",
+              "idCoreLength" : 0,
+              "minIdCacheLength" : 0,
+              "maxIdCacheLength" : 0
+            },
+            {
+              "dateFormat" : "yyyyMMdd",
+              "prefix" : "all-billions",
+              "idCoreLength" : 1000000000,
+              "minIdCacheLength" : 1000000000,
+              "maxIdCacheLength" : 1000000000
+            },
+            {
+              "dateFormat" : "y-D / G",
+              "prefix" : "standard-values",
+              "idCoreLength" : 9,
+              "minIdCacheLength" : 20,
+              "maxIdCacheLength" : 25
+            },
+            {
+              "dateFormat" : "yyyy-MM-dd / KK:mm:ss.SSSS",
+              "prefix" : "all-ones",
+              "idCoreLength" : 9,
+              "minIdCacheLength" : 2,
+              "maxIdCacheLength" : 3
+            }
+          ]
+}
