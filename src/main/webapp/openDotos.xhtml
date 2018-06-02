@@ -8,7 +8,7 @@
     <title>Open Dotos</title>
 </h:head>
 <h:body>
-    <h:panelGroup>
+    <h:panelGroup id="mainGroup">
         <h:form>
             <p:panel id="mainPanel">
                 <f:facet name="header">
@@ -16,28 +16,33 @@
                 </f:facet>
 
                 <div class="ui-g-12 ui-fluid">
-                    <div class="ui-g-12 ui-md-2" />
+                    <div class="ui-g-12 ui-md-3" />
 
-                    <div class="ui-g-12 ui-md-8">
-                        <h:outputText value="Drag Dotos you want to assign to yourself onto the right pane." />
-                        <p:pickList id="dotosPickList" value="#{OpenDotosManagedBean.dotos}"
-                                    effect="slide" showSourceControls="true" showTargetControls="true" filterMatchMode="contains">
+                    <div class="ui-g-12 ui-md-6">
+                        <p:pickList id="DotosPickList" value="#{OpenDotosManagedBean.dotos}" converter="dotosConverter" var="selected"
+                                    effect="slide" showSourceControls="true" showTargetControls="true" filterMatchMode="contains"
+                                    itemValue="#{selected}" itemLabel="#{selected.title}">
                             <f:facet name="sourceCaption">Open</f:facet>
                             <f:facet name="targetCaption">Assign</f:facet>
+
+                            <p:ajax event="transfer" listener="#{OpenDotosManagedBean.onTransfer}" />
+
+                            <p:column style="width: 100%;border: #333333">
+                                <h:outputText value="#{selected.title}" /> <br />
+                                <h:outputText value="(#{selected.value} / #{selected.description})" style="font-size: small"/>
+                            </p:column>
                         </p:pickList>
                     </div>
 
-                    <div class="ui-g-12 ui-md-2" />
+                    <div class="ui-g-12 ui-md-3" />
 
-                    <div class="ui-g-12 ui-md-4" />
+                    <div class="ui-g-12 ui-md-5" />
 
-                    <div class="ui-g-12 ui-md-4">
-                        <h:commandButton value="Press me!">
-
-                        </h:commandButton>
+                    <div class="ui-g-12 ui-md-2">
+                        <h:commandButton id="confirmationButton" value="Confirm!" action="#{OpenDotosManagedBean.confirmAssignment}" />
                     </div>
 
-                    <div class="ui-g-12 ui-md-4" />
+                    <div class="ui-g-12 ui-md-5" />
                 </div>
             </p:panel>
         </h:form>

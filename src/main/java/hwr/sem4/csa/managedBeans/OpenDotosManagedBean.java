@@ -4,13 +4,18 @@ import hwr.sem4.csa.database.Databasehandler;
 import hwr.sem4.csa.util.Community;
 import hwr.sem4.csa.util.Dotos;
 import hwr.sem4.csa.util.Participator;
+import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 
+import javax.annotation.Generated;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.annotation.ManagedProperty;
 import javax.faces.bean.ManagedBean;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @ManagedBean
 public class OpenDotosManagedBean {
@@ -20,7 +25,7 @@ public class OpenDotosManagedBean {
     private Participator localPartcipipator;
     private Community localCommunity;
 
-    private DualListModel<String> dotos;
+    private DualListModel<Dotos> dotos;
     private Databasehandler localHandler = Databasehandler.instanceOf();
 
     @PostConstruct
@@ -32,29 +37,48 @@ public class OpenDotosManagedBean {
         this.localCommunity = localHandler.getCommunityById(localPartcipipator.getCommunityId());
 
         //fetching open Dotos objects
-        List<String> dotosSource = new ArrayList<String>();
+        List<Dotos> dotosSource = new ArrayList<Dotos>();
         for(Dotos tempDotos : this.localCommunity.getDotosList()) {
-            String tempDesc = tempDotos.getDescription();
-            if(tempDesc == null) {
-                tempDesc = "Sample Desc.";
-            }else if(tempDesc.length() >= 10) {
-                tempDesc = tempDesc.substring(0, 10) + "...";
+            if(tempDotos.getAssignedTo() == null || tempDotos.getAssignedTo().isEmpty()) {
+                dotosSource.add(tempDotos);
             }
-            dotosSource.add(tempDotos.getTitle() + "(" + tempDesc + "...)");
         }
-        List<String> dotosTarget = new ArrayList<String>();
-        this.dotos = new DualListModel<String>(dotosSource, dotosTarget);
+        List<Dotos> dotosTarget = new ArrayList<Dotos>();
 
+        this.dotos = new DualListModel<Dotos>(dotosSource, dotosTarget);
     }
 
-    public DualListModel<String> getDotos()
+    public DualListModel<Dotos> getDotos()
     {
         return this.dotos;
     }
 
-    public void setDotos(DualListModel<String> dotos) {
+    public void setDotos(DualListModel<Dotos> dotos) {
         this.dotos = dotos;
     }
 
 
+    public void confirmAssignment()
+    {
+        System.out.println("Targets: ");
+        for(Dotos dotosId : dotos.getTarget()) {
+            dotosId.setAssignedTo(this.localPartcipipator.getUsername());
+            System.out.println(dotosId.getId() + ": " + dotosId.getTitle());
+        }
+
+        this.localHandler.updateCommunity(this.localCommunity.getId(), this.localCommunity.getName(), this.localCommunity.getCreationTime(),
+                this.localCommunity.getTaskList(), this.localCommunity.getDotosList());
+    }
+
+    public void onTransfer(TransferEvent event)
+    {
+        System.out.println("I saw that");
+        System.out.println("source: " + this.dotos.getSource().size() + " | target: " + this.dotos.getTarget().size());
+    }
+
+    @PreDestroy
+    public void cleanup()
+    {
+        this.localHandler.close();
+    }
 }

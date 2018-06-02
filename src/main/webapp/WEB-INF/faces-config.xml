@@ -53,4 +53,9 @@
         <managed-bean-class>hwr.sem4.csa.managedBeans.OpenDotosManagedBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
+    <converter>
+        <converter-id>dotosConverter</converter-id>
+        <converter-class>hwr.sem4.csa.converter.DotosConverter</converter-class>
+    </converter>
 </faces-config>
