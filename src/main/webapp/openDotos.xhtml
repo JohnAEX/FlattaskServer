@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>Open Dotos</title>
+</h:head>
+<h:body>
+    <h:panelGroup>
+        <h:form>
+            <p:panel id="mainPanel">
+                <f:facet name="header">
+                    Open Dotos assignment
+                </f:facet>
+
+                <div class="ui-g-12 ui-fluid">
+                    <div class="ui-g-12 ui-md-2" />
+
+                    <div class="ui-g-12 ui-md-8">
+                        <h:outputText value="Drag Dotos you want to assign to yourself onto the right pane." />
+                        <p:pickList id="dotosPickList" value="#{OpenDotosManagedBean.dotos}"
+                                    effect="slide" showSourceControls="true" showTargetControls="true" filterMatchMode="contains">
+                            <f:facet name="sourceCaption">Open</f:facet>
+                            <f:facet name="targetCaption">Assign</f:facet>
+                        </p:pickList>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-2" />
+
+                    <div class="ui-g-12 ui-md-4" />
+
+                    <div class="ui-g-12 ui-md-4">
+                        <h:commandButton value="Press me!">
+
+                        </h:commandButton>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4" />
+                </div>
+            </p:panel>
+        </h:form>
+    </h:panelGroup>
+</h:body>
+</html>
