@@ -1,34 +1,47 @@
 package hwr.sem4.csa.converter;
 
+import hwr.sem4.csa.database.Databasehandler;
+import hwr.sem4.csa.util.Community;
 import hwr.sem4.csa.util.Dotos;
+import hwr.sem4.csa.util.Participator;
 
+import javax.annotation.PreDestroy;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import java.util.Optional;
 
 @FacesConverter("hwr.sem4.csa.DotosConverter")
 public class DotosConverter implements Converter {
 
+    // @ManagedProperty("#{LoginManagedBean.username}")
+    private String username = "genz_dominik";
+
+    private Databasehandler localHandler = Databasehandler.instanceOf();
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value)
     {
-        Dotos dotosBuilder = new Dotos();
-        try{
-            String[] dotosProperties = value.split(String.valueOf('\7'));
+        this.localHandler.initObjectDBConnection();
+        Optional<Community> containingCommunity = Optional.of(this.localHandler.getCommunityById(this.localHandler.getParticipatorByUsername(this.username).getCommunityId()));
 
-
-            dotosBuilder.setId(Integer.parseInt(dotosProperties[0]));
-            dotosBuilder.setTitle(dotosProperties[1]);
-            dotosBuilder.setDescription(dotosProperties[2]);
-            dotosBuilder.setValue(Integer.valueOf(dotosProperties[3]));
-            dotosBuilder.setDuration(Integer.valueOf(dotosProperties[4]));
-            dotosBuilder.setAssignedTo(dotosProperties[5]);
-            dotosBuilder.setAssignedBy(dotosProperties[6]);
-        } catch(Exception exc) {
+        if(!containingCommunity.isPresent()) {
+            // Log this
             return null;
         }
-        return dotosBuilder;
+
+        Optional<Dotos> optional = containingCommunity.get().getDotosList().stream()
+                .filter(dotos -> dotos.getId() == Long.parseLong(value))
+                .findFirst();
+
+        if(!optional.isPresent()) {
+            // Log this
+            return null;
+        }
+
+        return optional;
     }
 
     @Override
@@ -39,33 +52,12 @@ public class DotosConverter implements Converter {
             return null;
         }
 
-        Dotos localDotos = (Dotos) value;
-        StringBuilder builder = new StringBuilder();
+        return String.valueOf(((Dotos) value).getId());
+    }
 
-        builder.append(localDotos.getId() + '\7');
-        if(localDotos.getTitle() == null) {
-            builder.append('\7');
-        } else {
-            builder.append(localDotos.getTitle() + '\7');
-        }
-        if(localDotos.getDescription() == null) {
-            builder.append('\7');
-        } else {
-            builder.append(localDotos.getDescription() + '\7');
-        }
-        builder.append(localDotos.getValue() + '\7');
-        builder.append(localDotos.getDuration() + '\7');
-        if(localDotos.getAssignedTo() == null) {
-            builder.append('\7');
-        } else {
-            builder.append(localDotos.getAssignedTo() + '\7');
-        }
-        if(localDotos.getAssignedBy() == null) {
-            builder.append('\7');
-        } else {
-            builder.append(localDotos.getAssignedBy());
-        }
-
-        return builder.toString();
+    @PreDestroy
+    public void cleanup()
+    {
+        this.localHandler.close();
     }
 }
