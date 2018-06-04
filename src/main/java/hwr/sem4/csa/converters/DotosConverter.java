@@ -1,12 +1,10 @@
-package hwr.sem4.csa.converter;
+package hwr.sem4.csa.converters;
 
 import hwr.sem4.csa.database.Databasehandler;
 import hwr.sem4.csa.util.Community;
 import hwr.sem4.csa.util.Dotos;
-import hwr.sem4.csa.util.Participator;
 
 import javax.annotation.PreDestroy;
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -41,7 +39,7 @@ public class DotosConverter implements Converter {
             return null;
         }
 
-        return optional;
+        return optional.get();
     }
 
     @Override

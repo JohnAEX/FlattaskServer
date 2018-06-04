@@ -23,9 +23,7 @@
                                     effect="slide" showSourceControls="true" showTargetControls="true" filterMatchMode="contains"
                                     itemValue="#{selected}" itemLabel="#{selected.title}">
                             <f:facet name="sourceCaption">Open</f:facet>
-                            <f:facet name="targetCaption">Assign</f:facet>
-
-                            <p:ajax event="transfer" listener="#{OpenDotosManagedBean.onTransfer}" />
+                            <f:facet name="targetCaption">Assigned to me</f:facet>
 
                             <p:column style="width: 100%;border: #333333">
                                 <h:outputText value="#{selected.title}" /> <br />
@@ -39,7 +37,7 @@
                     <div class="ui-g-12 ui-md-5" />
 
                     <div class="ui-g-12 ui-md-2">
-                        <h:commandButton id="confirmationButton" value="Confirm!" action="#{OpenDotosManagedBean.confirmAssignment}" />
+                        <h:commandButton id="confirmationButton" value="Confirm!" action="#{OpenDotosManagedBean.confirmAssignment}" update="stateReport" oncomplete="PF('stateDialog').show()" style="margin-top:5px" />
                     </div>
 
                     <div class="ui-g-12 ui-md-5" />
@@ -47,5 +45,12 @@
             </p:panel>
         </h:form>
     </h:panelGroup>
+
+    <p:dialog modal="true" showEffect="slide" hideEffect="slide" widgetVar="stateDialog">
+        <p:panelGrid id="stateReport">
+            <h:outputText value="Status:" />
+            <h:outputText value="#{OpenDotosManagedBean.message}" />
+        </p:panelGrid>
+    </p:dialog>
 </h:body>
 </html>
