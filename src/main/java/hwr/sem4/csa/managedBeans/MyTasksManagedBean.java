@@ -45,7 +45,7 @@ http://www.naturalborncoder.com/java/java-ee/2011/11/22/dynamic-dashboard-with-p
  */
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class MyTasksManagedBean {
 
     public static final int DEFAULT_COLUMN_COUNT = 3;
