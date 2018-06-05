@@ -1,7 +1,7 @@
 {
   "dateFormat" : "yyyyMMdd",
   "prefix" : "C",
-  "idCoreLength" : 9,
-  "minIdCacheLength" : 2,
-  "maxIdCacheLength" : 3
+  "idCoreLength" : 10,
+  "minIdCacheLength" : 15,
+  "maxIdCacheLength" : 20
 }

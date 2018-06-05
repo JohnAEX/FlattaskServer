@@ -1,62 +1,73 @@
 package hwr.sem4.csa.management;
 
-import hwr.sem4.csa.database.Databasehandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 
-import java.math.BigInteger;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
+
 
 public class IdFetcher extends Thread {
-    private Databasehandler localHandler;
 
-    private String prefix;
-    private int idCoreLength;
+    private IdManagementCore coreProperties;
     private String lowerCoreBoundary;
     private String upperCoreBoundary;
-    private int untilAmount;
     private ArrayList<String> idStore;
     private boolean idDepletion;
 
-    public IdFetcher(String prefix, int idCoreLength, String lowerCoreBoundary, String upperCoreBoundary,
-                     int untilAmount, ArrayList<String> idStore, boolean idDepletion)
+    protected IdFetcher()
     {
-        this.localHandler = Databasehandler.instanceOf();
-
-        this.prefix = prefix;
-        this.idCoreLength = idCoreLength;
-        this.lowerCoreBoundary = lowerCoreBoundary;
-        this.upperCoreBoundary = upperCoreBoundary;
-        this.untilAmount = untilAmount;
-        this.idStore = idStore;
-        this.idDepletion = idDepletion;
+        this.coreProperties = null;
+        this.lowerCoreBoundary = null;
+        this.upperCoreBoundary = null;
+        this.idStore = new ArrayList<String>();
+        this.idDepletion = false;
     }
 
-    @Override
-    public void run()
+    protected boolean loadCorePropertiesFromFile(String filePath)
     {
-        localHandler.initObjectDBConnection();
-        String checkId = this.prefix;
-        for(BigInteger idCounter = new BigInteger(lowerCoreBoundary, 16); idStore.size() < untilAmount; idCounter = idCounter.add(BigInteger.ONE)) {
-            checkId = checkId.substring(0, 11) + StringUtils.leftPad(idCounter.toString(), this.idCoreLength, '0');
-
-            //Adding an unused Id
-            if(localHandler.getCommunityById(checkId) == null && !this.idStore.contains(checkId)) {
-                idStore.add(checkId);
-                this.idDepletion = false;
-            }
-
-            //checking whether Id stock is exhausted
-            if(idCounter.compareTo(new BigInteger(upperCoreBoundary, 16)) >= 0 && idStore.size() == 0) {
-                this.idDepletion = true;
-            }
+        // Load default configs
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream inFromFile = loader.getResourceAsStream(filePath);
+        try {
+            this.coreProperties = new ObjectMapper().readValue(inFromFile, IdManagementCore.class);
+        } catch(IOException ioExc) {
+            return false;
         }
-        Collections.sort(this.idStore);
-        localHandler.close();
+
+        //Invalid properties
+        if(this.coreProperties.getPrefix() == null || this.coreProperties.getPrefix().equals("")) {
+            this.coreProperties = null;
+            return false;
+        }
+        if(this.coreProperties.getDateFormat() == null || this.coreProperties.getDateFormat().toString().equals("")) {
+            this.coreProperties = null;
+            return false;
+        }
+        if(this.coreProperties.getIdCoreLength() < 0) {
+            this.coreProperties = null;
+            return false;
+        }
+        if(this.coreProperties.getMinIdCacheLength() < 0 || this.coreProperties.getMaxIdCacheLength() < this.coreProperties.getMinIdCacheLength()) {
+            this.coreProperties = null;
+            return false;
+        }
+
+        // No invalid properties
+        return true;
     }
 
-    public String getPrefix()
+    protected boolean initFieldsFromCoreProperties()
     {
-        return prefix;
+        // faulty coreProperties
+        if(this.coreProperties == null) {
+            return false;
+        }
+
+        this.lowerCoreBoundary = StringUtils.leftPad("", this.coreProperties.getIdCoreLength(), '0');
+        this.upperCoreBoundary = StringUtils.leftPad("", this.coreProperties.getIdCoreLength(), 'F');
+        return true;
     }
+
 }

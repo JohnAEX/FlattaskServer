@@ -1,15 +1,12 @@
 package hwr.sem4.csa.management;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
-import static hwr.sem4.csa.management.CommunityIdMgtConstants.COMMUNITY_MGT_DEFAULTS_FILE;
+import static hwr.sem4.csa.management.IdManagementConstants.COMMUNITY_MGT_DEFAULTS_FILE;
 
 public class CommunityIdMgtMapperTest {
     private InputStream singleInFromFile;

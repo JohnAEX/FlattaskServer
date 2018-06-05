@@ -10,8 +10,8 @@ import java.util.*;
 
 import static hwr.sem4.csa.management.IdManagementConstants.COMMUNITY_MGT_DEFAULTS_FILE;
 
-public class CommunityIdManager extends IdManagementCore {
-    private static CommunityIdManager thisCommunityIdManager = new CommunityIdManager();
+public class IdManager extends IdManagementCore {
+    private static IdManager thisIdManager = new IdManager();
 
     private IdManagementCore coreProperties;
 
@@ -22,12 +22,12 @@ public class CommunityIdManager extends IdManagementCore {
 
     private CommunityIdFetcher communityIdFetcher;
 
-    public static CommunityIdManager getInstance()
+    public static IdManager getInstance()
     {
-        return thisCommunityIdManager;
+        return thisIdManager;
     }
 
-    private CommunityIdManager()
+    private IdManager()
     {
         // Load default configs
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

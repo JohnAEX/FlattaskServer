@@ -1,0 +1,7 @@
+{
+  "dateFormat" : "yyyyMMdd",
+  "prefix" : "D",
+  "idCoreLength" : 3,
+  "minIdCacheLength" : 2,
+  "maxIdCacheLength" : 3
+}
