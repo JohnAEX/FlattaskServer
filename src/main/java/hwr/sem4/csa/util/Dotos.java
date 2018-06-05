@@ -37,6 +37,10 @@ public class Dotos implements Serializable{
         this.assignedBy = assignedBy;
     }
 
+    public int getId()
+    {
+        return this.id;
+    }
 
 
     public String getTitle() {

@@ -7,7 +7,7 @@ public class IdManagementCore {
 
     private DateFormat dateFormat;
     private String prefix;
-    private int idCoreLength;
+    private int numberOfDailyIds;
     private int minIdCacheLength;
     private int maxIdCacheLength;
 
@@ -27,12 +27,12 @@ public class IdManagementCore {
         this.prefix = prefix;
     }
 
-    public int getIdCoreLength() {
-        return idCoreLength;
+    public int getNumberOfDailyIds() {
+        return numberOfDailyIds;
     }
 
-    public void setIdCoreLength(int idCoreLength) {
-        this.idCoreLength = idCoreLength;
+    public void setNumberOfDailyIds(int numberOfDailyIds) {
+        this.numberOfDailyIds = numberOfDailyIds;
     }
 
     public int getMinIdCacheLength() {
