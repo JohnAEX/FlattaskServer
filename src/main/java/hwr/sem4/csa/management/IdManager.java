@@ -29,6 +29,7 @@ public class IdManager extends IdManagementCore {
         // Load JSON Files
         this.corePropertiesCIds = coreFromFile(COMMUNITY_MGT_DEFAULTS_FILE);
         this.corePropertiesDIds = coreFromFile(DOTO_MGT_DEFAULTS_FILE);
+        this.cIdCache = new ArrayList<String>();
 
         // Initial fetch
         this.getFreeCId();
