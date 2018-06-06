@@ -8,23 +8,31 @@
     <title>Open Dotos</title>
 </h:head>
 <h:body>
+    <!-- Panelgroup as Container -->
     <h:panelGroup id="mainGroup">
         <h:form>
-            <p:panel id="mainPanel">
+            <!-- Panel as containing object -->
+            <p:panel>
+                <!-- Header Line -->
                 <f:facet name="header">
                     Open Dotos assignment
                 </f:facet>
 
+                <!-- page alignment -->
                 <div class="ui-g-12 ui-fluid">
+
                     <div class="ui-g-12 ui-md-3" />
 
                     <div class="ui-g-12 ui-md-6">
+                        <!-- Main onject of this xHTML -->
                         <p:pickList id="DotosPickList" value="#{OpenDotosManagedBean.dotos}" converter="dotosConverter" var="selected"
                                     effect="slide" showSourceControls="true" showTargetControls="true" filterMatchMode="contains"
                                     itemValue="#{selected}" itemLabel="#{selected.title}">
+                            <!-- column-headers -->
                             <f:facet name="sourceCaption">Open</f:facet>
                             <f:facet name="targetCaption">Assigned to me</f:facet>
 
+                            <!-- content of displayed items -->
                             <p:column style="width: 100%;border: #333333">
                                 <h:outputText value="#{selected.title}" /> <br />
                                 <h:outputText value="(#{selected.value} / #{selected.description})" style="font-size: small"/>
@@ -37,6 +45,7 @@
                     <div class="ui-g-12 ui-md-5" />
 
                     <div class="ui-g-12 ui-md-2">
+                        <!-- Confirmation with call to ManagedBean to persist the requested changes -->
                         <h:commandButton id="confirmationButton" value="Confirm!" action="#{OpenDotosManagedBean.confirmAssignment}" update="stateReport" oncomplete="PF('stateDialog').show()" style="margin-top:5px" />
                     </div>
 
@@ -46,11 +55,10 @@
         </h:form>
     </h:panelGroup>
 
-    <p:dialog modal="true" showEffect="slide" hideEffect="slide" widgetVar="stateDialog">
-        <p:panelGrid id="stateReport">
-            <h:outputText value="Status:" />
-            <h:outputText value="#{OpenDotosManagedBean.message}" />
-        </p:panelGrid>
+    <!-- dialog that should (in theory) appear when the ManagedBean has finished persisting or encountered an error -->
+    <p:dialog modal="false" showEffect="slide" hideEffect="fade" widgetVar="stateDialog">
+        <h:outputText value="Status:" />
+        <h:outputText value="#{OpenDotosManagedBean.message}" />
     </p:dialog>
 </h:body>
 </html>

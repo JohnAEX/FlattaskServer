@@ -32,15 +32,17 @@ public class OpenDotosManagedBean {
     @PostConstruct
     public void init()
     {
+        /*
         // Grab Participator object
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
-        localParticipator = login.getLoggedInUser();
+        this.localParticipator = login.getLoggedInUser();
+        */
 
-        // Fetching context objects
+        // Fetching environment objects
         this.localHandler.initObjectDBConnection();
-        this.localParticipator = /* this.userInit() */ this.localHandler.getParticipatorByUsername("genz_dominik");
+        this.localParticipator = this.localHandler.getParticipatorByUsername("genz_dominik");
         this.localCommunity = localHandler.getCommunityById(localParticipator.getCommunityId());
 
         // Fetching Dotos objects
@@ -68,6 +70,11 @@ public class OpenDotosManagedBean {
         this.dotos = dotos;
     }
 
+    /**
+     * Checks whether the open Dotos for the respective Community have experienced changes since the ManagedBean has been initialized.
+     * Only executes the persistency transaction if no changes have been made.
+     * Also updates the message field of the ManagedBean with an nformation regarding execution success.
+     */
     public void confirmAssignment()
     {
         // Fetch DotosLists
@@ -113,6 +120,12 @@ public class OpenDotosManagedBean {
         this.message = "Your assignments (as well as un-assignments have been saved to your Community...";
     }
 
+    /**
+     * Checks two ArrayLists of Type Dotos for equality
+     * @param arr1 - first ArrayList to be compared
+     * @param arr2 - second ArrayList to be compared
+     * @return true if the ArrayLists only contain Dotos-objects with identical fields-values
+     */
     private boolean areEqual(ArrayList<Dotos> arr1, ArrayList<Dotos> arr2)
     {
         if(arr1 == null && arr2 == null) {
