@@ -1,7 +1,0 @@
-{
-  "dateFormat" : "yyyyMMdd",
-  "prefix" : "D",
-  "numberOfDailyIds" : 4000000000,
-  "minIdCacheLength" : 0,
-  "maxIdCacheLength" : 1
-}

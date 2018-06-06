@@ -1,14 +1,13 @@
 package hwr.sem4.csa.management;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hwr.sem4.csa.exceptions.OutOfIdsException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
 import static hwr.sem4.csa.management.IdManagementConstants.COMMUNITY_MGT_DEFAULTS_FILE;
-import static hwr.sem4.csa.management.IdManagementConstants.DOTO_MGT_DEFAULTS_FILE;
+import static hwr.sem4.csa.management.IdManagementConstants.MAX_NEW_COMMUNITIES_PER_DAY;
 
 public class IdManager extends IdManagementCore {
     // Singleton
@@ -19,7 +18,6 @@ public class IdManager extends IdManagementCore {
     }
 
     private IdManagementCore corePropertiesCIds;
-    private IdManagementCore corePropertiesDIds;
     private ArrayList<String> cIdCache;
 
     private CommunityIdFetcher cIdFetcher;
@@ -28,18 +26,29 @@ public class IdManager extends IdManagementCore {
     {
         // Load JSON Files
         this.corePropertiesCIds = coreFromFile(COMMUNITY_MGT_DEFAULTS_FILE);
-        this.corePropertiesDIds = coreFromFile(DOTO_MGT_DEFAULTS_FILE);
         this.cIdCache = new ArrayList<String>();
 
         // Initial fetch
+        this.cIdFetcher = generateNewFetcher();
+        this.cIdFetcher.start();
         this.getFreeCId();
+        try {
+            this.cIdFetcher.join();
+        } catch(InterruptedException iExc) {
+            System.out.println("Fetch process has been interrupted.");
+        }
+        System.out.println("IdManager construction complete");
     }
 
     public String getFreeCId()
     {
         if(this.cIdCache.size() >= corePropertiesCIds.getMinIdCacheLength()) {
             // Sufficient Ids present
-            return this.cIdCache.get(0);
+
+            // Grab free Id
+            String fetchedId = this.cIdCache.get(0);
+            this.cIdCache.remove(0);
+            return fetchedId;
         }
         if(this.cIdCache.size() == 0) {
             try{
@@ -58,28 +67,25 @@ public class IdManager extends IdManagementCore {
         String fetchedId = this.cIdCache.get(0);
         this.cIdCache.remove(0);
 
-        // Get fetch parameters
-        int fetchAmount = this.corePropertiesCIds.getMaxIdCacheLength() - this.cIdCache.size();
-        int idCoreLength = getDigitCount(this.corePropertiesCIds.getNumberOfDailyIds());
-        String fullPrefix = this.corePropertiesCIds.getPrefix() + this.corePropertiesCIds.getDateFormat().format(new Date());
-
-        // Fetch free Ids
-        this.cIdFetcher = new CommunityIdFetcher(fetchAmount, idCoreLength, fullPrefix, this.cIdCache);
-        this.cIdFetcher.start();
+        if(this.cIdCache.size() < this.corePropertiesCIds.getMinIdCacheLength()) {
+            // Lower cache limit has been trespassed
+            this.cIdFetcher = generateNewFetcher();
+            // Start fetching new Ids
+            this.cIdFetcher.start();
+        }
 
         return fetchedId;
     }
-    public int getFreeDId(String communityId) throws OutOfIdsException
-    {
-        ArrayList<Integer> dIdCache = new ArrayList<Integer>();
-        DotoIdFetcher dIdFetcher = new DotoIdFetcher(communityId,
-                this.corePropertiesDIds.getMaxIdCacheLength() - this.corePropertiesDIds.getMinIdCacheLength(),
-                this.corePropertiesDIds.getNumberOfDailyIds(), dIdCache);
 
-        if(dIdCache.size() == 0) {
-            throw new OutOfIdsException("All Ids for your Community have been taken. Delete some older Dotos maybe!");
-        }
-        return dIdCache.get(0);
+    private CommunityIdFetcher generateNewFetcher() {
+        // Get fetch parameters
+        int fetchAmount = this.corePropertiesCIds.getMaxIdCacheLength() - this.cIdCache.size();
+        int digitsToWriteTo = getDigitCount(this.corePropertiesCIds.getNumberOfDailyIds());
+        int idCoreLength = getDigitCount(MAX_NEW_COMMUNITIES_PER_DAY);
+        String fullPrefix = this.corePropertiesCIds.getPrefix() + "-" + this.corePropertiesCIds.getDateFormat().format(new Date()) + "-";
+
+        // Fetch free Ids
+        return new CommunityIdFetcher(fetchAmount, digitsToWriteTo, idCoreLength, fullPrefix, this.cIdCache);
     }
 
     private static IdManagementCore coreFromFile(String filePath)

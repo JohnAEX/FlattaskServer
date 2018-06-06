@@ -8,14 +8,16 @@ import java.util.ArrayList;
 
 class CommunityIdFetcher extends Thread {
     private final int amount;
+    private final int digitsToWriteTo;
     private final int idCoreLength;
     private final String prefix;
     private final ArrayList<String> idStore;
     private final Databasehandler localHandler = Databasehandler.instanceOf();
 
-    public CommunityIdFetcher(int amount, int idCoreLength, String prefix, ArrayList<String> idStore)
+    public CommunityIdFetcher(int amount, int digitsToWriteTo, int idCoreLength, String prefix, ArrayList<String> idStore)
     {
         this.amount = amount;
+        this.digitsToWriteTo = digitsToWriteTo;
         this.idCoreLength = idCoreLength;
         this.prefix = prefix;
         this.idStore = idStore;
@@ -26,10 +28,10 @@ class CommunityIdFetcher extends Thread {
     public void run()
     {
         // Remember for difference
-        final int initialIdStoreLength = this.idStore.size();
+        final int maxCacheLength = this.idStore.size() + this.amount;
 
         // Count for amount
-        final int maxId = this.idCoreLength * 10 - 1;
+        final int maxId = this.digitsToWriteTo * 10 - 1;
         for(int i = 0; i <= maxId; ++i) {
             // Generate fixed-width Id
             String checkId = this.prefix + StringUtils.leftPad(String.valueOf(i), this.idCoreLength, '0');
@@ -37,7 +39,7 @@ class CommunityIdFetcher extends Thread {
                 // Id is free
                 this.idStore.add(checkId);
 
-                if(this.idStore.size() == initialIdStoreLength + this.amount) {
+                if(this.idStore.size() == maxCacheLength) {
                     // Preferred break condition: IdStore is full
                     return;
                 }
