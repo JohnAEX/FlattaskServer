@@ -32,6 +32,12 @@ public class OpenDotosManagedBean {
     @PostConstruct
     public void init()
     {
+        // Grab Participator object
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
+        localParticipator = login.getLoggedInUser();
+
         // Fetching context objects
         this.localHandler.initObjectDBConnection();
         this.localParticipator = /* this.userInit() */ this.localHandler.getParticipatorByUsername("genz_dominik");
@@ -51,16 +57,6 @@ public class OpenDotosManagedBean {
         }
 
         this.dotos = new DualListModel<Dotos>(dotosSource, dotosTarget);
-    }
-
-    private Participator userInit(){
-        // Fetching Participator object from LognManagedBean
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
-        System.out.println("Assigning User: "+login.loggedInUser.getUsername());
-        Participator rs = login.loggedInUser;
-        return rs;
     }
 
     public DualListModel<Dotos> getDotos()
