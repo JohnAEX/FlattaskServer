@@ -21,13 +21,14 @@ public class LoginFilter implements Filter{
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse responseNow = (HttpServletResponse) res;
         HttpSession session = ((HttpServletRequest) req).getSession(false);
+        //Session is used to check for LoginManagedBeans
         LoginManagedBean loginManagedBean = (session != null) ? (LoginManagedBean) session.getAttribute("LoginManagedBean") : null;
         System.out.println("\t> loginManagedBean: " + loginManagedBean + " - logged in: " + loginManagedBean.isLoggedIn());
         if (loginManagedBean != null && loginManagedBean.isLoggedIn()) {
-            // Logged in.
+            // Logged in, forward request
             chain.doFilter(req, res);
         }else{
-            //Not logged in
+            //Not logged in, redirect to login.xhtml
             responseNow.sendRedirect("/login.xhtml");
 
         }

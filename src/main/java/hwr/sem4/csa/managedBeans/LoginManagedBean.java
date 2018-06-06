@@ -15,12 +15,17 @@ import java.io.Serializable;
 @ManagedBean
 @SessionScoped
 public class LoginManagedBean implements Serializable{
+    /*
+     * Used to allow the user to login, as well as forward to the respected page for registration
+     */
 
+    //Currently used for debugging
     @PostConstruct
     public void sessionInitialized() {
         System.out.println("\t> LoginManagedBean created @" + System.currentTimeMillis());
     }
 
+    //Currently used for debugging
     @PreDestroy
     public void sessionDestroyed() {
         System.out.println("\t> LoginManagedBean destroyed @" + System.currentTimeMillis());
@@ -50,31 +55,38 @@ public class LoginManagedBean implements Serializable{
     }
 
     public String attemptLogin(){
-        System.out.println("Attempted Login for: " + this.username + " - " + this.password);
+        System.out.println("Attempted Login for: " + this.username + " - " + this.password); //Debugging output
         Databasehandler.instanceOf().initObjectDBConnection();
         Participator testLogin = Databasehandler.instanceOf().getParticipatorByLogin(this.username, this.password);
+
         try {
             if (testLogin != null) {
+                //Only enters if Login was successful
                 setLoggedIn(true);
                 loggedInUser = testLogin;
                 Databasehandler.instanceOf().close();
-                System.out.println("Login successful");
+                System.out.println("Login successful"); //Debugging output
                 if (loggedInUser.getRole().equalsIgnoreCase("admin")) {
+                    //Redirects Admin users to the Sysadmin page
                     FacesContext.getCurrentInstance().getExternalContext().redirect("highlysecured/systemadmin.xhtml");
                     FacesContext.getCurrentInstance().responseComplete();
                     return "highlysecured/systemadmin";
                 } else {
+                    //Checks if the user is part of a community
                     if(loggedInUser.getCommunityId().length() > 2) {
+                        //If yes, redirects to the main dashboard page
                         FacesContext.getCurrentInstance().getExternalContext().redirect("secured/main.xhtml");
                         FacesContext.getCurrentInstance().responseComplete();
                         return "secured/main";
                     }else{
+                        //If no, redirects to the nocommunity page to either join or create one
                         FacesContext.getCurrentInstance().getExternalContext().redirect("secured/nocommunity.xhtml");
                         FacesContext.getCurrentInstance().responseComplete();
                         return "secured/nocommunity";
                     }
                 }
             } else {
+                //Display a failed login message and redirect to login
                 FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
                 FacesContext.getCurrentInstance().responseComplete();
                 Databasehandler.instanceOf().close();
@@ -89,6 +101,7 @@ public class LoginManagedBean implements Serializable{
     }
 
     public String logout() {
+        //Enables the option to logout
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/login.xhtml?faces-redirect=true";
     }
