@@ -11,15 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Databasehandler {
+    //Singleton-Pattern
     static Databasehandler thisDBHandler = new Databasehandler();
     private EntityManagerFactory emFactory;
 
     private Databasehandler() {    }
 
+    //Method to access Instance
     static public Databasehandler instanceOf() {
         return thisDBHandler;
     }
 
+    //Needs to be called before accessing ODB
     public void initObjectDBConnection(){
         emFactory = Persistence.createEntityManagerFactory("objectdb:" +
                 "//ec2-34-203-244-142.compute-1.amazonaws.com:6136/reviewB.odb;user=admin;password=admin");
@@ -31,6 +34,7 @@ public class Databasehandler {
         return emFactory.createEntityManager();
     }
 
+    //Closes connection
     public void close() {
         emFactory.close();
     }
@@ -44,6 +48,7 @@ public class Databasehandler {
         em.close();
     }
 
+    //Inserts all objects part of a list into DB; no checks are made
     public void insertList(List list){
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
@@ -78,6 +83,7 @@ public class Databasehandler {
 
     }
 
+    //Returns all Participators that are part of a specific community
     public List<Participator> getParticipatorsByCommunityID(String id){
         EntityManager em = emFactory.createEntityManager();
         TypedQuery<Participator> typedResultQuery = em.createQuery("SELECT p FROM Participator p WHERE p.communityId = :id", Participator.class);
@@ -118,7 +124,7 @@ public class Databasehandler {
 
     }
 
-    //Update Methods
+    //Update Participator
     public void updateParticipator(String username, String password, String firstName, String lastname, int balance,
                                    String role, String communityID, String creationTime){
         EntityManager em = emFactory.createEntityManager();
@@ -140,7 +146,7 @@ public class Databasehandler {
 
     }
 
-
+    //Update Community
     public void updateCommunity(String id, String name, String creationTime, ArrayList<Task> tasksList, ArrayList<Dotos> dotosList){
         removeCommunityById(id);
         Community c = new Community();
@@ -152,19 +158,21 @@ public class Databasehandler {
         insert(c);
     }
 
-    //SysAdmin methods
+    //SysAdmin get all registered Participators
     public List<Participator> getAllParticipators(){
         EntityManager em = emFactory.createEntityManager();
         TypedQuery<Participator> typedQuery = em.createQuery("SELECT p FROM Participator p",Participator.class);
         return typedQuery.getResultList();
     }
 
+    //SysAdmin get all registered Communities
     public List<Community> getAllCommunities(){
         EntityManager em = emFactory.createEntityManager();
         TypedQuery<Community> typedQuery = em.createQuery("SELECT c FROM Community c",Community.class);
         return typedQuery.getResultList();
     }
 
+    //Sysadmin remove Participator from registered Participators
     public void removeParticipatorByUsername(String username){
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
@@ -175,7 +183,7 @@ public class Databasehandler {
 
     }
 
-
+    //Sysadmin remove Community from registered Communities
     public void removeCommunityById(String id){
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
