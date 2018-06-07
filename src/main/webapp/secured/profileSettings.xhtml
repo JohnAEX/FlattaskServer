@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <!-- Used to display the profile settings and allow changes to said profile -->
+    <title>FT-Community</title>
+    <h:outputStylesheet library = "css" name = "login.css"/>
+</h:head>
+<h:body>
+    <h:form>
+        <p:panelGrid columns="3">
+            <f:facet name="header">
+                <p:outputLabel>My Profile</p:outputLabel>
+            </f:facet>
+            <p:outputLabel value="ID"/>
+            <p:outputLabel value="Current Value"/>
+            <p:outputLabel value="New Value"/>
+
+            <p:outputLabel value="Username:"/>
+            <p:outputLabel value="#{ProfileSettingsManagedBean.username}"/>
+            <p:outputLabel value="May not be changed!" />
+
+            <p:outputLabel value="Password:"/>
+            <p:outputLabel value="#{ProfileSettingsManagedBean.password}"/>
+            <p:inputText value = "#{ProfileSettingsManagedBean.password}"/>
+
+            <p:outputLabel value="First Name:"/>
+            <p:outputLabel value="#{ProfileSettingsManagedBean.firstName}"/>
+            <p:inputText value = "#{ProfileSettingsManagedBean.firstName}"/>
+
+            <p:outputLabel value="Last Name:"/>
+            <p:outputLabel value="#{ProfileSettingsManagedBean.lastName}"/>
+            <p:inputText value = "#{ProfileSettingsManagedBean.lastName}"/>
+
+            <p:outputLabel value="Creation Time:"/>
+            <p:outputLabel value="#{ProfileSettingsManagedBean.creationTime}"/>
+            <p:outputLabel value="May not be changed!" />
+
+            <p:outputLabel value="Balance:"/>
+            <p:outputLabel value="#{ProfileSettingsManagedBean.balance}"/>
+            <p:outputLabel value="May not be changed!" />
+
+            <p:outputLabel value="Community:"/>
+            <p:outputLabel value="#{ProfileSettingsManagedBean.communityID}"/>
+            <p:outputLabel value="May not be changed!" />
+        </p:panelGrid>
+        <p:outputLabel value="#{ProfileSettingsManagedBean.errorMsg}" style="color: red" />
+        <br/>
+        <p:commandButton value="Submit changes" action="#{ProfileSettingsManagedBean.submit}"></p:commandButton>
+    </h:form>
+</h:body>
+</html>

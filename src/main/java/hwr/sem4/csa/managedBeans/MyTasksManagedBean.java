@@ -115,7 +115,12 @@ public class MyTasksManagedBean {
                 HtmlOutputText text = new HtmlOutputText();
                 text.setValue(actualUserDotosList.get(i).getDescription());
 
+                HtmlOutputText text2 = new HtmlOutputText();
+                text2.setEscape(false);
+                text2.setValue("<br/>" + "Worth: " + actualUserDotosList.get(i).getValue());
+
                 panel.getChildren().add(text);
+                panel.getChildren().add(text2);
                 FaceletContext faceletContext = (FaceletContext) FacesContext.getCurrentInstance().getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
                 try {
                     faceletContext.includeFacelet(panel, "buttonTest.xhtml");
