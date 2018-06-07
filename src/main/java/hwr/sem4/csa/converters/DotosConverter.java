@@ -3,7 +3,9 @@ package hwr.sem4.csa.converters;
 import hwr.sem4.csa.database.Databasehandler;
 import hwr.sem4.csa.util.Community;
 import hwr.sem4.csa.util.Dotos;
+import hwr.sem4.csa.util.Participator;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -13,29 +15,30 @@ import java.util.Optional;
 
 @FacesConverter("hwr.sem4.csa.DotosConverter")
 public class DotosConverter implements Converter {
-
-    // @ManagedProperty("#{LoginManagedBean.username}")
-    private String username = "genz_dominik";
-
     private Databasehandler localHandler = Databasehandler.instanceOf();
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value)
     {
+        // Fetch Doto-Containers
+        /*
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
+        Participator localParticipator = login.getLoggedInUser();
+        */
         this.localHandler.initObjectDBConnection();
-        Optional<Community> containingCommunity = Optional.of(this.localHandler.getCommunityById(this.localHandler.getParticipatorByUsername(this.username).getCommunityId()));
+        Participator localParticipator = this.localHandler.getParticipatorByUsername("genz_dominik");
+        Community localCommunity = localHandler.getCommunityById(localParticipator.getCommunityId());
+        this.localHandler.close();
 
-        if(!containingCommunity.isPresent()) {
-            // Log this
-            return null;
-        }
-
-        Optional<Dotos> optional = containingCommunity.get().getDotosList().stream()
+        // Lookup the requested Doto
+        Optional<Dotos> optional = localCommunity.getDotosList().stream()
                 .filter(dotos -> dotos.getId() == Long.parseLong(value))
                 .findFirst();
 
         if(!optional.isPresent()) {
-            // Log this
+            // No Doto found
             return null;
         }
 
@@ -46,16 +49,11 @@ public class DotosConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object value)
     {
         if(!(value instanceof Dotos)) {
-            // Log this
+            // No Doto-instance
             return null;
         }
 
         return String.valueOf(((Dotos) value).getId());
     }
 
-    @PreDestroy
-    public void cleanup()
-    {
-        this.localHandler.close();
-    }
 }

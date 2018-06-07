@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>My Community</title>
+</h:head>
+<h:body>
+    <!-- Panelgroup as Container -->
+    <h:panelGroup id="mainGroup">
+        <h:form id="form">
+            <!-- Panel as containing object -->
+            <p:panel>
+                <!-- Header Line -->
+                <f:facet name="header">
+                    My Community
+                </f:facet>
+                <!-- page alignment -->
+                <p:dataList value="#{MyCommunityManagedBean.participatorList}" var="partic" type="unordered">
+                    <f:facet name="header">
+                        Community Scoreboard
+                    </f:facet>
+
+                    <p:commandLink update=":form:particDetail" oncomplete="PF('particDialog').show()" title="View Info">
+                        <f:setPropertyActionListener value="#{partic}" target="#{MyCommunityManagedBean.selectedParticipator}" />
+                        <h:outputText value="#{partic.balance}:  #{partic.firstName} #{partic.lastName.charAt(0)}." />
+                    </p:commandLink>
+                </p:dataList>
+
+            </p:panel>
+            <!-- dialog that should (in theory) appear when the ManagedBean has finished persisting or encountered an error -->
+            <p:dialog header="Participator Info" id="dialog" widgetVar="particDialog" modal="true" showEffect="slide" hideEffect="slide" resizable="false">
+                <p:outputPanel id="particDetail">
+                    <p:panelGrid columns="2" rendered="#{not empty MyCommunityManagedBean.selectedParticipator}" columnClasses="label,value">
+                        <f:facet name="header">
+                            <h:outputText value="#{MyCommunityManagedBean.selectedParticipator.firstName}" />
+                        </f:facet>
+
+                        <h:outputText value="Last name: " />
+                        <h:outputText value="#{MyCommunityManagedBean.selectedParticipator.lastName}" />
+
+                        <h:outputText value="Role: " />
+                        <h:outputText value="#{MyCommunityManagedBean.selectedParticipator.role}" />
+
+                        <h:outputText value="Flatty Balance: " />
+                        <h:outputText value="#{MyCommunityManagedBean.selectedParticipator.balance}" />
+
+                        <h:outputText value="Flattask member since" />
+                        <h:outputText value="#{MyCommunityManagedBean.selectedParticipator.creationTime}" />
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+    </h:panelGroup>
+
+</h:body>
+</html>

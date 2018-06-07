@@ -53,6 +53,11 @@
         <managed-bean-class>hwr.sem4.csa.managedBeans.OpenDotosManagedBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>MyCommunityManagedBean</managed-bean-name>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.MyCommunityManagedBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
     
     <converter>
         <converter-id>dotosConverter</converter-id>
