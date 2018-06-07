@@ -7,6 +7,7 @@ import hwr.sem4.csa.util.Dotos;
 import hwr.sem4.csa.util.Participator;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import java.util.Iterator;
 import java.util.List;
@@ -68,7 +69,6 @@ public class MyCommunityManagedBean {
         return localCommunity;
     }
 
-
     public int getNumberOfTasks()
     {
         return this.localCommunity.getTaskList().size();
@@ -89,5 +89,31 @@ public class MyCommunityManagedBean {
             }
         }
         return count;
+    }
+
+    public void leaveCommunity()
+    {
+        // Deleting Participator from assignedTo Dotos
+        // Update Community
+        this.localCommunity = this.localHandler.getCommunityById(this.localCommunity.getId());
+        for(Dotos aDoto : this.localCommunity.getDotosList()) {
+            if(aDoto != null && aDoto.getAssignedTo().equals(this.localParticipator.getUsername())) {
+                aDoto.setAssignedTo(null);
+            }
+        }
+        // Persist Community without assignments to the leaving Participator
+        this.localHandler.updateCommunity(this.localCommunity.getId(), this.localCommunity.getName(), this.localCommunity.getCreationTime(),
+                this.localCommunity.getTaskList(), this.localCommunity.getDotosList());
+
+        // Persist User object with "null" as CommunityId
+        this.localHandler.updateParticipator(this.localParticipator.getUsername(), this.localParticipator.getPassword(),
+                this.localParticipator.getFirstName(), this.localParticipator.getLastName(), this.localParticipator.getBalance(),
+                this.localParticipator.getRole(), null, this.localParticipator.getCreationTime());
+    }
+
+    @PreDestroy
+    public void cleanup()
+    {
+        this.localHandler.close();
     }
 }
