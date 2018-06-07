@@ -3,11 +3,12 @@ package hwr.sem4.csa.managedBeans;
 import hwr.sem4.csa.comparators.ParticipatorFlattyComparator;
 import hwr.sem4.csa.database.Databasehandler;
 import hwr.sem4.csa.util.Community;
+import hwr.sem4.csa.util.Dotos;
 import hwr.sem4.csa.util.Participator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,10 +52,6 @@ public class MyCommunityManagedBean {
         }
     }
 
-    public void setParticipatorList(List<Participator> participatorList)
-    {
-        this.participatorList = participatorList;
-    }
     public List<Participator> getParticipatorList()
     {
         return this.participatorList;
@@ -65,5 +62,32 @@ public class MyCommunityManagedBean {
     }
     public void setSelectedParticipator(Participator selectedParticipator) {
         this.selectedParticipator = selectedParticipator;
+    }
+
+    public Community getLocalCommunity() {
+        return localCommunity;
+    }
+
+
+    public int getNumberOfTasks()
+    {
+        return this.localCommunity.getTaskList().size();
+    }
+    public int getNumberOfDotos()
+    {
+        return this.localCommunity.getDotosList().size();
+    }
+    public int getNumberOfOpenDotos()
+    {
+        int count = 0;
+        // Iterate over all Dotos
+        for(Iterator<Dotos> dotoIt = this.localCommunity.getDotosList().iterator(); dotoIt.hasNext(); ) {
+            Dotos tempDoto = dotoIt.next();
+            if(tempDoto.getAssignedTo() == null || tempDoto.equals("")) {
+                // Increment count if noone assigned
+                ++count;
+            }
+        }
+        return count;
     }
 }

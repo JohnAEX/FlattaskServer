@@ -17,17 +17,40 @@
                 <f:facet name="header">
                     My Community
                 </f:facet>
-                <!-- page alignment -->
-                <p:dataList value="#{MyCommunityManagedBean.participatorList}" var="partic" type="unordered">
-                    <f:facet name="header">
-                        Community Scoreboard
-                    </f:facet>
 
-                    <p:commandLink update=":form:particDetail" oncomplete="PF('particDialog').show()" title="View Info">
-                        <f:setPropertyActionListener value="#{partic}" target="#{MyCommunityManagedBean.selectedParticipator}" />
-                        <h:outputText value="#{partic.balance}:  #{partic.firstName} #{partic.lastName.charAt(0)}." />
-                    </p:commandLink>
-                </p:dataList>
+                <!-- page alignment -->
+                <p:panelGrid columns="2" style="width: 100%" styleClass="noBorders" columnClasses="half-width,half-width">
+                    <p:outputPanel styleClass="complete-fill" >
+                        <p:panelGrid columns="2" rendered="#{not empty MyCommunityManagedBean.localCommunity}" columnClasses="label,value">
+                            <f:facet name="header">
+                                <h:outputText value="#{MyCommunityManagedBean.localCommunity.name}" />
+                            </f:facet>
+
+                            <h:outputText value="Established: " />
+                            <h:outputText value="#{MyCommunityManagedBean.localCommunity.creationTime}" />
+
+                            <h:outputText value="Number of Tasks: " />
+                            <h:outputText value="#{MyCommunityManagedBean.numberOfTasks}" />
+
+                            <h:outputText value="Number of Dotos: " />
+                            <h:outputText value="#{MyCommunityManagedBean.numberOfDotos}" />
+
+                            <h:outputText value="Number of open Dotos: " />
+                            <h:outputText value="#{MyCommunityManagedBean.numberOfOpenDotos}" />
+                        </p:panelGrid>
+                    </p:outputPanel>
+
+                    <p:dataList value="#{MyCommunityManagedBean.participatorList}" var="partic" type="unordered" styleClass="complete-fill">
+                        <f:facet name="header">
+                            Community Scoreboard
+                        </f:facet>
+
+                        <p:commandLink update=":form:particDetail" oncomplete="PF('particDialog').show()" title="View Info">
+                            <f:setPropertyActionListener value="#{partic}" target="#{MyCommunityManagedBean.selectedParticipator}" />
+                            <h:outputText value="#{partic.balance}:  #{partic.firstName} #{partic.lastName.charAt(0)}." />
+                        </p:commandLink>
+                    </p:dataList>
+                </p:panelGrid>
 
             </p:panel>
             <!-- dialog that should (in theory) appear when the ManagedBean has finished persisting or encountered an error -->
