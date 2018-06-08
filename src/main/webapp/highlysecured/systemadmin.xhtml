@@ -18,9 +18,9 @@
     </p:panel>
     <h2>System Administration Page - Handle with care</h2>
         <p:growl id="msgs" showDetail="true"/>
-
+    <!-- Accordion Panel to handle all the different SysAdmin functionallities -->
         <p:accordionPanel multiple="true" dynamic="true">
-
+            <!-- PARTICIPATOR TAB -->
             <p:tab title="User DB List">
             <h:form id="pForm">
                 <p:scrollPanel mode="native" style="max-height: 500px;max-width: 1600px">
@@ -89,6 +89,7 @@
             </h:form>
             </p:tab>
             <p:tab title="Community DB List">
+                <!-- COMMUNITY TAB -->
             <h:form id="cForm">
                 <p:scrollPanel mode="native" style="max-height: 500px;max-width: 1600px">
                 <p:dataTable id="cDataTable" var="community" value="#{SysAdminManagedBean.communityList}" editable="true" editMode="cell"
@@ -127,7 +128,9 @@
             </h:form>
             </p:tab>
 
+            <!-- ADD A PARTICIPATOR -->
             <p:tab title="Add Participator">
+
                 <h:form>
                 <h3>Participator</h3>
                 <p:messages id="msgsP" />
@@ -178,7 +181,7 @@
                 </h:form>
             </p:tab>
 
-
+            <!-- ADD A COMMUNITY -->
             <p:tab title="Add Community">
                 <h:form>
                 <h3>Community</h3>
@@ -207,6 +210,7 @@
                 </p:panelGrid>
                 </h:form>
             </p:tab>
+            <!-- ADVANCED GENERATION -->
             <p:tab title="Advanced">
                 <h:form>
                     <h3>Generation</h3>

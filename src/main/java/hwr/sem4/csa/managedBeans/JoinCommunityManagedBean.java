@@ -12,6 +12,9 @@ import java.io.IOException;
 @ManagedBean
 @SessionScoped
 public class JoinCommunityManagedBean {
+    /*
+     * Used to join communities as new Players, required: CID, to prevent random joining
+     */
     private String cid;
     private String errorMessage = "";
     Participator loggedInUser;
@@ -36,15 +39,17 @@ public class JoinCommunityManagedBean {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
-        loggedInUser = login.getLoggedInUser();
+        loggedInUser = login.getLoggedInUser(); //Get logged in User
         Databasehandler.instanceOf().initObjectDBConnection();
         if(Databasehandler.instanceOf().getCommunityById(cid) != null){
+            //Only enters if community exists
             loggedInUser.setCommunityId(cid);
             Databasehandler.instanceOf().updateParticipator(loggedInUser.getUsername(),loggedInUser.getPassword(),
                     loggedInUser.getFirstName(),loggedInUser.getLastName(),loggedInUser.getBalance(),
                     loggedInUser.getRole(),loggedInUser.getCommunityId(),loggedInUser.getCreationTime());
             Databasehandler.instanceOf().close();
             try {
+                //Try to redirect to the main dashboard page
                 FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
                 FacesContext.getCurrentInstance().responseComplete();
             } catch (IOException e) {
@@ -53,6 +58,7 @@ public class JoinCommunityManagedBean {
 
         }else{
             errorMessage = "No community with that ID exists.";
+            //Error message in case that the community doesn't exist
         }
 
         Databasehandler.instanceOf().close();

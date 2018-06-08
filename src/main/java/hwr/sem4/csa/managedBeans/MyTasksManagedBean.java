@@ -45,8 +45,11 @@ http://www.naturalborncoder.com/java/java-ee/2011/11/22/dynamic-dashboard-with-p
  */
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class MyTasksManagedBean {
+    /*
+     * Used to display the users tasks and give the user the option to abort or complete them
+     */
 
     public static final int DEFAULT_COLUMN_COUNT = 3;
     private int columnCount = DEFAULT_COLUMN_COUNT;
@@ -56,14 +59,16 @@ public class MyTasksManagedBean {
 
     private Dashboard dashboard;
 
+    //PostConstruct used to make sure the init-method runs without errors after the construction of the bean
     @PostConstruct
     public void init() {
         FacesContext fc = FacesContext.getCurrentInstance();
         Application application = fc.getApplication();
-
+        //Create Dashboard component
         dashboard = (Dashboard) application.createComponent(fc, "org.primefaces.component.Dashboard", "org.primefaces.component.DashboardRenderer");
         dashboard.setId("dashboard");
 
+        //Add elements to the Dashboard
         DashboardModel model = new DefaultDashboardModel();
         for( int i = 0, n = getColumnCount(); i < n; i++ ) {
             DashboardColumn column = new DefaultDashboardColumn();
@@ -91,10 +96,11 @@ public class MyTasksManagedBean {
             }
         }
         if(actualUserDotosList.size()>0){
+            //Making sure the User has Dotos to complete
             int items = actualUserDotosList.size();
 
+            //Adding Panels and Properties
             for( int i = 0; i < items; i++ ) {
-                //System.out.println("Trying to access panel: i=" + i + " items=" + items);
                 Panel panel = (Panel) application.createComponent(fc, "org.primefaces.component.Panel", "org.primefaces.component.PanelRenderer");
                 panel.setId("measure_" + i);
                 panel.setHeader(actualUserDotosList.get(i).getTitle());
@@ -109,7 +115,12 @@ public class MyTasksManagedBean {
                 HtmlOutputText text = new HtmlOutputText();
                 text.setValue(actualUserDotosList.get(i).getDescription());
 
+                HtmlOutputText text2 = new HtmlOutputText();
+                text2.setEscape(false);
+                text2.setValue("<br/>" + "Worth: " + actualUserDotosList.get(i).getValue());
+
                 panel.getChildren().add(text);
+                panel.getChildren().add(text2);
                 FaceletContext faceletContext = (FaceletContext) FacesContext.getCurrentInstance().getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
                 try {
                     faceletContext.includeFacelet(panel, "buttonTest.xhtml");
@@ -128,18 +139,21 @@ public class MyTasksManagedBean {
 
     }
 
+    //Method to handle the completion of a Task
     public void handleComplete(String id){
         Panel completedPanel = findPanel(id);
 
-        System.out.println("Completed: " + completedPanel.getHeader());
-
+        System.out.println("Completed: " + completedPanel.getHeader()); //Debugging output
+        //Now trying to find what task has been completed
         Databasehandler.instanceOf().initObjectDBConnection();
         Community c = Databasehandler.instanceOf().getCommunityById(loggedInUser.getCommunityId());
         ArrayList<Dotos> cDList = c.getDotosList();
         boolean foundTask = false;
         try{
             for(Dotos d : cDList){
+                //Checking based on Header an assigned user in Community
                 if(d.getTitle().equals(completedPanel.getHeader()) && d.getAssignedTo().equals(loggedInUser.getUsername())){
+
                     loggedInUser.setBalance(loggedInUser.getBalance()+d.getValue());
                     cDList.remove(d);
                     actualUserDotosList.remove(d);
@@ -148,9 +162,9 @@ public class MyTasksManagedBean {
                 }
             }
         }catch(Exception e){
-            System.out.println("Task could not be completetd. Error code #001");
+            System.out.println("Task could not be completetd. Error code #001"); //Error output
         }
-
+        //If Task was found, updating the User with the new currency
         if(foundTask){
             System.out.println("Removing task from community and updating participator");
             Databasehandler.instanceOf().updateCommunity(c.getId(),c.getName(),c.getCreationTime(),c.getTaskList(),c.getDotosList());
@@ -164,18 +178,24 @@ public class MyTasksManagedBean {
 
     }
 
+    //Method to handle the cancelation of a Task
     public void handleCancel(String id){
+        int toRefund = 0;
+        Participator toGetRefund = null;
         Panel completedPanel = findPanel(id);
 
-        System.out.println("Canceled: " + completedPanel.getHeader());
-
+        System.out.println("Canceled: " + completedPanel.getHeader()); //Debugging output
+        //Trying to find what Task has been canceled
         Databasehandler.instanceOf().initObjectDBConnection();
         Community c = Databasehandler.instanceOf().getCommunityById(loggedInUser.getCommunityId());
         ArrayList<Dotos> cDList = c.getDotosList();
         boolean foundTask = false;
         try{
             for(Dotos d : cDList){
+                //Checking based on Header an assigned user in Community
                 if(d.getTitle().equals(completedPanel.getHeader()) && d.getAssignedTo().equals(loggedInUser.getUsername())){
+                    toGetRefund = Databasehandler.instanceOf().getParticipatorByUsername(d.getAssignedBy());
+                    toRefund = d.getValue();
                     cDList.remove(d);
                     actualUserDotosList.remove(d);
                     foundTask = true;
@@ -183,21 +203,26 @@ public class MyTasksManagedBean {
                 }
             }
         }catch(Exception e){
-            System.out.println("Task could not be canceled. Error code #002");
+            System.out.println("Task could not be canceled. Error code #002"); //Error output
         }
-
+        //If Task was found, updating user as well as community to remove Task
         if(foundTask){
             System.out.println("Removing task from community and updating participator");
             Databasehandler.instanceOf().updateCommunity(c.getId(),c.getName(),c.getCreationTime(),c.getTaskList(),c.getDotosList());
             Databasehandler.instanceOf().updateParticipator(loggedInUser.getUsername(),loggedInUser.getPassword(),
                     loggedInUser.getFirstName(),loggedInUser.getLastName(),loggedInUser.getBalance(),
                     loggedInUser.getRole(),loggedInUser.getCommunityId(),loggedInUser.getCreationTime());
+            Databasehandler.instanceOf().updateParticipator(toGetRefund.getUsername(),toGetRefund.getPassword(),toGetRefund.getFirstName(),
+                    toGetRefund.getLastName(),toGetRefund.getBalance()+toRefund,toGetRefund.getRole(),toGetRefund.getCommunityId(),
+                    toGetRefund.getCreationTime());
+
         }
 
         Databasehandler.instanceOf().close();
         refresh();
     }
 
+    //Method used to force a refresh once called
     public void refresh(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
@@ -207,21 +232,25 @@ public class MyTasksManagedBean {
         }
     }
 
+    /* Due to the code creation of xhtml elements it is necessary to have a Method to check for
+     * all the Elements to find the Task that has been completed / canceled. This is very unsafe
+     * an should be Nr. 1 priority to rework once a better solution has been found!
+     */
     public Panel findPanel(final String id) {
         boolean found = false;
-        System.out.println("FIND: " + id);
+        System.out.println("FIND: " + id); //Debugging output
         Panel completedPanel = new Panel();
         for(Panel p : panelCollector){
             for(UIComponent uic : p.getChildren()){
-                System.out.println("\t" + uic.getId());
+                System.out.println("\t" + uic.getId());//Debugging output
                 for(UIComponent uic2 : uic.getChildren()){
-                    System.out.println("\t\t"+uic2.getId());
+                    System.out.println("\t\t"+uic2.getId());//Debugging output
                     for(UIComponent uic3 : uic2.getChildren()) {
-                        System.out.println("\t\t\t" + uic3.getId());
+                        System.out.println("\t\t\t" + uic3.getId());//Debugging output
                         for(UIComponent uic4 : uic3.getChildren()){
-                            System.out.println("\t\t\t\t" + uic3.getId());
+                            System.out.println("\t\t\t\t" + uic3.getId());//Debugging output
                             if (uic4.getId().equals(id)) {
-                                System.out.println("\t\t\t\t\tFOUND");
+                                System.out.println("\t\t\t\t\tFOUND");//Debugging output
                                 completedPanel = (Panel) uic4.getParent().getParent().getParent().getParent();
                                 found = true;
                                 break;

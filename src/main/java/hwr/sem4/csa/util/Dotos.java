@@ -15,6 +15,7 @@ import java.util.Date;
 @Table (name="Dotos")*/
 public class Dotos implements Serializable{
 
+
     private int id = 0;
     private String title = "";
     private String description ="";
@@ -42,6 +43,14 @@ public class Dotos implements Serializable{
         return this.id;
     }
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

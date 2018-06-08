@@ -9,6 +9,7 @@
     <h:outputStylesheet library = "css" name = "login.css"/>
 </h:head>
 <h:body>
+    <!--  LOGIN PANEL  -->
         <p:panel id="loginPanel" styleClass="Centered">
             <f:facet name="header">
                 <p:graphicImage name="logoNeu.svg" library="images" styleClass="centerImage"/>
@@ -27,6 +28,7 @@
                 </p:password>
                 <p:message for="passwordInputPF" display="fa fa-warning"/>
             </h:panelGrid>
+            <!-- Button to submit request -->
             <p:commandButton value="Login" id="loginButton" update="loginPanel" icon="fa fa-check"
                               type="button" ajax="false" widgetVar="loginButtonWV"
                              global="true" actionlistener="#{LoginManagedBean.attemptLogin}">

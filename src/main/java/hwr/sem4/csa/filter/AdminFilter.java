@@ -15,17 +15,19 @@ public class AdminFilter implements Filter {
 
     }
 
+    //Mapped to everything in the /highlysecured/* directory
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse responseNow = (HttpServletResponse) res;
         HttpSession session = ((HttpServletRequest) req).getSession(false);
+        //Session is used to check for LoginManagedBeans
         LoginManagedBean loginManagedBean = (session != null) ? (LoginManagedBean) session.getAttribute("LoginManagedBean") : null;
         if (loginManagedBean != null && loginManagedBean.isLoggedIn() && loginManagedBean.loggedInUser.getRole().equalsIgnoreCase("admin")) {
-            // Logged in.
+            // Logged in & User is an admin, forward request
             chain.doFilter(req, res);
         }else{
-            //Not logged in
-            responseNow.sendRedirect("/oldLogin.xhtml");
+            //Not logged in or user is not an admin, redirect to login.xhtml
+            responseNow.sendRedirect("/login.xhtml");
         }
 
 

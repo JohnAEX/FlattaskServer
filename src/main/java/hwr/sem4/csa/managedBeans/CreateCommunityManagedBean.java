@@ -16,6 +16,9 @@ import java.util.ArrayList;
 @ManagedBean
 @SessionScoped
 public class CreateCommunityManagedBean {
+    /*
+     * Used to create Communities by new Users
+     */
 
     private String cid;
     private String cname;
@@ -60,9 +63,10 @@ public class CreateCommunityManagedBean {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
-        loggedInUser = login.getLoggedInUser();
-        Databasehandler.instanceOf().initObjectDBConnection();
+        loggedInUser = login.getLoggedInUser(); //Get the logged in User
+        Databasehandler.instanceOf().initObjectDBConnection(); //Init DB connection
         if (Databasehandler.instanceOf().getCommunityById(cid) == null) {
+            //Only enter if Community with that ID doesn't already exist
             Community c = new Community();
             c.setId(cid);
             c.setName(cname);
@@ -77,6 +81,7 @@ public class CreateCommunityManagedBean {
                     loggedInUser.getRole(), loggedInUser.getCommunityId(), loggedInUser.getCreationTime());
             Databasehandler.instanceOf().close();
             try {
+                //Try to redirect to the main dashboard page
                 FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
                 FacesContext.getCurrentInstance().responseComplete();
             } catch (IOException e) {
@@ -84,6 +89,7 @@ public class CreateCommunityManagedBean {
             }
         } else {
             errorMessage = "A community with that ID already exists, please choose another one.";
+            //Error message in case that the community already exists
         }
         Databasehandler.instanceOf().close();
         return "createCommunity";

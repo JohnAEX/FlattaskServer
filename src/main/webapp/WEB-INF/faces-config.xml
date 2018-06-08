@@ -48,4 +48,23 @@
         <managed-bean-class>hwr.sem4.csa.managedBeans.JoinCommunityManagedBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>OpenDotosManagedBean</managed-bean-name>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.OpenDotosManagedBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>MyCommunityManagedBean</managed-bean-name>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.MyCommunityManagedBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <converter>
+        <converter-id>dotosConverter</converter-id>
+        <converter-class>hwr.sem4.csa.converters.DotosConverter</converter-class>
+    </converter>
+    <managed-bean>
+        <managed-bean-name>ProfileSettingsManagedBean</managed-bean-name>
+        <managed-bean-class>hwr.sem4.csa.managedBeans.ProfileSettingsManagedBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

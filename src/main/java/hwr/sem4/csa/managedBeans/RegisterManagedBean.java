@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 
 @ManagedBean
 public class RegisterManagedBean {
+    /*
+     * Used for allowing the User to register as a new User
+     */
 
     private String username;
     private String password;
@@ -36,10 +39,11 @@ public class RegisterManagedBean {
             p.setCommunityId("");
             p.setCreationTime(LocalDateTime.now().toString());
             p.setBalance(100);
-
+            //Creating new User
 
             Databasehandler.instanceOf().insert(p);
             if (Databasehandler.instanceOf().getParticipatorByLogin(this.username, this.password) != null) {
+                //If Username exists, cancel request and redirect to login
                 Databasehandler.instanceOf().close();
              try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
