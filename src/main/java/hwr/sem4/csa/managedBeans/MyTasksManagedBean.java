@@ -180,6 +180,8 @@ public class MyTasksManagedBean {
 
     //Method to handle the cancelation of a Task
     public void handleCancel(String id){
+        int toRefund = 0;
+        Participator toGetRefund = null;
         Panel completedPanel = findPanel(id);
 
         System.out.println("Canceled: " + completedPanel.getHeader()); //Debugging output
@@ -192,6 +194,8 @@ public class MyTasksManagedBean {
             for(Dotos d : cDList){
                 //Checking based on Header an assigned user in Community
                 if(d.getTitle().equals(completedPanel.getHeader()) && d.getAssignedTo().equals(loggedInUser.getUsername())){
+                    toGetRefund = Databasehandler.instanceOf().getParticipatorByUsername(d.getAssignedBy());
+                    toRefund = d.getValue();
                     cDList.remove(d);
                     actualUserDotosList.remove(d);
                     foundTask = true;
@@ -208,6 +212,10 @@ public class MyTasksManagedBean {
             Databasehandler.instanceOf().updateParticipator(loggedInUser.getUsername(),loggedInUser.getPassword(),
                     loggedInUser.getFirstName(),loggedInUser.getLastName(),loggedInUser.getBalance(),
                     loggedInUser.getRole(),loggedInUser.getCommunityId(),loggedInUser.getCreationTime());
+            Databasehandler.instanceOf().updateParticipator(toGetRefund.getUsername(),toGetRefund.getPassword(),toGetRefund.getFirstName(),
+                    toGetRefund.getLastName(),toGetRefund.getBalance()+toRefund,toGetRefund.getRole(),toGetRefund.getCommunityId(),
+                    toGetRefund.getCreationTime());
+
         }
 
         Databasehandler.instanceOf().close();
