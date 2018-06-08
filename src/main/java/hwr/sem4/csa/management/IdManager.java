@@ -42,15 +42,8 @@ public class IdManager extends IdManagementCore {
 
     public String getFreeCId()
     {
-        if(this.cIdCache.size() >= corePropertiesCIds.getMinIdCacheLength()) {
-            // Sufficient Ids present
-
-            // Grab free Id
-            String fetchedId = this.cIdCache.get(0);
-            this.cIdCache.remove(0);
-            return fetchedId;
-        }
         if(this.cIdCache.size() == 0) {
+            // Cache empty
             try{
                 this.cIdFetcher.join();
             } catch(InterruptedException iExc) {
@@ -69,9 +62,12 @@ public class IdManager extends IdManagementCore {
 
         if(this.cIdCache.size() < this.corePropertiesCIds.getMinIdCacheLength()) {
             // Lower cache limit has been trespassed
-            this.cIdFetcher = generateNewFetcher();
-            // Start fetching new Ids
-            this.cIdFetcher.start();
+            if(this.cIdFetcher.getState() == Thread.State.TERMINATED) {
+                // Only restart fetcher if last fetch has finished
+                this.cIdFetcher = generateNewFetcher();
+                // Start fetching new Ids
+                this.cIdFetcher.start();
+            }
         }
 
         return fetchedId;
