@@ -234,6 +234,10 @@ public class CreateDotoManagedBean {
         ArrayList<Dotos> oldDotos = com.getDotosList();
         oldDotos.add(d);
         database.updateCommunity(com.getId(), com.getName(), com.getCreationTime(), com.getTaskList(), oldDotos);
+        userAssign.setBalance(userAssign.getBalance()-(this.getValue()));
+        database.updateParticipator(userAssign.getUsername(),userAssign.getPassword(),
+                userAssign.getFirstName(),userAssign.getLastName(),userAssign.getBalance(),
+                userAssign.getRole(),userAssign.getCommunityId(),userAssign.getCreationTime());
         database.close();
         System.out.println("-----------------------------------");
         refresh();
