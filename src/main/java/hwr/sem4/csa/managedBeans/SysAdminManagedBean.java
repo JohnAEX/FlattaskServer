@@ -115,7 +115,7 @@ public class SysAdminManagedBean {
 
     //Add new Community
     public void addCommunity(){
-        System.out.println("Called addCommunity");
+        System.out.println("Called addCommunities");
         Community c = new Community(this.cId, this.cName, this.cCreationTime);
         /*c.setId(this.cId);
         c.setName(this.cName);
