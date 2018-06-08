@@ -54,18 +54,21 @@ public class SysAdminManagedBean {
         Databasehandler.instanceOf().close();
     }
 
+    //Update Participator List
     public void updatePList(){
         Databasehandler.instanceOf().initObjectDBConnection();
         participatorList = Databasehandler.instanceOf().getAllParticipators();
         Databasehandler.instanceOf().close();
     }
 
+    //Update Community List
     public void updateCList(){
         Databasehandler.instanceOf().initObjectDBConnection();
         communityList = Databasehandler.instanceOf().getAllCommunities();
         Databasehandler.instanceOf().close();
     }
 
+    //Remove Participator
     public void removeParticipator(){
         System.out.println("Trying to remove Participator: " + selectedParticipator.getUsername());
         Databasehandler.instanceOf().initObjectDBConnection();
@@ -74,6 +77,7 @@ public class SysAdminManagedBean {
         updatePList();
     }
 
+    //Remove Community
     public void removeCommunity(){
         Databasehandler.instanceOf().initObjectDBConnection();
         Databasehandler.instanceOf().removeCommunityById(selectedCommunity.getId());
@@ -81,6 +85,7 @@ public class SysAdminManagedBean {
         updateCList();
     }
 
+    //Generate Dummy Valid Data
     public void generateValidData(){
         List<List> returnList = DummyCreation.instanceOf().createUsableData(this.amountToGenerate);
         Databasehandler.instanceOf().initObjectDBConnection();
@@ -89,6 +94,7 @@ public class SysAdminManagedBean {
         Databasehandler.instanceOf().close();
     }
 
+    //Add new Participator
     public void addParticipator(){
         System.out.println("Called addParticipator");
         Participator p = new Participator();
@@ -107,6 +113,7 @@ public class SysAdminManagedBean {
         Databasehandler.instanceOf().close();
     }
 
+    //Add new Community
     public void addCommunity(){
         System.out.println("Called addCommunity");
         Community c = new Community(this.cId, this.cName, this.cCreationTime);
@@ -119,6 +126,7 @@ public class SysAdminManagedBean {
         Databasehandler.instanceOf().close();
     }
 
+    //Action for on CellEdit of table
     public void onCellEditParticipator(Participator uP) {
 
             Databasehandler.instanceOf().initObjectDBConnection();
@@ -128,6 +136,7 @@ public class SysAdminManagedBean {
 
     }
 
+    //Action for on CellEdit of table
     public void onCellEditCommunity(Community uC) {
             //TODO: FIX
             Databasehandler.instanceOf().initObjectDBConnection();

@@ -17,9 +17,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.ArrayList;
+import javax.faces.context.ExternalContext;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean (name="CreateDotoManagedBean")
 @ViewScoped
@@ -146,7 +149,7 @@ public class CreateDotoManagedBean {
         return rs;
     }
 
-    /*Grap Users in Community of assigning User*/
+    /*Grap Users in Community of assigning User, except the assigning user himself*/
     private ArrayList<Participator> searchForPossibleUsers(){
         Participator part = this.userAssign;
         ArrayList<Participator> rl = new ArrayList<>();
@@ -156,7 +159,13 @@ public class CreateDotoManagedBean {
             database.close();
             if (possiblePart.size() > 0) {
                 for (int i = 0; i < possiblePart.size(); i++) {
-                    rl.add(possiblePart.get(i));
+                    System.out.println("Possible User: "+possiblePart.get(i).getUsername());
+                    System.out.println("Username: " + this.userAssign.getUsername());
+
+                    if(!possiblePart.get(i).getUsername().equals(this.userAssign.getUsername())) {
+                        rl.add(possiblePart.get(i));
+                        System.out.println("added: " + possiblePart.get(i));
+                    }
                 }
             }
         }
@@ -178,7 +187,8 @@ public class CreateDotoManagedBean {
         }
     }
 
-    /*Generate Test-Cases for Tasks*/
+    /*Generate Test-Cases for Tasks, please delete or comment on final implementation*/
+    /*TODO Delete or Comment*/
     private ArrayList<Task> generateTestTasks(){
         Task a1 = new Task( "Aufgabe 1", "blablablablabla", 5, 5);
         Task a2 = new Task( "Aufgabe 2", "blablablablabla", 5, 5);
@@ -205,13 +215,15 @@ public class CreateDotoManagedBean {
 
     /*Store Task in Database, assign to User*/
     public void confirmDoto(){
+
+        /*Debug*/
         System.out.println("CreateDoto:");
         System.out.println(this.getTitle());
         System.out.println(this.getDescription());
         System.out.println(this.getValue());
         System.out.println(this.getDuration());
         System.out.println(this.getUserAssigned().getUsername());
-
+        /*End of debug*/
 
 
         Dotos d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned.getUsername(), this.userAssign.getUsername());
@@ -222,10 +234,33 @@ public class CreateDotoManagedBean {
         ArrayList<Dotos> oldDotos = com.getDotosList();
         oldDotos.add(d);
         database.updateCommunity(com.getId(), com.getName(), com.getCreationTime(), com.getTaskList(), oldDotos);
+        userAssign.setBalance(userAssign.getBalance()-(this.getValue()));
+        database.updateParticipator(userAssign.getUsername(),userAssign.getPassword(),
+                userAssign.getFirstName(),userAssign.getLastName(),userAssign.getBalance(),
+                userAssign.getRole(),userAssign.getCommunityId(),userAssign.getCreationTime());
         database.close();
         System.out.println("-----------------------------------");
-
+        refresh();
     }
+
+    /*
+    * Stolen from Johns Code
+    * */
+
+    public void refresh(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /***************************************
+     * Getter & Setter
+     * ***************************************/
 
     public String getSelectedTaskString() {
         return selectedTaskString;
@@ -242,11 +277,6 @@ public class CreateDotoManagedBean {
     public void setAllTaskStrings(ArrayList<String> allTaskStrings) {
         this.allTaskStrings = allTaskStrings;
     }
-
-    /***************************************
-     * Getter & Setter
-     * ***************************************/
-
 
 
     public String getTitle() {
