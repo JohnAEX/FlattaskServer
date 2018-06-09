@@ -9,6 +9,8 @@ import hwr.sem4.csa.util.Participator;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -30,15 +32,14 @@ public class MyCommunityManagedBean {
     @PostConstruct
     public void init()
     {
-        /*
+
         // Grab Participator object
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
         this.localParticipator = login.getLoggedInUser();
-        */
+
         this.localHandler.initObjectDBConnection();
-        this.localParticipator = this.localHandler.getParticipatorByUsername("genz_dominik");
 
         // Fetch Participator List
         Optional<Community> optional = Optional.of(localHandler.getCommunityById(localParticipator.getCommunityId()));
@@ -111,9 +112,4 @@ public class MyCommunityManagedBean {
                 this.localParticipator.getRole(), null, this.localParticipator.getCreationTime());
     }
 
-    @PreDestroy
-    public void cleanup()
-    {
-        this.localHandler.close();
-    }
 }

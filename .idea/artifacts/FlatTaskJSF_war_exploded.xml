@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="FlastTaskJSF:war exploded">
+  <artifact type="exploded-war" name="FlatTaskJSF:war exploded">
     <output-path>$PROJECT_DIR$/target/FlastTaskJSF</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="FlastTaskJSF" />
+          <element id="module-output" name="FlatTaskJSF" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
@@ -25,12 +25,18 @@
           <element id="library" level="project" name="Maven: org.glassfish:javax.json:1.0.4" />
           <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.jpa.jpql:2.7.1" />
           <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.core:2.7.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.5" />
+          <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.18" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.5" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.5" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
         </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/FlastTaskJSF/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="FlastTaskJSF/web/Web" />
+      <element id="javaee-facet-resources" facet="FlatTaskJSF/web/Web" />
     </root>
   </artifact>
 </component>

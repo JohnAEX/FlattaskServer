@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @ManagedBean
+@ViewScoped
 public class OpenDotosManagedBean {
 
     private Participator localParticipator;
@@ -32,18 +34,17 @@ public class OpenDotosManagedBean {
     @PostConstruct
     public void init()
     {
-        /*
+
         // Grab Participator object
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
         this.localParticipator = login.getLoggedInUser();
-        */
+
 
         // Fetching environment objects
         this.localHandler.initObjectDBConnection();
-        this.localParticipator = this.localHandler.getParticipatorByUsername("genz_dominik");
-        this.localCommunity = localHandler.getCommunityById(localParticipator.getCommunityId());
+        this.localCommunity = this.localHandler.getCommunityById(this.localParticipator.getCommunityId());
 
         // Fetching Dotos objects
         List<Dotos> dotosSource = new ArrayList<Dotos>();
@@ -77,6 +78,9 @@ public class OpenDotosManagedBean {
      */
     public void confirmAssignment()
     {
+        //Test open DB
+        this.localHandler.initObjectDBConnection();
+
         // Fetch DotosLists
         ArrayList<Dotos> localDotos = this.localCommunity.getDotosList();
         ArrayList<Dotos> remoteDotos = this.localHandler.getCommunityById(this.localCommunity.getId()).getDotosList();
@@ -145,11 +149,6 @@ public class OpenDotosManagedBean {
         return true;
     }
 
-    @PreDestroy
-    public void cleanup()
-    {
-        this.localHandler.close();
-    }
 
     public String getMessage()
     {
