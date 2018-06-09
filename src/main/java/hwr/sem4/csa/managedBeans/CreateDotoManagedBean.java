@@ -4,6 +4,7 @@
 
 package hwr.sem4.csa.managedBeans;
 
+import hwr.sem4.csa.comparators.DotosComparator;
 import hwr.sem4.csa.database.Databasehandler;
 import hwr.sem4.csa.util.Community;
 import hwr.sem4.csa.util.Dotos;
@@ -19,8 +20,10 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 import javax.faces.context.ExternalContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -231,6 +234,7 @@ public class CreateDotoManagedBean {
         System.out.println(CID);
         database.initObjectDBConnection();
         Community com = database.getCommunityById(CID);
+        d.setId(this.getFreeDId(com));
         ArrayList<Dotos> oldDotos = com.getDotosList();
         oldDotos.add(d);
         database.updateCommunity(com.getId(), com.getName(), com.getCreationTime(), com.getTaskList(), oldDotos);
@@ -241,6 +245,34 @@ public class CreateDotoManagedBean {
         database.close();
         System.out.println("-----------------------------------");
         refresh();
+    }
+
+    /*
+    * Inserted by Dominik for proper IdHandling
+     */
+
+    private int getFreeDId(Community containingCom)
+    {
+        // Necessary sort to determine free Ids in a structured manner
+        containingCom.getDotosList().sort(new DotosComparator());
+
+        int lastDotoId = 0;
+        for(Iterator<Dotos> dotoListIt = containingCom.getDotosList().iterator(); dotoListIt.hasNext(); ) {
+            // Iterate over all present Dotos
+            Dotos currentDoto = dotoListIt.next();
+
+            // Determine delta of last and current DotoId
+            int idDelta = currentDoto.getId() - lastDotoId;
+            if(idDelta >= 2) {
+                // Delta >= 2 i.e. at least one Id in between is free
+                return lastDotoId + 1;
+            }
+            // Update lastId
+            lastDotoId = currentDoto.getId();
+        }
+
+        // If no free Ids in between the Id following the highest Id is returned
+        return containingCom.getDotosList().get(containingCom.getDotosList().size() - 1).getId() + 1;
     }
 
     /*

@@ -41,7 +41,6 @@ public class OpenDotosManagedBean {
         LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
         this.localParticipator = login.getLoggedInUser();
 
-
         // Fetching environment objects
         this.localHandler.initObjectDBConnection();
         this.localCommunity = this.localHandler.getCommunityById(this.localParticipator.getCommunityId());
@@ -78,10 +77,10 @@ public class OpenDotosManagedBean {
      */
     public void confirmAssignment()
     {
-        //Test open DB
+        // Test open DB
         this.localHandler.initObjectDBConnection();
 
-        // Fetch DotosLists
+        // Fetch DotoLists
         ArrayList<Dotos> localDotos = this.localCommunity.getDotosList();
         ArrayList<Dotos> remoteDotos = this.localHandler.getCommunityById(this.localCommunity.getId()).getDotosList();
 
