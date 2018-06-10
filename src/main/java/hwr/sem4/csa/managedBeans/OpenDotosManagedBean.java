@@ -110,9 +110,11 @@ public class OpenDotosManagedBean {
         // Generate new DotosList
         for(Dotos aDoto : remoteDotos) {
             Optional<Dotos> updatedDoto = newDotos.stream()
-                    .filter(anyDoto -> anyDoto.getId() != aDoto.getId())
-                    .findAny();
-            updatedDoto.ifPresent(iMeanNothing -> newDotos.add(aDoto));
+                    .filter(anyDoto -> anyDoto.getId() == aDoto.getId())
+                    .findFirst();
+            if(!updatedDoto.isPresent()) {
+                newDotos.add(aDoto);
+            }
         }
 
         // Persist updates to Dotos
