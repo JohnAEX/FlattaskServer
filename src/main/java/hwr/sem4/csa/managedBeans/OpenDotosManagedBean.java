@@ -34,7 +34,6 @@ public class OpenDotosManagedBean {
     @PostConstruct
     public void init()
     {
-
         // Grab Participator object
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);

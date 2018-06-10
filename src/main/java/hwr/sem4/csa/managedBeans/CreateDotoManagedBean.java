@@ -225,11 +225,18 @@ public class CreateDotoManagedBean {
         System.out.println(this.getDescription());
         System.out.println(this.getValue());
         System.out.println(this.getDuration());
-        System.out.println(this.getUserAssigned().getUsername());
+        if(this.getUserAssigned() != null) {
+            System.out.println(this.getUserAssigned().getUsername());
+        }
         /*End of debug*/
 
 
-        Dotos d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned.getUsername(), this.userAssign.getUsername());
+        Dotos d = null;
+        if(this.getUserAssigned() == null) {
+            d = new Dotos(this.title, this.description, this.value, this.duration, null, this.userAssign.getUsername());
+        } else {
+            d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned.getUsername(), this.userAssign.getUsername());
+        }
         String CID = this.userAssign.getCommunityId();
         System.out.println(CID);
         database.initObjectDBConnection();
@@ -253,7 +260,10 @@ public class CreateDotoManagedBean {
 
     private int getFreeDId(Community containingCom)
     {
+        System.out.println("getFreeDId:");
         // Necessary sort to determine free Ids in a structured manner
+        System.out.println("\tcontainingCom="+containingCom);
+        System.out.println("\tcontainingComDotoSize="+containingCom.getDotosList().size());
         containingCom.getDotosList().sort(new DotosComparator());
 
         int lastDotoId = 0;
@@ -272,6 +282,9 @@ public class CreateDotoManagedBean {
         }
 
         // If no free Ids in between the Id following the highest Id is returned
+        if(containingCom.getDotosList().size() == 0) {
+            return 0;
+        }
         return containingCom.getDotosList().get(containingCom.getDotosList().size() - 1).getId() + 1;
     }
 
