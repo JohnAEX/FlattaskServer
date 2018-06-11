@@ -241,12 +241,12 @@ public class CreateDotoManagedBean {
         } else {
             d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned.getUsername(), this.userAssign.getUsername());
         }
-        d.setId(this.getFreeDId(com));
       
         String CID = this.userAssign.getCommunityId();
         System.out.println(CID);
         database.initObjectDBConnection();
         Community com = database.getCommunityById(CID);
+        d.setId(this.getFreeDId(com));
       
         ArrayList<Dotos> oldDotos = com.getDotosList();
         oldDotos.add(d);
