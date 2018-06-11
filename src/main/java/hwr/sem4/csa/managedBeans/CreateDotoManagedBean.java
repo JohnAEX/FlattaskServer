@@ -49,6 +49,7 @@ public class CreateDotoManagedBean {
     private ArrayList<String> allTaskStrings = new ArrayList<String>();
     private String selectedUserString;
     private ArrayList<String> allUserStrings = new ArrayList<String>();
+    private Community comAssigningUser = new Community();
 
 
     /*****************
@@ -64,8 +65,8 @@ public class CreateDotoManagedBean {
     public void init(){
         System.out.println("CDMB-Number: ");
         this.setUserAssign(this.userInit());
+        this.setCommonTasks(generateCommonTasks());
         this.setUsersPossible(this.searchForPossibleUsers());
-        this.setCommonTasks(generateTestTasks());
         this.setValueMax(this.userAssign.getBalance());
         this.convertTaskListToStringList();
         this.convertUserListToStringList();
@@ -170,6 +171,9 @@ public class CreateDotoManagedBean {
                         System.out.println("added: " + possiblePart.get(i));
                     }
                 }
+                //String username, String password, String firstName, String lastName, int balance, String role, String communityId
+                System.out.println(this.getComAssigningUser().getName());
+                rl.add(new Participator(this.getComAssigningUser().getName(), "0000", "com", "com", 0, "user", this.comAssigningUser.getId()));
             }
         }
         return rl;
@@ -179,6 +183,7 @@ public class CreateDotoManagedBean {
     private ArrayList<Task> generateCommonTasks(){
         database.initObjectDBConnection();
         Community com = database.getCommunityById(this.userAssign.getCommunityId());
+        this.setComAssigningUser(com);
         database.close();
         if(com.getTaskList()!=null) {
             return com.getTaskList();
@@ -230,18 +235,19 @@ public class CreateDotoManagedBean {
         }
         /*End of debug*/
 
-
-        Dotos d = null;
+        Dotos d;
         if(this.getUserAssigned() == null) {
             d = new Dotos(this.title, this.description, this.value, this.duration, null, this.userAssign.getUsername());
         } else {
             d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned.getUsername(), this.userAssign.getUsername());
         }
+        d.setId(this.getFreeDId(com));
+      
         String CID = this.userAssign.getCommunityId();
         System.out.println(CID);
         database.initObjectDBConnection();
         Community com = database.getCommunityById(CID);
-        d.setId(this.getFreeDId(com));
+      
         ArrayList<Dotos> oldDotos = com.getDotosList();
         oldDotos.add(d);
         database.updateCommunity(com.getId(), com.getName(), com.getCreationTime(), com.getTaskList(), oldDotos);
@@ -260,10 +266,7 @@ public class CreateDotoManagedBean {
 
     private int getFreeDId(Community containingCom)
     {
-        System.out.println("getFreeDId:");
         // Necessary sort to determine free Ids in a structured manner
-        System.out.println("\tcontainingCom="+containingCom);
-        System.out.println("\tcontainingComDotoSize="+containingCom.getDotosList().size());
         containingCom.getDotosList().sort(new DotosComparator());
 
         int lastDotoId = 0;
@@ -302,10 +305,17 @@ public class CreateDotoManagedBean {
     }
 
 
-
     /***************************************
      * Getter & Setter
      * ***************************************/
+    public Community getComAssigningUser() {
+        return comAssigningUser;
+    }
+
+    public void setComAssigningUser(Community comAssigningUser) {
+        this.comAssigningUser = comAssigningUser;
+    }
+
 
     public String getSelectedTaskString() {
         return selectedTaskString;
