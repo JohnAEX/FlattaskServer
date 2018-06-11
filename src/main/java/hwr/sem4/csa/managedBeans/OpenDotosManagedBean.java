@@ -34,13 +34,11 @@ public class OpenDotosManagedBean {
     @PostConstruct
     public void init()
     {
-
         // Grab Participator object
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
         this.localParticipator = login.getLoggedInUser();
-
 
         // Fetching environment objects
         this.localHandler.initObjectDBConnection();
@@ -78,10 +76,10 @@ public class OpenDotosManagedBean {
      */
     public void confirmAssignment()
     {
-        //Test open DB
+        // Test open DB
         this.localHandler.initObjectDBConnection();
 
-        // Fetch DotosLists
+        // Fetch DotoLists
         ArrayList<Dotos> localDotos = this.localCommunity.getDotosList();
         ArrayList<Dotos> remoteDotos = this.localHandler.getCommunityById(this.localCommunity.getId()).getDotosList();
 
@@ -112,9 +110,11 @@ public class OpenDotosManagedBean {
         // Generate new DotosList
         for(Dotos aDoto : remoteDotos) {
             Optional<Dotos> updatedDoto = newDotos.stream()
-                    .filter(anyDoto -> anyDoto.getId() != aDoto.getId())
-                    .findAny();
-            updatedDoto.ifPresent(iMeanNothing -> newDotos.add(aDoto));
+                    .filter(anyDoto -> anyDoto.getId() == aDoto.getId())
+                    .findFirst();
+            if(!updatedDoto.isPresent()) {
+                newDotos.add(aDoto);
+            }
         }
 
         // Persist updates to Dotos
