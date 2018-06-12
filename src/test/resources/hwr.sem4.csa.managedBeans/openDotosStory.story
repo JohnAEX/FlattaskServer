@@ -3,8 +3,8 @@ Etc.
 
 Scenario: A premise is generated.
 Given there exists a Community as follows:
-|name       |creationTime   |
-|Abc        |01.01.1970     |
+|id         |name           |creationTime   |
+|TestCom1   |SpaßAmStrand   |01.01.1970     |
 Given there exist Participators as follows:
 |username   |password       |firstname  |lastname       |balance    |role       |
 |John       |John           |Jonathan   |Grenda         |1000       |user       |
@@ -26,8 +26,16 @@ Given the Dotos in that Community are as follows:
 |doto6      |doto6-1        |23         |23             |           |John       |
 |doto7      |doto7-1        |24         |24             |           |John       |
 |doto8      |doto8-1        |25         |25             |           |John       |
+When the premise is persisted.
 
 Scenario: John grabs all Dotos
-When an OpenDotosManagedBean-Instance is generated for the user John
+When an OpenDotosManagedBean-Instance is generated for the user John.
 When John grabs all open Dotos.
 When the performed action(s) are confirmed.
+Then all Dotos should be assigned to John.
+
+Scenario: All Dotos are unassigned
+When an OpenDotosManagedBean-Instance is generated for the user John.
+When all Dotos are unassigned.
+When the performed action(s) are confirmed.
+Then all Dotos should be assigned to noone.
