@@ -19,7 +19,7 @@
                 </f:facet>
 
                 <!-- page alignment -->
-                <p:panelGrid columns="1" style="width: 50%;margin: 0 auto;text-align: center;" styleClass="noBorders" columnClasses="half-width,half-width">
+                <p:panelGrid columns="1" style="width: 100%;margin: 0 auto;text-align: center;" styleClass="noBorders" columnClasses="half-width,half-width">
                     <p:outputPanel styleClass="complete-fill" style="width: 100%;text-align: left">
                         <p:panelGrid columns="2" rendered="#{not empty MyCommunityManagedBean.localCommunity}" style="margin: 0 auto" columnClasses="label,value">
                             <f:facet name="header">
@@ -85,7 +85,7 @@
                 <p:outputPanel id="confirmationDetail">
                     <p:panelGrid columns="1" style="text-align: center">
                         <h:outputText value="Leaving this community will make you leave this community! Do you want to confirm leaving?" />
-                        <p:commandButton value="Confirm!" actionListener="MyCommunityManagedBean.leaveCommunity" />
+                        <p:commandButton value="Confirm!" actionListener="#{MyCommunityManagedBean.leaveCommunity}" ajax="false"  />
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>

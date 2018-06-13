@@ -8,10 +8,14 @@ import hwr.sem4.csa.util.Participator;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -29,11 +33,12 @@ public class MyCommunityManagedBean {
     private List<Participator> participatorList;
 
     private Participator selectedParticipator;
-    private String message;
+    private FacesMessage message;
 
     @PostConstruct
     public void init()
     {
+        this.message = new FacesMessage();
 
         // Grab Participator object
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -52,7 +57,10 @@ public class MyCommunityManagedBean {
         } else {
             this.localCommunity = null;
             this.participatorList = null;
-            this.message = "Your Community could not be found.";
+            this.message.setSummary("Error");
+            this.message.setDetail("Your Community could not be found.");
+            this.message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            this.displayMessage();
         }
     }
 
@@ -100,7 +108,7 @@ public class MyCommunityManagedBean {
         // Update Community
         this.localCommunity = this.localHandler.getCommunityById(this.localCommunity.getId());
         for(Dotos aDoto : this.localCommunity.getDotosList()) {
-            if(aDoto != null && aDoto.getAssignedTo().equals(this.localParticipator.getUsername())) {
+            if(aDoto != null && aDoto.getAssignedTo() != null && aDoto.getAssignedTo().equals(this.localParticipator.getUsername())) {
                 aDoto.setAssignedTo(null);
             }
         }
@@ -111,7 +119,17 @@ public class MyCommunityManagedBean {
         // Persist User object with "null" as CommunityId
         this.localHandler.updateParticipator(this.localParticipator.getUsername(), this.localParticipator.getPassword(),
                 this.localParticipator.getFirstName(), this.localParticipator.getLastName(), this.localParticipator.getBalance(),
-                this.localParticipator.getRole(), null, this.localParticipator.getCreationTime());
+                this.localParticipator.getRole(), "", this.localParticipator.getCreationTime());
+
+        this.message.setSummary("Success (?)");
+        this.message.setDetail(String.format("You have left the Community %s - that which also goes by the name of %s",
+                this.localCommunity.getId(), this.localCommunity.getName()));
+        this.message.setSeverity(FacesMessage.SEVERITY_INFO);
+        this.displayMessage();
     }
 
+    private void displayMessage()
+    {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PrimeFaces Rocks."));
+    }
 }

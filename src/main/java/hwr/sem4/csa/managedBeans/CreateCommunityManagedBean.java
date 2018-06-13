@@ -1,5 +1,6 @@
 package hwr.sem4.csa.managedBeans;
 import hwr.sem4.csa.database.Databasehandler;
+import hwr.sem4.csa.management.IdManager;
 import hwr.sem4.csa.util.*;
 
 import javax.faces.bean.ManagedBean;
@@ -62,6 +63,7 @@ public class CreateCommunityManagedBean {
         LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
         loggedInUser = login.getLoggedInUser(); //Get the logged in User
         Databasehandler.instanceOf().initObjectDBConnection(); //Init DB connection
+        this.cid = IdManager.getInstance().getFreeCId();
         if (Databasehandler.instanceOf().getCommunityById(cid) == null) {
             //Only enter if Community with that ID doesn't already exist
             Community c = new Community();

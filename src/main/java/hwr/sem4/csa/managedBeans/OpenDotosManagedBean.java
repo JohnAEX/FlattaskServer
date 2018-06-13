@@ -60,14 +60,30 @@ public class OpenDotosManagedBean {
         this.dotos = new DualListModel<Dotos>(dotosSource, dotosTarget);
     }
 
+    public Participator getLocalParticipator()
+    {
+        return this.localParticipator;
+    }
+    public void setLocalParticipator(Participator localParticipator)
+    {
+        this.localParticipator = localParticipator;
+    }
+    public Community getLocalCommunity()
+    {
+        return localCommunity;
+    }
+    public void setLocalCommunity(Community localCommunity)
+    {
+        this.localCommunity = localCommunity;
+    }
     public DualListModel<Dotos> getDotos()
     {
         return this.dotos;
     }
-
     public void setDotos(DualListModel<Dotos> dotos) {
         this.dotos = dotos;
     }
+
 
     /**
      * Checks whether the open Dotos for the respective Community have experienced changes since the ManagedBean has been initialized.
@@ -121,7 +137,7 @@ public class OpenDotosManagedBean {
         this.localHandler.updateCommunity(this.localCommunity.getId(), this.localCommunity.getName(), this.localCommunity.getCreationTime(),
                 this.localCommunity.getTaskList(), newDotos);
 
-        this.message = "Your assignments (as well as un-assignments have been saved to your Community...";
+        this.message = "Your assignments (as well as un-assignments) have been saved to your Community...";
     }
 
     /**
@@ -148,7 +164,6 @@ public class OpenDotosManagedBean {
         }
         return true;
     }
-
 
     public String getMessage()
     {

@@ -37,7 +37,6 @@ public class IdManager extends IdManagementCore {
         } catch(InterruptedException iExc) {
             System.out.println("Fetch process has been interrupted.");
         }
-        System.out.println("IdManager construction complete");
     }
 
     public String getFreeCId()
