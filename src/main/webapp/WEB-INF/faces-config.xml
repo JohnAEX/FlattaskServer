@@ -14,11 +14,6 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>DashboardManagedBean</managed-bean-name>
-        <managed-bean-class>hwr.sem4.csa.managedBeans.DashboardManagedBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>NavManagedBean</managed-bean-name>
         <managed-bean-class>hwr.sem4.csa.managedBeans.NavManagedBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>

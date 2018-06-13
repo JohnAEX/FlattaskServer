@@ -22,7 +22,7 @@ public class NavManagedBean {
     private final String FILE2 = "createDoto.xhtml";
     private final String FILE3 = "myCommunity.xhtml";
     private final String FILE4 = "profileSettings.xhtml";
-    private final String FILE404 = "dashboard.xhtml";
+    private final String FILE404 = "login.xhtml";
     private String page = "";
 
     //Files addressed relativ, remove ... because after login it is all on one level!!!
