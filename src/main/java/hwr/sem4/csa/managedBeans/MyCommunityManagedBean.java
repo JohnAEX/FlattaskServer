@@ -9,6 +9,7 @@ import hwr.sem4.csa.util.Participator;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @ManagedBean
+@ViewScoped
 public class MyCommunityManagedBean {
 
     private Databasehandler localHandler = Databasehandler.instanceOf();
