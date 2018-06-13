@@ -247,7 +247,7 @@ public class CreateDotoManagedBean {
         database.initObjectDBConnection();
         Community com = database.getCommunityById(CID);
         d.setId(this.getFreeDId(com));
-      
+
         ArrayList<Dotos> oldDotos = com.getDotosList();
         oldDotos.add(d);
         database.updateCommunity(com.getId(), com.getName(), com.getCreationTime(), com.getTaskList(), oldDotos);

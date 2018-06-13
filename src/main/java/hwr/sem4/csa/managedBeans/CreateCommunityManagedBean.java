@@ -1,10 +1,7 @@
 package hwr.sem4.csa.managedBeans;
 import hwr.sem4.csa.database.Databasehandler;
 import hwr.sem4.csa.management.IdManager;
-import hwr.sem4.csa.util.Community;
-import hwr.sem4.csa.util.Dotos;
-import hwr.sem4.csa.util.Participator;
-import hwr.sem4.csa.util.Task;
+import hwr.sem4.csa.util.*;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -74,7 +71,7 @@ public class CreateCommunityManagedBean {
             c.setName(cname);
             c.setCreationTime(LocalDateTime.now().toString());
             c.setDotosList(new ArrayList<Dotos>());
-            c.setTaskList(new ArrayList<Task>());
+            c.setTaskList(new DummyTaskGenerator().getDummyTasks());
             Databasehandler.instanceOf().insert(c);
             //set Participator CID
             loggedInUser.setCommunityId(cid);
