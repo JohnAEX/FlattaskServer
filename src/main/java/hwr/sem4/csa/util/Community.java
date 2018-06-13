@@ -35,7 +35,7 @@ public class Community implements Serializable {
         Dotos d = new Dotos("abc", "dfg",5,5,"Lucas","Lucas2");
         dotos.add(d);
         this.dotosList = dotos;
-        this.taskList = new ArrayList<Task>();
+        this.taskList = new DummyTaskGenerator().getDummyTasks();
     }
 
     public String getId() {
