@@ -5,6 +5,7 @@ import hwr.sem4.csa.util.Participator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -60,6 +61,9 @@ public class ProfileSettingsManagedBean {
             Databasehandler.instanceOf().initObjectDBConnection();
             Databasehandler.instanceOf().updateParticipator(username, password, firstName,lastName,balance,role,communityID,creationTime);
             Databasehandler.instanceOf().close();
+            this.user.setPassword(password);
+            this.user.setFirstName(firstName);
+            this.user.setLastName(lastName);
         }else{
             errorMsg = "Something went wrong, please retry at a later point of time.";
         }
