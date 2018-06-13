@@ -18,7 +18,7 @@ public class CreateCommunityManagedBean {
      * Used to create Communities by new Users
      */
 
-    private String cid;
+    private IdManager localManager = IdManager.getInstance();
     private String cname;
     private String creationTime;
     private String errorMessage = "";
@@ -30,14 +30,6 @@ public class CreateCommunityManagedBean {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
-    }
-
-    public String getCid() {
-        return cid;
-    }
-
-    public void setCid(String cid) {
-        this.cid = cid;
     }
 
     public String getCname() {
@@ -62,33 +54,29 @@ public class CreateCommunityManagedBean {
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         LoginManagedBean login = (LoginManagedBean) session.getAttribute("LoginManagedBean");
         loggedInUser = login.getLoggedInUser(); //Get the logged in User
+
+        String cId = this.localManager.getFreeCId();
+        Community c = new Community();
+        c.setId(cId);
+        c.setName(cname);
+        c.setCreationTime(LocalDateTime.now().toString());
+        c.setDotosList(new ArrayList<Dotos>());
+        c.setTaskList(new DummyTaskGenerator().getDummyTasks());
+
         Databasehandler.instanceOf().initObjectDBConnection(); //Init DB connection
-        this.cid = IdManager.getInstance().getFreeCId();
-        if (Databasehandler.instanceOf().getCommunityById(cid) == null) {
-            //Only enter if Community with that ID doesn't already exist
-            Community c = new Community();
-            c.setId(cid);
-            c.setName(cname);
-            c.setCreationTime(LocalDateTime.now().toString());
-            c.setDotosList(new ArrayList<Dotos>());
-            c.setTaskList(new DummyTaskGenerator().getDummyTasks());
-            Databasehandler.instanceOf().insert(c);
-            //set Participator CID
-            loggedInUser.setCommunityId(cid);
-            Databasehandler.instanceOf().updateParticipator(loggedInUser.getUsername(), loggedInUser.getPassword(),
-                    loggedInUser.getFirstName(), loggedInUser.getLastName(), loggedInUser.getBalance(),
-                    loggedInUser.getRole(), loggedInUser.getCommunityId(), loggedInUser.getCreationTime());
-            Databasehandler.instanceOf().close();
-            try {
-                //Try to redirect to the main dashboard page
-                FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
-                FacesContext.getCurrentInstance().responseComplete();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            errorMessage = "A community with that ID already exists, please choose another one.";
-            //Error message in case that the community already exists
+        Databasehandler.instanceOf().insert(c);
+        //set Participator CID
+        loggedInUser.setCommunityId(cId);
+        Databasehandler.instanceOf().updateParticipator(loggedInUser.getUsername(), loggedInUser.getPassword(),
+                loggedInUser.getFirstName(), loggedInUser.getLastName(), loggedInUser.getBalance(),
+                loggedInUser.getRole(), loggedInUser.getCommunityId(), loggedInUser.getCreationTime());
+        Databasehandler.instanceOf().close();
+        try {
+            //Try to redirect to the main dashboard page
+            FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         Databasehandler.instanceOf().close();
         return "createCommunity";

@@ -46,7 +46,7 @@
 
                     <div class="ui-g-12 ui-md-2">
                         <!-- Confirmation with call to ManagedBean to persist the requested changes -->
-                        <h:commandButton id="confirmationButton" value="Confirm!" action="#{OpenDotosManagedBean.confirmAssignment}" update="stateReport" oncomplete="PF('stateDialog').show()" style="margin-top:5px" />
+                        <h:commandButton id="confirmationButton" value="Confirm!" action="#{OpenDotosManagedBean.confirmAssignment}" ajax="false" style="margin-top:5px" />
                     </div>
 
                     <div class="ui-g-12 ui-md-5" />
@@ -54,11 +54,5 @@
             </p:panel>
         </h:form>
     </h:panelGroup>
-
-    <!-- dialog that should (in theory) appear when the ManagedBean has finished persisting or encountered an error -->
-    <p:dialog modal="false" showEffect="slide" hideEffect="fade" widgetVar="stateDialog">
-        <h:outputText value="Status:" />
-        <h:outputText value="#{OpenDotosManagedBean.message}" />
-    </p:dialog>
 </h:body>
 </html>

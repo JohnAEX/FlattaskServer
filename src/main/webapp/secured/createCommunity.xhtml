@@ -19,11 +19,6 @@
 
             <p:messages id="msgsCC" />
             <p:panelGrid id="communityGrid" columns="3" cellpadding="10">
-                <p:outputLabel for="communityIdInputC" value="CommunityID:"/>
-                <p:inputText id="communityIdInputC" value="#{CreateCommunityManagedBean.cid}" required="true">
-                    <f:validateLength minimum="2"/>
-                </p:inputText>
-                <p:message for="communityIdInputC" display="fa fa-warning"/>
                 <p:outputLabel for="communityName" value="Community Name:"/>
                 <p:inputText id="communityName" value="#{CreateCommunityManagedBean.cname}" required="true">
                     <f:validateLength minimum="2"/>
