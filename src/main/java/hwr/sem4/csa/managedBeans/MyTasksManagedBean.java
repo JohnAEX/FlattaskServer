@@ -13,7 +13,6 @@ import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -86,6 +85,7 @@ public class MyTasksManagedBean {
         Databasehandler.instanceOf().initObjectDBConnection();
         Community loggedInUserCommunity = Databasehandler.instanceOf().getCommunityById(loggedInUser.getCommunityId());
         ArrayList<Dotos> allDotosList = loggedInUserCommunity.getDotosList();
+        System.out.println("First entry: "+allDotosList.get(0).getTitle());
 
         for(Dotos d : allDotosList){
             if(d != null && d.getAssignedTo() != null) {

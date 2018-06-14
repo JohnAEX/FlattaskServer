@@ -58,7 +58,7 @@ public class NavManagedBean {
         return this.page;
     }
 
-    /* Depracted*/
+    /* Depracated*/
     public int getNavIndex() {
         System.out.println("Returned navIndex:" + navIndex);
         return navIndex;

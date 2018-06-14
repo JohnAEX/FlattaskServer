@@ -102,8 +102,7 @@ public class MyCommunityManagedBean {
         return count;
     }
 
-    public void leaveCommunity()
-    {
+    public void leaveCommunity() throws IOException {
         // Deleting Participator from assignedTo Dotos
         // Update Community
         this.localCommunity = this.localHandler.getCommunityById(this.localCommunity.getId());
@@ -126,10 +125,21 @@ public class MyCommunityManagedBean {
                 this.localCommunity.getId(), this.localCommunity.getName()));
         this.message.setSeverity(FacesMessage.SEVERITY_INFO);
         this.displayMessage();
+        this.logout();
+
     }
 
     private void displayMessage()
     {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PrimeFaces Rocks."));
     }
+
+    private void logout() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.invalidateSession();
+        ec.redirect(ec.getRequestContextPath() + "../login.xhtml");
+
+
+    }
+
 }
