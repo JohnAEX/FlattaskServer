@@ -85,7 +85,7 @@ public class MyTasksManagedBean {
         Databasehandler.instanceOf().initObjectDBConnection();
         Community loggedInUserCommunity = Databasehandler.instanceOf().getCommunityById(loggedInUser.getCommunityId());
         ArrayList<Dotos> allDotosList = loggedInUserCommunity.getDotosList();
-        System.out.println("First entry: "+allDotosList.get(0).getTitle());
+
 
         for(Dotos d : allDotosList){
             if(d != null && d.getAssignedTo() != null) {
