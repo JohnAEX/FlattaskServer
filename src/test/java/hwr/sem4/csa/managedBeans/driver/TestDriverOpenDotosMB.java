@@ -33,7 +33,9 @@ public class TestDriverOpenDotosMB extends JUnitStories {
     @Override
     protected List<String> storyPaths()
     {
-        return Arrays.asList("hwr.sem4.csa.managedBeans/openDotosStory.story");
+        return Arrays.asList(
+                "hwr.sem4.csa.managedBeans/openDotosStory.story"
+        );
     }
 
 }
