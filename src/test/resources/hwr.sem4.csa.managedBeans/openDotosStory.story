@@ -47,7 +47,7 @@ Scenario: all is assigned
 When the premise is persisted.
 When an OpenDotosManagedBean-Instance is generated for the user John3.
 Then the execution time for the last When-Statement should be less than 1000 milliseconds.
-When grabs all open Dotos.
+When the Participator grabs all open Dotos.
 Then the execution time for the last When-Statement should be less than 1500 milliseconds.
 When the performed action(s) are confirmed.
 Then the execution time for the last When-Statement should be less than 2000 milliseconds.
@@ -67,7 +67,7 @@ Scenario: No Dotos
 Given the Dotos in that Community are as follows:
 |title      |description    |value      |duration       |assignedTo |assignedBy |
 When the premise is persisted.
-When an OpenDotosManagedBean is generated for the user Marcel3.
+When an OpenDotosManagedBean-Instance is generated for the user Marcel3.
 Then the execution time for the last When-Statement should be less than 1000 milliseconds.
 Then the OpenDotosManagedBean should be owned by Marcel3.
 Then the OpenDotosManagedBean should refer to the Community TestCom1.

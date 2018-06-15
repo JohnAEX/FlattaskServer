@@ -160,7 +160,7 @@ public class OpenDotosSteps extends Steps {
         OUT.println(String.format("OpenDotosManagedBean %s has been initialized",
                 this.testBean.toString()));
     }
-    @When("The Paticipator grabs all open Dotos.")
+    @When("the Participator grabs all open Dotos.")
     public void grabAllOpenDotosFor()
     {
         this.timer = System.nanoTime();
