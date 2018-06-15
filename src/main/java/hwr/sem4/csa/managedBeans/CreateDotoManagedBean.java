@@ -236,7 +236,7 @@ public class CreateDotoManagedBean {
         /*End of debug*/
 
         Dotos d;
-        if(this.getUserAssigned() == null) {
+        if(this.getUserAssigned() == null || this.getUserAssigned().getUsername().equals(this.getComAssigningUser().getName())) {
             d = new Dotos(this.title, this.description, this.value, this.duration, null, this.userAssign.getUsername());
         } else {
             d = new Dotos(this.title, this.description, this.value, this.duration, this.userAssigned.getUsername(), this.userAssign.getUsername());
@@ -259,6 +259,44 @@ public class CreateDotoManagedBean {
         System.out.println("-----------------------------------");
         refresh();
     }
+
+    public void saveAsTemplate(){
+        /*Debug*/
+        System.out.println("Save as Template");
+        System.out.println(this.getTitle());
+        System.out.println(this.getDescription());
+        System.out.println(this.getValue());
+        System.out.println(this.getDuration());
+
+        /*End of debug*/
+
+        Task t;
+        t = new Task(this.title, this.description, this.value, this.duration);
+
+        String CID = this.userAssign.getCommunityId();
+        System.out.println(CID);
+        database.initObjectDBConnection();
+        Community com = database.getCommunityById(CID);
+        database.close();
+        ArrayList<Task> oldTasks = com.getTaskList();
+        boolean found = false;
+        for(int i = 0; i< oldTasks.size(); i++){
+            Task comp = oldTasks.get(i);
+            if(t.getTitle().equals(comp.getTitle())){
+                found = true;
+            }
+        }
+        if(found==false) {
+            oldTasks.add(t);
+            database.initObjectDBConnection();
+            database.updateCommunity(com.getId(), com.getName(), com.getCreationTime(), oldTasks, com.getDotosList());
+            database.close();
+        }
+
+        System.out.println("-----------------------------------");
+        refresh();
+    }
+
 
     /*
     * Inserted by Dominik for proper IdHandling
