@@ -60,7 +60,6 @@ public class MyCommunityManagedBean {
             this.message.setSummary("Error");
             this.message.setDetail("Your Community could not be found.");
             this.message.setSeverity(FacesMessage.SEVERITY_ERROR);
-            this.displayMessage();
         }
     }
 
@@ -125,11 +124,13 @@ public class MyCommunityManagedBean {
         this.message.setDetail(String.format("You have left the Community %s - that which also goes by the name of %s",
                 this.localCommunity.getId(), this.localCommunity.getName()));
         this.message.setSeverity(FacesMessage.SEVERITY_INFO);
-        this.displayMessage();
+        this.directToLogin();
     }
 
-    private void displayMessage()
+    public String directToLogin()
     {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PrimeFaces Rocks."));
+        //Enables the option to logout
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login.xhtml?faces-redirect=true";
     }
 }

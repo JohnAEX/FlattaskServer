@@ -137,7 +137,11 @@ public class OpenDotosManagedBean {
         this.localHandler.updateCommunity(this.localCommunity.getId(), this.localCommunity.getName(), this.localCommunity.getCreationTime(),
                 this.localCommunity.getTaskList(), newDotos);
 
-        this.message = "Your assignments (as well as un-assignments) have been saved to your Community...";
+        // Update fields of MyTasksManagedBean
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        MyTasksManagedBean myTasksMB = (MyTasksManagedBean) session.getAttribute("MyTasksManagedBean");
+        myTasksMB.setActualUserDotosList(assignRequest);
     }
 
     /**
@@ -165,8 +169,4 @@ public class OpenDotosManagedBean {
         return true;
     }
 
-    public String getMessage()
-    {
-        return this.message;
-    }
 }
